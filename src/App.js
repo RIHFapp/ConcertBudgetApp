@@ -11,6 +11,7 @@ function App() {
   return (
     <div className="App">
       <p>Hello World!</p>
+      <p>I love food</p>
     </div>
   );
 }
@@ -20,6 +21,8 @@ function App() {
 
 export default App;
 
-// pseudo code 
+// pseudo code
+
+
 
 
