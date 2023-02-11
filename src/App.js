@@ -6,7 +6,7 @@ function App() {
 
   return (
     <div className="App">
-      <p>Hello World! weeeeeeeee</p>
+      <p>Hello World!</p>
     </div>
   );
 }
@@ -16,6 +16,6 @@ function App() {
 
 export default App;
 
-// pseudo code
+// pseudo code 
 
 
