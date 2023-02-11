@@ -26,7 +26,7 @@ export default App;
 // on load up
 
   // all pages have icon button to go to list
-  
+
   // client will see index starter page
       // has 3 components, feature, form, collection of recommendations 
 
@@ -53,6 +53,7 @@ export default App;
         // visual indication of under budget, at budget, over budget
         // back button
         // publish button ?????? maybe
+        // budget decorator - top - color indication -> on total price and total budget
 
 
     // 4th module/view ????
