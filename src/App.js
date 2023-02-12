@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 
 // Componetns
-// import HomePage from "./Components/HomePage"
+import HomePage from "./Components/HomePage"
 
 
 function App() {
   //firebase config
-  const [books, setBooks] = useState([]);
+  const [name, setName] = useState([]);
   // get useEffect fucntion to run side effects on component mounts
   
   // create a statful value thats bound to input
@@ -64,7 +64,7 @@ function App() {
         
       }
       
-      setBooks(newState);
+      setName(newState);
     
     });
   
@@ -94,15 +94,12 @@ useEffect (() => {
 //return jsx
 return (
   <div className="">
-    <form action="submit">
-      <label htmlFor="newBook">Add a book to your bookshelf</label>
-      <input onChange={handleInput} type="text" id="newBook" value={userInput} />
-      <button onClick={handleSubmit}>Add Book</button>
-    </form>
+    <HomePage />
+    
     
     
     <ul>
-      {books.map ( (book) => {
+      {name.map ( (book) => {
         return (
           <li key={book.key}>
             <p>{book.name}</p>
