@@ -5,6 +5,9 @@ import './App.scss';
 import { useEffect } from "react";
 import axios from 'axios';
 
+// Componetns
+import HomePage from "./Components/HomePage"
+
 
 function App() {
 
@@ -26,8 +29,7 @@ useEffect (() => {
 
   return (
     <div className="App">
-      <p>Hello World!</p>
-      <p>I love food</p>
+      <HomePage />
     </div>
   );
 }
