@@ -1,8 +1,19 @@
 import { useState } from "react";
+import { getDatabase, ref, push } from "firebase/database";
+import firebase from "../firebase";
+
 const Homepage = ({name}) => {
   const [userListName, setUserListName] = useState('')
   const handleInput = (event) => {
     setUserListName(event.target.value);
+  }
+  const handleSubmit = (event) => {
+    //get the info from userinput STATE
+    event.preventDefault();
+    const database = getDatabase(firebase);
+    const dbRef = ref(database);
+    push(dbRef, userListName);
+    setUserListName('');  
   }
   
   
@@ -17,9 +28,9 @@ const Homepage = ({name}) => {
         id="newName" 
         value={userListName}  
         />
-        <button >Add List</button>
+        <button onClick={handleSubmit}>Add List</button>
       </form>
-      <ul>
+      {/* <ul>
         {name.map ( (name) => {
           return (
             <li key={name.key}>
@@ -31,7 +42,7 @@ const Homepage = ({name}) => {
           )
 
         })}
-      </ul>
+      </ul> */}
       </div>
     )
     
