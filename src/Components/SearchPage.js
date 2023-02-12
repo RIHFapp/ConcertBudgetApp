@@ -3,17 +3,26 @@ import axios from 'axios';
 
 const SearchPage = () => {
     // States
-    const [artist, setArtist] = useState("")
-    const [city, setCity] = useState("")
+    const [artist, setArtist] = useState("");
+    const [city, setCity] = useState("");
 
 
     // Grab Artist Input
-    const handleArtistInput = (e) => {
-        setArtist(e.target.value);
-    }
-    // Grab City Input
-    const handleCityInput = (e) => {
-        setCity(e.target.value);
+    // const handleArtistInput = (e) => {
+    //     e.preventDefault();
+    //     setArtist(e.target.value);
+    // }
+    // // Grab City Input
+    // const handleCityInput = (e) => {
+    //     e.preventDefault();
+    //     setCity(e.target.value);
+    // }
+
+    // On Submit Values
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      setArtist(e.target.form[0].value);
+      setCity(e.target.form[1].value);
     }
 
   // API call endpoints - events search, locations, 
@@ -22,15 +31,17 @@ useEffect (() => {
     url: "https://app.ticketmaster.com/discovery/v2/events",
     params: {
       apikey: "15zZnInsCdU0ECUBEtwgFJsPOwjOlGWt",
-      keyword: "beyonce",
+      keyword: `${artist}`,
       countryCode:"CA",
-      city: "toronto",
+      city: `${city}`,
       classificationName:"music"
     }
   }).then((res) => {
     console.log(res);
   })
-},[])
+},[artist, city])
+
+
 
     return(
         <>
@@ -43,7 +54,7 @@ useEffect (() => {
                 className="artistSearch"
                 id="artist"
                 placeholder="Artist..."
-                onChange= {handleArtistInput}
+                // onChange= {handleArtistInput}
             >
             </input>
 
@@ -52,9 +63,12 @@ useEffect (() => {
                 className="citySearch"
                 id="city"
                 placeholder="City..."
-                onChange={handleCityInput}
+                // onChange={handleCityInput}
             ></input>
-            <button> Search </button>
+
+            <button
+              onClick={handleSubmit}
+            > Search </button>
         </form>
         <div className="searchResultContainer">
             <ul className="searchResultList"></ul>
