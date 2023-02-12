@@ -1,12 +1,25 @@
 import './App.scss';
-import firebase from './firebase';
-import { getDatabase, ref, onValue, push, remove } from 'firebase/database';
-import { Route, Routes } from 'react-router-dom';
+// import firebase from './firebase';
+// import { getDatabase, ref, onValue, push, remove } from 'firebase/database';
+// import { Route, Routes } from 'react-router-dom';
+import { useEffect } from "react";
+import axios from 'axios';
 
 
 function App() {
 
-
+useEffect (() => {
+  axios({
+    url: "https://app.ticketmaster.com/discovery/v2/events",
+    method: "GET",
+    dataResponse: "json",
+    params: {
+      api_key: "15zZnInsCdU0ECUBEtwgFJsPOwjOlGWt",
+    }
+  }).then((res) => {
+    console.log(res);
+  })
+},[])
 
   return (
     <div className="App">
@@ -20,6 +33,8 @@ function App() {
 
 
 export default App;
+// API KEY: "15zZnInsCdU0ECUBEtwgFJsPOwjOlGWt"
+
 
 // pseudo code - Dsktop First 
 
