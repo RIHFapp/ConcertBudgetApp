@@ -94,23 +94,8 @@ useEffect (() => {
 //return jsx
 return (
   <div className="">
-    <HomePage />
+    <HomePage name={name} />
     
-    
-    
-    <ul>
-      {name.map ( (book) => {
-        return (
-          <li key={book.key}>
-            <p>{book.name}</p>
-            <button onClick={() => {handleRemove(book.key)}}>
-            remove!
-            </button>
-          </li>
-        )
-
-      })}
-    </ul>
   </div>
 );
 }
