@@ -1,16 +1,77 @@
 import './App.scss';
-// import firebase from './firebase';
-// import { getDatabase, ref, onValue, push, remove } from 'firebase/database';
+import firebase from './firebase';
+import { getDatabase, ref, onValue, push, remove } from 'firebase/database';
 // import { Route, Routes } from 'react-router-dom';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
 
 // Componetns
-import HomePage from "./Components/HomePage"
+// import HomePage from "./Components/HomePage"
 
 
 function App() {
+  //firebase config
+  const [books, setBooks] = useState([]);
+  // get useEffect fucntion to run side effects on component mounts
+  
+  // create a statful value thats bound to input
+  const[userInput, setUserInput] = useState('');
 
+  //add event listener that fires everytune there is a change in our input
+
+  const handleInput = (event) => {
+    setUserInput(event.target.value);
+  }
+  
+  const handleSubmit = (event) => {
+    //get the info from userinput STATE
+    event.preventDefault();
+    console.log(userInput);
+    //send it off to firebase using push function
+    const database = getDatabase(firebase);
+    const dbRef = ref(database);
+    
+    push(dbRef, userInput);
+
+    setUserInput('');
+    
+  }
+  
+  const handleRemove = (bookId) => {
+    const database = getDatabase(firebase);
+    const dbRef = ref(database, `${bookId}`);
+    remove(dbRef);
+  }
+  
+  useEffect( () => {
+    // get a variable that holds our database details
+    const database = getDatabase(firebase);
+    // create a varible that makes a refernce to our database
+    const dbRef = ref(database);
+    // get database info on load or on change
+    // use event listner built in firebase aka onValue
+    
+    onValue(dbRef, (reponse)=>{
+      // use firebase's val() to prase our database info into the format we need
+      const data = reponse.val();
+      // set books stat to reflect database info
+      const newState = [];
+
+      for (let key in data) {
+        newState.push(
+          {key:key, name: data[key]}
+        );
+        
+      }
+      
+      setBooks(newState);
+    
+    });
+  
+  
+  },[]);
+  
+  
   // API call endpoints - events search, locations, 
 useEffect (() => {
   axios({
@@ -27,12 +88,34 @@ useEffect (() => {
   })
 },[])
 
-  return (
-    <div className="App">
-      <HomePage />
-      <h1>123</h1>
-    </div>
-  );
+
+  
+
+//return jsx
+return (
+  <div className="">
+    <form action="submit">
+      <label htmlFor="newBook">Add a book to your bookshelf</label>
+      <input onChange={handleInput} type="text" id="newBook" value={userInput} />
+      <button onClick={handleSubmit}>Add Book</button>
+    </form>
+    
+    
+    <ul>
+      {books.map ( (book) => {
+        return (
+          <li key={book.key}>
+            <p>{book.name}</p>
+            <button onClick={() => {handleRemove(book.key)}}>
+            remove!
+            </button>
+          </li>
+        )
+
+      })}
+    </ul>
+  </div>
+);
 }
 
 

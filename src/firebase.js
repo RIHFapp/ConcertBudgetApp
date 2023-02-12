@@ -5,13 +5,13 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBpzjtLh72Fr2zIs579HkcHLEJJSy83hjY",
-    authDomain: "concertbudgetapp.firebaseapp.com",
-    databaseURL: "https://concertbudgetapp-default-rtdb.firebaseio.com",
-    projectId: "concertbudgetapp",
-    storageBucket: "concertbudgetapp.appspot.com",
-    messagingSenderId: "310028293203",
-    appId: "1:310028293203:web:3e8528b042bc3c9be262a6"
+    apiKey: "AIzaSyAJywH1ge1byWL8M8_DdrRE_HnrIJNWP2A",
+  authDomain: "budgetvsconcert-ab087.firebaseapp.com",
+  databaseURL: "https://budgetvsconcert-ab087-default-rtdb.firebaseio.com",
+  projectId: "budgetvsconcert-ab087",
+  storageBucket: "budgetvsconcert-ab087.appspot.com",
+  messagingSenderId: "583553448877",
+  appId: "1:583553448877:web:df96e06f6e5d69ae61bf24"
 };
 
 // Initialize Firebase
