@@ -19,15 +19,15 @@ const Homepage = ({name}) => {
   
     return(
       <div>
-        <h1>testing</h1>
+        <h1>Budget vs Concert</h1>
+        <h2>Welcome! lets Start planning your conecert list</h2>
       <form action="submit">
-        <label htmlFor="newName">Name of your list</label>
+        <label htmlFor="newName"></label>
         <input 
-        onChange={handleInput}
-        type="text" 
-        id="newName" 
-        value={userListName}  
-        />
+        onChange={handleInput} type="text" id="newName" value={userListName} placeholder="name of your list" />
+        <label htmlFor=""></label>
+        <input 
+         type="text" id="newName" placeholder="your budget" />
         <button onClick={handleSubmit}>Add List</button>
       </form>
       {/* <ul>
