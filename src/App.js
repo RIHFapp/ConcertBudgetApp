@@ -21,17 +21,12 @@ function App() {
 
 export default App;
 
-// pseudo code
+// pseudo code - Dsktop First 
 
 // Main Component - App.js
   // Home Page 
   // Concert Search Page 
   // Budget List Page 
-
-
-
-
-
 
 // on component mount
 
