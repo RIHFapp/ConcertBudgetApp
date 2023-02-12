@@ -30,6 +30,7 @@ useEffect (() => {
   return (
     <div className="App">
       <HomePage />
+      <h1>123</h1>
     </div>
   );
 }
