@@ -8,16 +8,19 @@ import axios from 'axios';
 
 function App() {
 
+  // API call endpoints - events search, locations, 
 useEffect (() => {
   axios({
     url: "https://app.ticketmaster.com/discovery/v2/events",
-    method: "GET",
-    dataResponse: "json",
     params: {
-      api_key: "15zZnInsCdU0ECUBEtwgFJsPOwjOlGWt",
+      apikey: "15zZnInsCdU0ECUBEtwgFJsPOwjOlGWt",
+      keyword: "beyonce",
+      countryCode:"CA",
+      city: "Toronto",
+      classificationName:"music"
     }
   }).then((res) => {
-    console.log(res);
+    console.log(res.data._embedded.events);
   })
 },[])
 
@@ -27,7 +30,6 @@ useEffect (() => {
       <p>I love food</p>
     </div>
   );
-  
 }
 
 
