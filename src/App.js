@@ -11,7 +11,8 @@ import HomePage from "./Components/HomePage"
 
 function App() {
   //firebase config
-  const [name, setName] = useState([]);
+  const [name, setName] = useState('');
+  const[budget, setBudget] = useState('');
   // get useEffect fucntion to run side effects on component mounts
   
   // create a statful value thats bound to input
@@ -55,16 +56,18 @@ function App() {
       // use firebase's val() to prase our database info into the format we need
       const data = reponse.val();
       // set books stat to reflect database info
-      const newState = [];
+      const newName = [];
 
       for (let key in data) {
-        newState.push(
-          {key:key, name: data[key]}
-        );
-        
+        newName.push(
+          {key:key, 
+            name: data[key],
+            budget:data[key]['budget']
+          }
+        );        
       }
       
-      setName(newState);
+      setName(newName);
     
     });
   
@@ -94,7 +97,7 @@ useEffect (() => {
 //return jsx
 return (
   <div className="">
-    <HomePage name={name} />
+    <HomePage name={name} budget={budget} />
     
   </div>
 );

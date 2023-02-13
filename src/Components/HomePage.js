@@ -4,21 +4,29 @@ import firebase from "../firebase";
 
 const Homepage = ({name}) => {
   const [userListName, setUserListName] = useState('')
-  const handleInput = (event) => {
+  const [userBudget, setBudgetInput] = useState('')
+  const handleListName = (event) => {
     setUserListName(event.target.value);
   }
+  const handleBudget= (event) => {
+    setBudgetInput(event.target.value);
+    console.log(userBudget);
+  }
+
   const handleSubmit = (event) => {
     //get the info from userinput STATE
     event.preventDefault();
     const database = getDatabase(firebase);
     const dbRef = ref(database);
-    push(dbRef, userListName);
-    setUserListName('');  
+    const list ={userListName:userListName, userBudget:userBudget}
+    push(dbRef,list);
+    setUserListName('');
+    setBudgetInput('');
   }
   
   
     return(
-      <div>
+      <div className="homepage">
         <div className="featured">
           <h1>Budget vs Concert</h1>
           <div className="feature-image">
@@ -28,12 +36,14 @@ const Homepage = ({name}) => {
       <div className="input-section">
         <h2>Welcome! lets Start planning your conecert list</h2>
         <form action="submit">
+          {/* name of the list input */}
           <label htmlFor="newName"></label>
           <input 
-          onChange={handleInput} type="text" id="newName" value={userListName} placeholder="name of your list" />
-          <label htmlFor=""></label>
+          onChange={handleListName} type="text" id="newName" value={userListName} placeholder="name of your list" />
+          {/* user's budget input */}
+          <label htmlFor="newBudget"></label>
           <input 
-          type="text" id="newName" placeholder="your budget" />
+          onChange={handleBudget} type="text" id="newBudget" value={userBudget} placeholder="your budget" />
           <button onClick={handleSubmit}>Add List</button>
         </form>
       </div>
