@@ -2,6 +2,7 @@ import { useState } from "react";
 import { getDatabase, ref, push } from "firebase/database";
 import firebase from "../firebase";
 
+
 const Homepage = ({name}) => {
   const [userListName, setUserListName] = useState('')
   const [userBudget, setBudgetInput] = useState('')
@@ -30,7 +31,7 @@ const Homepage = ({name}) => {
         <div className="featured">
           <h1>Budget vs Concert</h1>
           <div className="feature-image">
-          <img></img>
+          <img src="https://placedog.net/500" alt=""/>
           </div>
         </div>
       <div className="input-section">
@@ -44,14 +45,25 @@ const Homepage = ({name}) => {
           <label htmlFor="newBudget"></label>
           <input 
           onChange={handleBudget} type="text" id="newBudget" value={userBudget} placeholder="your budget" />
-          <button onClick={handleSubmit}>Add List</button>
+          <button onClick={handleSubmit} disabled={!userListName}>Add List</button>
         </form>
       </div>
       <div className="suggested">
-        <div className="small-img"></div>
-        <div className="small-img"></div>
-        <div className="small-img"></div>
-        <div className="small-img"></div>
+        <h2>discover!</h2>
+        <div className="concert-image">
+          <div className="small-image">
+            <img src="https://placedog.net/500" alt=""/>
+          </div>
+          <div className="small-image">
+            <img src="https://placedog.net/500" alt=""/>
+          </div>
+          <div className="small-image">
+            <img src="https://placedog.net/500" alt=""/>
+          </div>
+          <div className="small-image">
+            <img src="https://placedog.net/500" alt=""/>
+          </div>
+        </div>
       </div>
       {/* <ul>
         {name.map ( (name) => {

@@ -1,6 +1,6 @@
 import './App.scss';
 import firebase from './firebase';
-import { getDatabase, ref, onValue, push, remove } from 'firebase/database';
+import { getDatabase, ref, onValue, } from 'firebase/database';
 // import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import axios from 'axios';
@@ -13,51 +13,20 @@ function App() {
   //firebase config
   const [name, setName] = useState('');
   const[budget, setBudget] = useState('');
-  // get useEffect fucntion to run side effects on component mounts
   
-  // create a statful value thats bound to input
-  const[userInput, setUserInput] = useState('');
 
-  //add event listener that fires everytune there is a change in our input
-
-  const handleInput = (event) => {
-    setUserInput(event.target.value);
-  }
-  
-  const handleSubmit = (event) => {
-    //get the info from userinput STATE
-    event.preventDefault();
-    console.log(userInput);
-    //send it off to firebase using push function
-    const database = getDatabase(firebase);
-    const dbRef = ref(database);
-    
-    push(dbRef, userInput);
-
-    setUserInput('');
-    
-  }
-  
-  const handleRemove = (bookId) => {
-    const database = getDatabase(firebase);
-    const dbRef = ref(database, `${bookId}`);
-    remove(dbRef);
-  }
+  // const handleRemove = (bookId) => {
+  //   const database = getDatabase(firebase);
+  //   const dbRef = ref(database, `${bookId}`);
+  //   remove(dbRef);
+  // }
   
   useEffect( () => {
-    // get a variable that holds our database details
     const database = getDatabase(firebase);
-    // create a varible that makes a refernce to our database
     const dbRef = ref(database);
-    // get database info on load or on change
-    // use event listner built in firebase aka onValue
-    
     onValue(dbRef, (reponse)=>{
-      // use firebase's val() to prase our database info into the format we need
       const data = reponse.val();
-      // set books stat to reflect database info
       const newName = [];
-
       for (let key in data) {
         newName.push(
           {key:key, 
@@ -65,16 +34,12 @@ function App() {
             budget:data[key]['budget']
           }
         );        
-      }
-      
-      setName(newName);
-    
+      }    
+      setName(newName);    
     });
   
   
-  },[]);
-  
-  
+  },[]); 
   // API call endpoints - events search, locations, 
 useEffect (() => {
   axios({
@@ -91,14 +56,10 @@ useEffect (() => {
   })
 },[])
 
-
-  
-
 //return jsx
 return (
   <div className="">
-    <HomePage name={name} budget={budget} />
-    
+    <HomePage name={name} budget={budget} />   
   </div>
 );
 }
