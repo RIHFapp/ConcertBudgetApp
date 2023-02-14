@@ -1,0 +1,14 @@
+@use "../abstracts/variables" as*;
+
+html{
+   font-size: 62.5%;
+}
+
+body{
+   background-image: url(../asset/background.png);
+}
+img {
+   max-width: 100%;
+   height: auto;
+   display: block;
+ }

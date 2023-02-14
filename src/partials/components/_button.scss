@@ -1,0 +1,34 @@
+@use "../abstracts/variables" as*;
+button{
+  background-color: #C0C8F0;
+  border: 2px solid #00000080;
+  border-radius: 25px;
+  box-shadow: #000000c5 4px 4px 0 0;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition: 0.3s;
+    &:hover{
+        background-color: #fff;
+    }
+    &:active{
+        box-shadow: #422800 2px 2px 0 0;
+        transform: translate(2px, 2px);
+    }
+}
+
+@media (min-width: 768px) {
+  button {
+    min-width: 120px;
+    padding: 0 25px;
+  }
+}
