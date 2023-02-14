@@ -8,7 +8,7 @@ import firebase from "../firebase";
 
 
 
-const Homepage = ({name}) => {
+const Homepage = () => {
 
   //states (controlled input)
 
@@ -47,6 +47,36 @@ const Homepage = ({name}) => {
     setBudgetInput('');
   }
   
+  //firebase testing
+   //firebase config
+  // const [name, setName] = useState('');
+  // const[budget, setBudget] = useState('');
+  
+
+  // const handleRemove = (bookId) => {
+  //   const database = getDatabase(firebase);
+  //   const dbRef = ref(database, `${bookId}`);
+  //   remove(dbRef);
+  // }
+  
+  // useEffect( () => {
+  //   const database = getDatabase(firebase);
+  //   const dbRef = ref(database);
+  //   onValue(dbRef, (reponse)=>{
+  //     const data = reponse.val();
+  //     const newName = [];
+  //     for (let key in data) {
+  //       newName.push(
+  //         {key:key, 
+  //           name: data[key]
+  //         }
+  //       );        
+  //     }    
+  //     setName(newName);    
+  //   });
+  
+  
+  // },[]); 
     return(
     <>
       <section>

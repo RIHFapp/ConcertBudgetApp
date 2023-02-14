@@ -7,7 +7,6 @@ const SearchPage = () => {
     const [city, setCity] = useState(null);
     const [apiRes, setApiRes] = useState([]);
 
-
     // Grab Artist Input
     // const handleArtistInput = (e) => {
     //     e.preventDefault();
@@ -29,7 +28,7 @@ const SearchPage = () => {
   // On Search Page mount - trigger an API call based on input content availibility.  
 useEffect (() => {
   if (artist === null && city === null) {
-    console.log("hello world");
+    //console.log("hello world");
   } else {
     axios({
       url: "https://app.ticketmaster.com/discovery/v2/events",
