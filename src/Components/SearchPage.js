@@ -5,6 +5,7 @@ const SearchPage = () => {
     // States
     const [artist, setArtist] = useState(null);
     const [city, setCity] = useState(null);
+    const [priceFilter, setpriceFilter ] = useState(true);
     const [apiRes, setApiRes] = useState([]);
 
 
