@@ -5,7 +5,7 @@ const SearchPage = () => {
     // States
     const [artist, setArtist] = useState(null);
     const [city, setCity] = useState(null);
-    const [priceFilter, setpriceFilter ] = useState(true);
+    const [checked, setChecked ] = useState(false);
     const [apiRes, setApiRes] = useState([]);
 
 
@@ -25,8 +25,8 @@ const SearchPage = () => {
       e.preventDefault();
       setArtist(e.target.form[0].value);
       setCity(e.target.form[1].value);
-
-      console.log(e);
+      setChecked(e.target.form[3].checked);
+  
     }
 
   // On Search Page mount - trigger an API call based on input content availibility.  
@@ -45,14 +45,21 @@ useEffect (() => {
       }
     }).then((res) => {
       const list = res.data._embedded.events.filter((event) => {
-        return event;
+        // console.log(event);
+
+        if (checked === false) {
+          return event
+        } else if (checked === true && event.priceRanges !== undefined) {
+          return event
+        }
+      
       })
       console.log(list);
       setApiRes(list); 
     })
   }  
 
-},[artist, city])
+},[artist, city, checked])
 
 
 
@@ -79,28 +86,18 @@ useEffect (() => {
 
 
               <fieldset>
-                <legend> With or Without Price</legend>
+                {/* <legend> With or Without Price</legend> */}
                 <label htmlFor="displayPricedConcerts">
-                  with price
+                  Click to show only priced concerts
                 </label>
                 <input
                   id="displayPricedConcerts"
                   className="displayPricedConcerts"
                   name="priceChoice"
-                  type ="radio"
+                  type ="checkbox"
                   value="priced"
                 /> 
 
-                <label htmlFor="displayAllConcerts"> 
-                  without price
-                </label>
-                <input
-                  id="displayAllConcerts"
-                  className="displayAllConcerts"
-                  name="priceChoice"
-                  type ="radio"
-                  value="nonPriced"
-                /> 
               </fieldset>
 
               <button
