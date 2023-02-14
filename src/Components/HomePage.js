@@ -5,6 +5,13 @@ import { getDatabase, ref, push } from "firebase/database";
 
 //importing Firebase
 import firebase from "../firebase";
+//importplace holder images
+import beyonce from "../partials/asset/placeholder-bey.webp";
+import taylor from "../partials/asset/placeholder-tay.webp";
+import pink from "../partials/asset/placeholder-pink.webp";
+import john from "../partials/asset/placeholder-john.webp";
+import sha from "../partials/asset/placeholder-sha.webp";
+
 
 
 
@@ -83,7 +90,7 @@ const Homepage = () => {
         <div className="featured wrapper">
           <h2> Featured concert</h2>
           <div className="featureImage">
-          <img src="https://placedog.net/500" alt=""/>
+          <img src={beyonce} alt=""/>
           </div>
         </div>
       </section>
@@ -118,16 +125,16 @@ const Homepage = () => {
           <h2>discover!</h2>
           <div className="concertImage">
             <div className="smallImage">
-              <img src="https://placedog.net/500" alt=""/>
+              <img src={taylor} alt=""/>
             </div>
             <div className="smallImage">
-              <img src="https://placedog.net/500" alt=""/>
+              <img src={pink} alt=""/>
             </div>
             <div className="smallImage">
-              <img src="https://placedog.net/500" alt=""/>
+              <img src={john} alt=""/>
             </div>
             <div className="smallImage">
-              <img src="https://placedog.net/500" alt=""/>
+              <img src={sha} alt=""/>
             </div>
           </div>
         </div>

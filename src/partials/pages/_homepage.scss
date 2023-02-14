@@ -42,8 +42,9 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: 50%;
+    width: 55%;
     .smallImage{
-        flex-basis: 50%;
+        flex-basis: 45%;
+        margin: 1%;
     }
 }
