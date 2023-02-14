@@ -1,6 +1,9 @@
+
 import { useState } from "react";
 import { getDatabase, ref, push } from "firebase/database";
+//
 import firebase from "../firebase";
+
 
 
 const Homepage = ({name}) => {
