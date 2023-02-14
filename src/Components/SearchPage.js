@@ -54,70 +54,74 @@ useEffect (() => {
 
     return(
         <>
-        <form className="searchForm">
-            <label htmlFor="artist"></label>
-            <input 
-                className="artistSearch"
-                id="artist"
-                placeholder="Artist..."
-                // onChange= {handleArtistInput}
-            >
-            </input>
+        <section>
+          <form className="searchForm wrapper">
+              <label htmlFor="artist"></label>
+              <input 
+                  className="artistSearch"
+                  id="artist"
+                  placeholder="Artist..."
+                  // onChange= {handleArtistInput}
+              >
+              </input>
 
-            <label htmlFor="city"></label>
-            <input 
-                className="citySearch"
-                id="city"
-                placeholder="City..."
-                // onChange={handleCityInput}
-            ></input>
+              <label htmlFor="city"></label>
+              <input 
+                  className="citySearch"
+                  id="city"
+                  placeholder="City..."
+                  // onChange={handleCityInput}
+              ></input>
 
-            <button
-              onClick={handleSubmit}
-            > Search </button>
-        </form>
-        <div className="searchResultContainer">
-            <ul className="searchResultList">
-                {
-                  apiRes.map((concertInfo)=>{
-                    // const { name, dates.start.localDate } = concertInfo
-                    const name = concertInfo.name; 
-                    const eventDate = concertInfo.dates.start.localDate;
-                    const venueCity = concertInfo._embedded.venues[0].city.name;
-                    const venueName = concertInfo._embedded.venues[0].name;
-                    // const minPrice = concertInfo.priceRanges[0].min;
-                    const maxPrice = concertInfo.priceRanges[0].max !== undefined
-                      ? 
-                    'To be announced'
-                      : 
-                    concertInfo.priceRanges[0].max;
+              <button
+                onClick={handleSubmit}
+              > Search </button>
+          </form>
+          <div className="searchResultContainer">
+              <ul className="searchResultList wrapper">
+                  {
+                    apiRes.map((concertInfo)=>{
+                      // const { name, dates.start.localDate } = concertInfo
+                      const name = concertInfo.name; 
+                      const eventDate = concertInfo.dates.start.localDate;
+                      const venueCity = concertInfo._embedded.venues[0].city.name;
+                      const venueName = concertInfo._embedded.venues[0].name;
+                      // const minPrice = concertInfo.priceRanges[0].min;
+                      const maxPrice = concertInfo.priceRanges[0].max !== undefined
+                        ? 
+                      'To be announced'
+                        : 
+                      concertInfo.priceRanges[0].max;
 
-                    const concertImg = concertInfo.images[3].url;
-                    const key = concertInfo.id;
-                    return (
-                      <li key = {key}>
-                        <button></button>
-                        <div>
-                          <p> {name} </p>
-                          <p> {eventDate} </p>
-                          <p> {venueCity} </p>
-                          <p> {venueName} </p>
-                          <p> {maxPrice} </p>
-                          {/* <p> {minPrice} </p> */}
-                        </div>
-                        <div>
-                          <p>1</p>
-                        </div>
-                        <div>
-                          <img src ={concertImg} alt=""></img>
-                        </div>
-                      </li>
-                    )
-                  })
-                }
-            
-            </ul>
-        </div>
+                      const concertImg = concertInfo.images[3].url;
+                      const key = concertInfo.id;
+                      return (
+                        <li 
+                        key = {key}
+                        className="concertResponse wrapper">
+                          <button> + </button>
+                          <div className="concertListInfo">
+                            <p> {name} </p>
+                            <p> {eventDate} </p>
+                            <p> {venueCity} </p>
+                            <p> {venueName} </p>
+                            <p> {maxPrice} </p>
+                            {/* <p> {minPrice} </p> */}
+                          </div>
+                          <div>
+                            <p>1</p>
+                          </div>
+                          <div className="concertListImage">
+                            <img src ={concertImg} alt=""></img>
+                          </div>
+                        </li>
+                      )
+                    })
+                  }
+              
+              </ul>
+          </div>
+        </section>
         </>
     )
 }
