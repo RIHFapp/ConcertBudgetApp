@@ -49,7 +49,7 @@ const Homepage = ({name}) => {
   
     return(
     <>
-      <section className="homepage">
+      <section>
         <div className="featured wrapper">
           <h2> Featured concert</h2>
           <div className="featureImage">
@@ -57,8 +57,8 @@ const Homepage = ({name}) => {
           </div>
         </div>
       </section>
-      <section className="inputSection">
-        <div className="wrapper">
+      <section >
+        <div className="wrapper inputSection">
           <h2>Welcome! lets Start planning your concert list</h2>
           <form action="submit">
             {/* name of the list input */}
@@ -83,8 +83,8 @@ const Homepage = ({name}) => {
           </form>
         </div>
       </section>
-      <section className = "suggested">
-        <div className="wrapper">
+      <section >
+        <div className="wrapper suggested">
           <h2>discover!</h2>
           <div className="concertImage">
             <div className="smallImage">

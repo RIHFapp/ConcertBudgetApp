@@ -1,13 +1,7 @@
 @use "../abstracts/variables" as*;
 
-.homepage{
+.featured{
     margin: 0 auto;
-    img{
-        border-radius: 25px;
-        box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.75);
-    -moz-box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.75);
-    }
 }
 .featured,
 .inputSection,
@@ -27,6 +21,8 @@
         background-color: #dbf0efd8;
         width: 500px;
         height: 15vh;
+        font-size: 1.8rem;
+        padding-bottom: 1%;
         flex-direction: row;
         flex-wrap: wrap;
         box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.75);
