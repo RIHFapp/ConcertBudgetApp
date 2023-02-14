@@ -24,6 +24,8 @@ const SearchPage = () => {
       e.preventDefault();
       setArtist(e.target.form[0].value);
       setCity(e.target.form[1].value);
+
+      console.log(e);
     }
 
   // On Search Page mount - trigger an API call based on input content availibility.  
@@ -73,25 +75,30 @@ useEffect (() => {
                   placeholder="City..."
                   // onChange={handleCityInput}
               />
+
+
               <fieldset>
                 <legend> With or Without Price</legend>
-                <label
-                htmlFor="displayPricedConcerts"
-                >with price</label>
+                <label htmlFor="displayPricedConcerts">
+                  with price
+                </label>
                 <input
-                id="displayPricedConcerts"
-                className="displayPricedConcerts"
-                type ="radio"
-                value="true"/> 
+                  id="displayPricedConcerts"
+                  className="displayPricedConcerts"
+                  name="priceChoice"
+                  type ="radio"
+                  value="priced"
+                /> 
 
-                <label
-                  htmlFor="displayAllConcerts"
-                >without price</label>
+                <label htmlFor="displayAllConcerts"> 
+                  without price
+                </label>
                 <input
                   id="displayAllConcerts"
                   className="displayAllConcerts"
+                  name="priceChoice"
                   type ="radio"
-                  value="false"
+                  value="nonPriced"
                 /> 
               </fieldset>
 
