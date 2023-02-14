@@ -1,8 +1,9 @@
 import './App.scss';
-// import firebase from './firebase';
-// import { getDatabase, ref, onValue, push, remove } from 'firebase/database';
+import firebase from './firebase';
+import { getDatabase, ref, onValue, } from 'firebase/database';
 // import { Route, Routes } from 'react-router-dom';
-
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 // Componetns
 import HomePage from "./Components/HomePage"
@@ -10,14 +11,57 @@ import SearchPage from './Components/SearchPage';
 
 
 function App() {
+  //firebase config
+  const [name, setName] = useState('');
+  const[budget, setBudget] = useState('');
+  
 
+  // const handleRemove = (bookId) => {
+  //   const database = getDatabase(firebase);
+  //   const dbRef = ref(database, `${bookId}`);
+  //   remove(dbRef);
+  // }
+  
+  useEffect( () => {
+    const database = getDatabase(firebase);
+    const dbRef = ref(database);
+    onValue(dbRef, (reponse)=>{
+      const data = reponse.val();
+      const newName = [];
+      for (let key in data) {
+        newName.push(
+          {key:key, 
+            name: data[key]
+          }
+        );        
+      }    
+      setName(newName);    
+    });
+  
+  
+  },[]); 
+  // API call endpoints - events search, locations, 
+useEffect (() => {
+  axios({
+    url: "https://app.ticketmaster.com/discovery/v2/events",
+    params: {
+      apikey: "15zZnInsCdU0ECUBEtwgFJsPOwjOlGWt",
+      keyword: "beyonce",
+      countryCode:"CA",
+      city: "Toronto",
+      classificationName:"music"
+    }
+  }).then((res) => {
+    console.log(res.data._embedded.events);
+  })
+},[])
 
-  return (
-    <div className="App">
-      {/*<HomePage />*/}
-      <SearchPage />
-    </div>
-  );
+//return jsx
+return (
+  <div className="">
+    <HomePage name={name} budget={budget} />   
+  </div>
+);
 }
 
 
