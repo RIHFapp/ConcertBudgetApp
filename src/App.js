@@ -40,26 +40,13 @@ function App() {
   
   
   },[]); 
-  // API call endpoints - events search, locations, 
-useEffect (() => {
-  axios({
-    url: "https://app.ticketmaster.com/discovery/v2/events",
-    params: {
-      apikey: "15zZnInsCdU0ECUBEtwgFJsPOwjOlGWt",
-      keyword: "beyonce",
-      countryCode:"CA",
-      city: "Toronto",
-      classificationName:"music"
-    }
-  }).then((res) => {
-    console.log(res.data._embedded.events);
-  })
-},[])
+
 
 //return jsx
 return (
   <div className="">
     <HomePage name={name} budget={budget} />   
+    <SearchPage />
   </div>
 );
 }
