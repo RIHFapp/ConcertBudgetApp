@@ -87,11 +87,12 @@ useEffect (() => {
                       const venueCity = concertInfo._embedded.venues[0].city.name;
                       const venueName = concertInfo._embedded.venues[0].name;
                       // const minPrice = concertInfo.priceRanges[0].min;
-                      const maxPrice = concertInfo.priceRanges[0].max !== undefined
+                      const maxPrice = concertInfo.priceRanges !== undefined
                         ? 
-                      'To be announced'
-                        : 
-                      concertInfo.priceRanges[0].max;
+                         concertInfo.priceRanges[0].max
+                         : 
+                        'To be announced';
+                     
 
                       const concertImg = concertInfo.images[3].url;
                       const key = concertInfo.id;
@@ -118,7 +119,6 @@ useEffect (() => {
                       )
                     })
                   }
-              
               </ul>
           </div>
         </section>
