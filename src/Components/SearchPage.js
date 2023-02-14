@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import { motion } from "framer-motion";
 
 const SearchPage = () => {
     // States
@@ -96,7 +97,10 @@ useEffect (() => {
                       const concertImg = concertInfo.images[3].url;
                       const key = concertInfo.id;
                       return (
-                        <li 
+                        <motion.li 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{duration:2}}
                         key = {key}
                         className="concertResponse wrapper">
                           <button> + </button>
@@ -114,7 +118,7 @@ useEffect (() => {
                           <div className="concertListImage">
                             <img src ={concertImg} alt=""></img>
                           </div>
-                        </li>
+                        </motion.li>
                       )
                     })
                   }

@@ -87,8 +87,10 @@ const Homepage = () => {
   // },[]); 
     return(
     <motion.div
-    initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}>
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{duration:2}}
+      >
       <section>
         <div className="featured wrapper">
           <h2> Featured concert</h2>
