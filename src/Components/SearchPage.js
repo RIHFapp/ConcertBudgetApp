@@ -26,15 +26,11 @@ const SearchPage = () => {
       setCity(e.target.form[1].value);
     }
 
-  // API call endpoints - events search, locations, 
+  // On Search Page mount - trigger an API call based on input content availibility.  
 useEffect (() => {
-
   if (artist === null && city === null) {
-
     console.log("hello world");
-
   } else {
-
     axios({
       url: "https://app.ticketmaster.com/discovery/v2/events",
       params: {
@@ -45,11 +41,9 @@ useEffect (() => {
         classificationName:"music"
       }
     }).then((res) => {
-
       const list = [...res.data._embedded.events]
       console.log(list);
       setApiRes(list); 
-
     })
 
   }  
@@ -60,9 +54,6 @@ useEffect (() => {
 
     return(
         <>
-        <p>
-           ..................... 
-        </p>
         <form className="searchForm">
             <label htmlFor="artist"></label>
             <input 
@@ -87,20 +78,43 @@ useEffect (() => {
         </form>
         <div className="searchResultContainer">
             <ul className="searchResultList">
-
-              
-              <li>
                 {
                   apiRes.map((concertInfo)=>{
-                    console.log(concertInfo.name)
-                    console.log(concertInfo.dates.start.localDate)
-                    console.log(concertInfo._embedded.venues[0].city.name)
-                    console.log(concertInfo._embedded.venues[0].name)
-                    console.log(concertInfo.priceRanges[0].min)
-                    console.log(concertInfo.priceRanges[0].max)
+                    // const { name, dates.start.localDate } = concertInfo
+                    const name = concertInfo.name; 
+                    const eventDate = concertInfo.dates.start.localDate;
+                    const venueCity = concertInfo._embedded.venues[0].city.name;
+                    const venueName = concertInfo._embedded.venues[0].name;
+                    // const minPrice = concertInfo.priceRanges[0].min;
+                    const maxPrice = concertInfo.priceRanges[0].max !== undefined
+                      ? 
+                    'To be announced'
+                      : 
+                    concertInfo.priceRanges[0].max;
+
+                    const concertImg = concertInfo.images[3].url;
+                    const key = concertInfo.id;
+                    return (
+                      <li key = {key}>
+                        <button></button>
+                        <div>
+                          <p> {name} </p>
+                          <p> {eventDate} </p>
+                          <p> {venueCity} </p>
+                          <p> {venueName} </p>
+                          <p> {maxPrice} </p>
+                          {/* <p> {minPrice} </p> */}
+                        </div>
+                        <div>
+                          <p>1</p>
+                        </div>
+                        <div>
+                          <img src ={concertImg} alt=""></img>
+                        </div>
+                      </li>
+                    )
                   })
                 }
-              </li>
             
             </ul>
         </div>
