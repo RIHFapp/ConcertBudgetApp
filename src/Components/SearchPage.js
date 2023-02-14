@@ -113,7 +113,6 @@ useEffect (() => {
                       const eventDate = concertInfo.dates.start.localDate;
                       const venueCity = concertInfo._embedded.venues[0].city.name;
                       const venueName = concertInfo._embedded.venues[0].name;
-                      // const minPrice = concertInfo.priceRanges[0].min;
                       const maxPrice = concertInfo.priceRanges !== undefined
                         ? 
                         concertInfo.priceRanges[0].max
@@ -138,7 +137,6 @@ useEffect (() => {
                             <p> {venueCity} </p>
                             <p> {venueName} </p>
                             <p> {maxPrice} </p>
-                            {/* <p> {minPrice} </p> */}
                           </div>
                           <div>
                             <p>1</p>
