@@ -1,7 +1,24 @@
-@use './partials/setup';
-@use './partials/button';
-@use './partials/homepage';
+//abstracts
+@use "./partials/abstracts/variables";
 
+//base
+@use "./partials/base/setup";
+@use "./partials/base/defaultStyles";
+@use "./partials/base/typography";
 
-// Pages 
-@use "./partials/searchPage";
+//components
+
+@use "./partials/components/button";
+
+//layout 
+
+@use "./partials/layout/header";
+@use "./partials/layout/forms";
+@use "./partials/layout/footer";
+
+//pages 
+@use "./partials/pages/homepage";
+@use "./partials/pages/searchPage";
+
+//media queries
+@use "./partials/abstracts/mediaQueries"
