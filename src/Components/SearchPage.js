@@ -63,8 +63,8 @@ useEffect (() => {
                   id="artist"
                   placeholder="Artist..."
                   // onChange= {handleArtistInput}
-              >
-              </input>
+              />
+         
 
               <label htmlFor="city"></label>
               <input 
@@ -72,7 +72,28 @@ useEffect (() => {
                   id="city"
                   placeholder="City..."
                   // onChange={handleCityInput}
-              ></input>
+              />
+              <fieldset>
+                <legend> With or Without Price</legend>
+                <label
+                htmlFor="displayPricedConcerts"
+                >with price</label>
+                <input
+                id="displayPricedConcerts"
+                className="displayPricedConcerts"
+                type ="radio"
+                value="true"/> 
+
+                <label
+                  htmlFor="displayAllConcerts"
+                >without price</label>
+                <input
+                  id="displayAllConcerts"
+                  className="displayAllConcerts"
+                  type ="radio"
+                  value="false"
+                /> 
+              </fieldset>
 
               <button
                 onClick={handleSubmit}
