@@ -2,35 +2,20 @@ import './App.scss';
 // import firebase from './firebase';
 // import { getDatabase, ref, onValue, push, remove } from 'firebase/database';
 // import { Route, Routes } from 'react-router-dom';
-import { useEffect } from "react";
-import axios from 'axios';
+
 
 // Componetns
 import HomePage from "./Components/HomePage"
+import SearchPage from './Components/SearchPage';
 
 
 function App() {
 
-  // API call endpoints - events search, locations, 
-useEffect (() => {
-  axios({
-    url: "https://app.ticketmaster.com/discovery/v2/events",
-    params: {
-      apikey: "15zZnInsCdU0ECUBEtwgFJsPOwjOlGWt",
-      keyword: "beyonce",
-      countryCode:"CA",
-      city: "Toronto",
-      classificationName:"music"
-    }
-  }).then((res) => {
-    console.log(res.data._embedded.events);
-  })
-},[])
 
   return (
     <div className="App">
-      <HomePage />
-      <h1>123</h1>
+      {/*<HomePage />*/}
+      <SearchPage />
     </div>
   );
 }
