@@ -3,8 +3,9 @@ import axios from 'axios';
 
 const SearchPage = () => {
     // States
-    const [artist, setArtist] = useState("");
-    const [city, setCity] = useState("");
+    const [artist, setArtist] = useState(null);
+    const [city, setCity] = useState(null);
+    const [apiRes, setApiRes] = useState([]);
 
 
     // Grab Artist Input
@@ -27,18 +28,32 @@ const SearchPage = () => {
 
   // API call endpoints - events search, locations, 
 useEffect (() => {
-  axios({
-    url: "https://app.ticketmaster.com/discovery/v2/events",
-    params: {
-      apikey: "15zZnInsCdU0ECUBEtwgFJsPOwjOlGWt",
-      keyword: `${artist}`,
-      countryCode:"CA",
-      city: `${city}`,
-      classificationName:"music"
-    }
-  }).then((res) => {
-    console.log(res);
-  })
+
+  if (artist === null && city === null) {
+
+    console.log("hello world");
+
+  } else {
+
+    axios({
+      url: "https://app.ticketmaster.com/discovery/v2/events",
+      params: {
+        apikey: "15zZnInsCdU0ECUBEtwgFJsPOwjOlGWt",
+        keyword: `${artist}`,
+        countryCode:"CA",
+        city: `${city}`,
+        classificationName:"music"
+      }
+    }).then((res) => {
+
+      const list = [...res.data._embedded.events]
+      console.log(list);
+      setApiRes(list); 
+
+    })
+
+  }  
+
 },[artist, city])
 
 
@@ -71,7 +86,23 @@ useEffect (() => {
             > Search </button>
         </form>
         <div className="searchResultContainer">
-            <ul className="searchResultList"></ul>
+            <ul className="searchResultList">
+
+              
+              <li>
+                {
+                  apiRes.map((concertInfo)=>{
+                    console.log(concertInfo.name)
+                    console.log(concertInfo.dates.start.localDate)
+                    console.log(concertInfo._embedded.venues[0].city.name)
+                    console.log(concertInfo._embedded.venues[0].name)
+                    console.log(concertInfo.priceRanges[0].min)
+                    console.log(concertInfo.priceRanges[0].max)
+                  })
+                }
+              </li>
+            
+            </ul>
         </div>
         </>
     )
