@@ -45,7 +45,7 @@ function App() {
 //return jsx
 return (
   <div className="">
-    <HomePage name={name} budget={budget} />   
+    {/* <HomePage name={name} budget={budget} />    */}
     <SearchPage />
   </div>
 );
