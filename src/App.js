@@ -30,8 +30,7 @@ function App() {
       for (let key in data) {
         newName.push(
           {key:key, 
-            name: data[key],
-            budget:data[key]['budget']
+            name: data[key]
           }
         );        
       }    
