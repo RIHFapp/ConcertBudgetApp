@@ -7,6 +7,7 @@ import axios from 'axios';
 
 // Componetns
 import HomePage from "./Components/HomePage"
+import SearchPage from './Components/SearchPage';
 
 
 function App() {
