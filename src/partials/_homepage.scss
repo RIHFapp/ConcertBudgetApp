@@ -8,7 +8,7 @@
     }
 }
 .featured,
-.input-section,
+.inputSection,
 .suggested,
 form{
     display: flex;
@@ -33,12 +33,12 @@ form{
         border: none;
     }
 }
-.concert-image{
+.concertImage{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     width: 50%;
-    .small-image{
+    .smallImage{
         flex-basis: 50%;
     }
 }

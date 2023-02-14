@@ -30,11 +30,11 @@ const Homepage = ({name}) => {
       <div className="homepage">
         <div className="featured">
           <h1>Budget vs Concert</h1>
-          <div className="feature-image">
+          <div className="featureImage">
           <img src="https://placedog.net/500" alt=""/>
           </div>
         </div>
-      <div className="input-section">
+      <div className="inputSection">
         <h2>Welcome! lets Start planning your conecert list</h2>
         <form action="submit">
           {/* name of the list input */}
@@ -50,17 +50,17 @@ const Homepage = ({name}) => {
       </div>
       <div className="suggested">
         <h2>discover!</h2>
-        <div className="concert-image">
-          <div className="small-image">
+        <div className="concertImage">
+          <div className="smallImage">
             <img src="https://placedog.net/500" alt=""/>
           </div>
-          <div className="small-image">
+          <div className="smallImage">
             <img src="https://placedog.net/500" alt=""/>
           </div>
-          <div className="small-image">
+          <div className="smallImage">
             <img src="https://placedog.net/500" alt=""/>
           </div>
-          <div className="small-image">
+          <div className="smallImage">
             <img src="https://placedog.net/500" alt=""/>
           </div>
         </div>
