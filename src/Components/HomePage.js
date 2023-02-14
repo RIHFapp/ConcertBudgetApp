@@ -2,7 +2,8 @@
 //importing hooks
 import { useState } from "react";
 import { getDatabase, ref, push } from "firebase/database";
-
+//import motion library
+import { motion } from "framer-motion";
 //importing Firebase
 import firebase from "../firebase";
 //importplace holder images
@@ -85,7 +86,9 @@ const Homepage = () => {
   
   // },[]); 
     return(
-    <>
+    <motion.div
+    initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}>
       <section>
         <div className="featured wrapper">
           <h2> Featured concert</h2>
@@ -153,7 +156,7 @@ const Homepage = () => {
         })}
       </ul> */}
       </section>
-      </>
+      </motion.div>
     )
     
 }
