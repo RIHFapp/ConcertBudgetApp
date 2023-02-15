@@ -9,7 +9,8 @@
 section{
         margin-top: 4rem;
 }
-form{
+
+.searchForm{
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -18,21 +19,12 @@ form{
     border-radius: 25px;
     width: 50rem;
     height: 10vh;
-    input, button{
+    input{
         margin-left: 1rem;
         margin-right: 1rem;
         height: 40%;
         width: 15%;
         border-radius: 25px;
-    }
-    button{
-        cursor: pointer;
-        &:hover, 
-        &:focus{
-            background-color: #DBF0EF;
-            border: 2px solid #97DAE8;
-            transition: 1s;
-        }
     }
 }
 
