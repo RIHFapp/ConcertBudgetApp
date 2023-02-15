@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
 // import { motion } from "framer-motion";
+import firebase from "../firebase";
+import {ref, getDatabase, push} from "firebase/database"; 
 
 const SearchPage = () => {
     // States
@@ -68,7 +70,13 @@ useEffect (() => {
   // next step: decreasing the number of ticket
     //useState to store the information about the number of tickets
   // next step: removing event from the firebase
-  //iza
+const handleAddConcert = (name, eventDate, venueCity, venueName, maxPrice, key) => {
+  
+  console.log(name, eventDate, venueCity, venueName, maxPrice)
+  const database = getDatabase(firebase);
+  const dbRef = ref(database);
+
+}
 
     return(
         <>
@@ -139,7 +147,8 @@ useEffect (() => {
                         className="concertResponse wrapper">
                           { 
                             concertInfo.priceRanges !== undefined ? ( 
-                              <button> + </button>
+                              <button
+                              onClick = {() => {handleAddConcert(name, eventDate, venueCity, venueName, maxPrice, key)}}> + </button>
                              ) : null
                           }
                           <div className="concertListInfo">
