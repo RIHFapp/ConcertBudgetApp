@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import { motion } from "framer-motion";
 
 const SearchPage = () => {
     // States
@@ -7,7 +8,6 @@ const SearchPage = () => {
     const [city, setCity] = useState(null);
     const [checked, setChecked ] = useState(false);
     const [apiRes, setApiRes] = useState([]);
-
 
     // Grab Artist Input
     // const handleArtistInput = (e) => {
@@ -32,7 +32,7 @@ const SearchPage = () => {
   // On Search Page mount - trigger an API call based on input content availibility.  
 useEffect (() => {
   if (artist === null && city === null) {
-    console.log("hello world");
+    //console.log("hello world");
   } else {
     axios({
       url: "https://app.ticketmaster.com/discovery/v2/events",
@@ -124,7 +124,10 @@ useEffect (() => {
                       const concertImg = concertInfo.images[3].url;
                       const key = concertInfo.id;
                       return (
-                        <li 
+                        <motion.li 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{duration:2}}
                         key = {key}
                         className="concertResponse wrapper">
                           { 
@@ -145,7 +148,7 @@ useEffect (() => {
                           <div className="concertListImage">
                             <img src ={concertImg} alt=""></img>
                           </div>
-                        </li>
+                        </motion.li>
                       )
                     })
                   }
