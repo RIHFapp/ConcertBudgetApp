@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { getDatabase, ref, push } from "firebase/database";
 //import motion library
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 //importing Firebase
 import firebase from "../firebase";
 //importplace holder images
@@ -86,10 +86,10 @@ const Homepage = () => {
   
   // },[]); 
     return(
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{duration:2}}
+    <div
+      // initial={{ opacity: 0 }}
+      // animate={{ opacity: 1 }}
+      // transition={{duration:2}}
       >
       <section>
         <div className="featured wrapper">
@@ -158,7 +158,7 @@ const Homepage = () => {
         })}
       </ul> */}
       </section>
-      </motion.div>
+      </div>
     )
     
 }

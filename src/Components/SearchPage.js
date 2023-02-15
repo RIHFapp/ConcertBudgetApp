@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 
 const SearchPage = () => {
     // States
@@ -124,11 +124,11 @@ useEffect (() => {
                       const concertImg = concertInfo.images[3].url;
                       const key = concertInfo.id;
                       return (
-                        <motion.li 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{duration:2}}
-                        key = {key}
+                        <li 
+                        // initial={{ opacity: 0 }}
+                        // animate={{ opacity: 1 }}
+                        // transition={{duration:2}}
+                        // key = {key}
                         className="concertResponse wrapper">
                           { 
                             concertInfo.priceRanges !== undefined ? ( 
@@ -148,7 +148,7 @@ useEffect (() => {
                           <div className="concertListImage">
                             <img src ={concertImg} alt=""></img>
                           </div>
-                        </motion.li>
+                        </li>
                       )
                     })
                   }

@@ -13,7 +13,7 @@ function App() {
 return (
   <div className="">
 
-    {/* <HomePage name={name} budget={budget} />    */}
+    <HomePage />   
     <SearchPage />
     
   </div>
