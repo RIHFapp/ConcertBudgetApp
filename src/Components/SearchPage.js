@@ -61,7 +61,14 @@ useEffect (() => {
 
 },[artist, city, checked])
 
-
+  //event handler on the + button
+  //grab the details of the concert
+  //slap in into the firebase (details + key)
+  //next step: event handler on the tickets' number
+  // next step: decreasing the number of ticket
+    //useState to store the information about the number of tickets
+  // next step: removing event from the firebase
+  //iza
 
     return(
         <>
