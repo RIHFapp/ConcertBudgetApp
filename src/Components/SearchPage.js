@@ -6,6 +6,7 @@ const SearchPage = () => {
     // States
     const [artist, setArtist] = useState(null);
     const [city, setCity] = useState(null);
+    const [checked, setChecked ] = useState(false);
     const [apiRes, setApiRes] = useState([]);
 
     // Grab Artist Input
@@ -24,6 +25,8 @@ const SearchPage = () => {
       e.preventDefault();
       setArtist(e.target.form[0].value);
       setCity(e.target.form[1].value);
+      setChecked(e.target.form[3].checked);
+  
     }
 
   // On Search Page mount - trigger an API call based on input content availibility.  
@@ -42,14 +45,21 @@ useEffect (() => {
       }
     }).then((res) => {
       const list = res.data._embedded.events.filter((event) => {
-        return event;
+        // console.log(event);
+
+        if (checked === false) {
+          return event
+        } else if (checked === true && event.priceRanges !== undefined) {
+          return event
+        }
+      
       })
       console.log(list);
       setApiRes(list); 
     })
   }  
 
-},[artist, city])
+},[artist, city, checked])
 
 
 
@@ -57,14 +67,15 @@ useEffect (() => {
         <>
         <section>
           <form className="searchForm wrapper">
+            <p>Search for concerts by artist and your preffered city</p>
               <label htmlFor="artist"></label>
               <input 
                   className="artistSearch"
                   id="artist"
                   placeholder="Artist..."
                   // onChange= {handleArtistInput}
-              >
-              </input>
+              />
+         
 
               <label htmlFor="city"></label>
               <input 
@@ -72,7 +83,23 @@ useEffect (() => {
                   id="city"
                   placeholder="City..."
                   // onChange={handleCityInput}
-              ></input>
+              />
+
+
+              <fieldset>
+                {/* <legend> With or Without Price</legend> */}
+                <label htmlFor="displayPricedConcerts">
+                  Click to show only priced concerts
+                </label>
+                <input
+                  id="displayPricedConcerts"
+                  className="displayPricedConcerts"
+                  name="priceChoice"
+                  type ="checkbox"
+                  value="priced"
+                /> 
+
+              </fieldset>
 
               <button
                 onClick={handleSubmit}
@@ -87,7 +114,6 @@ useEffect (() => {
                       const eventDate = concertInfo.dates.start.localDate;
                       const venueCity = concertInfo._embedded.venues[0].city.name;
                       const venueName = concertInfo._embedded.venues[0].name;
-                      // const minPrice = concertInfo.priceRanges[0].min;
                       const maxPrice = concertInfo.priceRanges !== undefined
                         ? 
                         concertInfo.priceRanges[0].max
@@ -115,7 +141,6 @@ useEffect (() => {
                             <p> {venueCity} </p>
                             <p> {venueName} </p>
                             <p> {maxPrice} </p>
-                            {/* <p> {minPrice} </p> */}
                           </div>
                           <div>
                             <p>1</p>

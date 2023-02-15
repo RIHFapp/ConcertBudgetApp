@@ -12,8 +12,10 @@ function App() {
 //return jsx
 return (
   <div className="">
-    <HomePage  />   
+
+    {/* <HomePage name={name} budget={budget} />    */}
     <SearchPage />
+    
   </div>
 );
 }
