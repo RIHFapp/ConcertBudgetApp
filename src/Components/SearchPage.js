@@ -67,6 +67,7 @@ useEffect (() => {
         <>
         <section>
           <form className="searchForm wrapper">
+            <p>Search for concerts by artist and your preffered city</p>
               <label htmlFor="artist"></label>
               <input 
                   className="artistSearch"
