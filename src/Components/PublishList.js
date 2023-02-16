@@ -5,6 +5,7 @@ const PublishList = () => {
                 <div className="wrapper">
                     <div className="detaliedList">
                         <h2>Created List</h2>
+                        
                         <div className="listHeading">
                         <h3>Concernt 6000 </h3>
                         <h3>vs</h3>
@@ -12,39 +13,47 @@ const PublishList = () => {
                         </div>
                         
                         <ul>
-                            <li>
-                            <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
-                            <p>2023-09-11</p>
-                            <p>Vancouver</p>
-                            <p>BC Place</p>
-                            <p>581</p>
+                            <li className="one">
+                                <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
+                                <p>2023-09-11</p>
+                                <p>Vancouver</p>
+                                <p>BC Place</p>
+                                <p>581</p>
+                                <button> Add Ticket </button>
+                                <button> Remove Ticket </button>
                             </li>
-                        </ul>
-                        <ul>
-                        <li>
-                            <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
-                            <p>2023-09-11</p>
-                            <p>Vancouver</p>
-                            <p>BC Place</p>
-                            <p>581</p>
+                        
+                        
+                            <li className="two">
+                                <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
+                                <p>2023-09-11</p>
+                                <p>Vancouver</p>
+                                <p>BC Place</p>
+                                <p>581</p>
+                                <button> Add Ticket </button>
+                                <button> Remove Ticket </button>
                             </li>
-                        </ul>
-                        <ul>
-                        <li>
-                            <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
-                            <p>2023-09-11</p>
-                            <p>Vancouver</p>
-                            <p>BC Place</p>
-                            <p>581</p>
+                            
+                        
+                            <li className="three">
+                                <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
+                                <p>2023-09-11</p>
+                                <p>Vancouver</p>
+                                <p>BC Place</p>
+                                <p>581</p>
+                                <button> Add Ticket </button>
+                                <button> Remove Ticket </button>
                             </li>
-                        </ul>
-                        <ul>
-                        <li>
-                            <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
-                            <p>2023-09-11</p>
-                            <p>Vancouver</p>
-                            <p>BC Place</p>
-                            <p>581</p>
+                            
+                        
+                            <li className="one">
+                                <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
+                                <p>2023-09-11</p>
+                                <p>Vancouver</p>
+                                <p>BC Place</p>
+                                <p>581</p>
+                                <button> Add Ticket </button>
+                                <button> Remove Ticket </button>
                             </li>
                         </ul>
                     </div>
