@@ -117,8 +117,8 @@ const SearchPage = () => {
     // setVenueName(venueName);
     // setMaxPrice(maxPrice);
     // setKey(key);
-    const concertData = {name, eventDate, venueCity, venueName, maxPrice, key}
-    setAddedList(concertData)
+    const concertData = [name, eventDate, venueCity, venueName, maxPrice, key]
+    setAddedList([...addedList, concertData]);
     console.log(addedList);
   }
   
@@ -193,7 +193,7 @@ const SearchPage = () => {
                   {
                     apiRes.map((concertInfo)=>{
                       // const { name, dates.start.localDate } = concertInfo
-                      console.log(concertInfo);
+                      
                       const name = concertInfo.name; 
                       const eventDate = concertInfo.dates.start.localDate;
                       const venueCity = concertInfo._embedded.venues[0].city.name;
@@ -245,11 +245,11 @@ const SearchPage = () => {
               {userBudget}
             </div>
             <div>
-                {addedList.map( (list) =>{
-                  const {name, eventDate, venueCity, venueName, maxPrice, key}= list
+                {addedList.map( (list, key) =>{
+                
                   return(
                     <li key={key}>
-                      <p>{name}</p>
+                      <p>{list[0]}</p>
                     </li>
                   )
                 })}
