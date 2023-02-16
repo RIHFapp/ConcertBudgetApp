@@ -117,6 +117,7 @@ const SearchPage = () => {
     // setVenueName(venueName);
     // setMaxPrice(maxPrice);
     // setKey(key);
+
     const concertData = {
       name: name,
       eventDate: eventDate,
@@ -125,6 +126,7 @@ const SearchPage = () => {
       maxPrice: maxPrice,
       key: key
     }
+    
     setAddedList([...addedList, concertData]);
     console.log(addedList);
   }
@@ -252,9 +254,8 @@ const SearchPage = () => {
               {userBudget}
             </div>
             <div>
-                <form className="myList wrapper">
                 {addedList.map( (list, index) =>{
-                  const { name, eventDate, venueCity, venueName, maxPrice} = list;
+                  const { name, eventDate, venueCity, venueName, maxPrice, key } = list;
                   return(
                     <li key={index}>
                       <p>{name}</p>
@@ -265,12 +266,11 @@ const SearchPage = () => {
                     </li>
                   )
                 })}
-              <button
-              /* onClick={handleFirebaseConnection} */
-              >submit</button>
-                </form>
             </div>
           </div>
+          <button
+          /* onClick={handleFirebaseConnection} */
+          ></button>
         </section>
       </>
     )
