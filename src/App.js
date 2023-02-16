@@ -4,6 +4,7 @@ import './App.scss';
 
 // Componetns
 import HomePage from "./Components/HomePage";
+import PublishList from './Components/PublishList';
 import SearchPage from './Components/SearchPage';
 
 
@@ -15,7 +16,7 @@ return (
 
     {/* <HomePage />    */}
     <SearchPage />
-    
+    <PublishList />
   </div>
 );
 }
