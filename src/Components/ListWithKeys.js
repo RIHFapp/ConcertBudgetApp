@@ -1,10 +1,10 @@
-const PublishList = () => {
+const ViewOnlyList = () => {
     return(
         <>
             <section>
                 <div className="wrapper">
                     <div className="detaliedList">
-                        <h2>Created List</h2>
+                        <h2>Rana but poor after joining bootcamp</h2>
                         
                         <div className="listHeading">
                         <h3>Concernt 6000 </h3>
@@ -19,7 +19,8 @@ const PublishList = () => {
                                 <p>Vancouver</p>
                                 <p>BC Place</p>
                                 <p>581</p>
-                                <button> Add Ticket </button>
+                                <button> + </button>
+                                <button> - </button>
                                 <button> Remove Ticket </button>
                             </li>
                         
@@ -30,7 +31,8 @@ const PublishList = () => {
                                 <p>Vancouver</p>
                                 <p>BC Place</p>
                                 <p>581</p>
-                                <button> Add Ticket </button>
+                                <button> + </button>
+                                <button> - </button>
                                 <button> Remove Ticket </button>
                             </li>
                             
@@ -41,7 +43,8 @@ const PublishList = () => {
                                 <p>Vancouver</p>
                                 <p>BC Place</p>
                                 <p>581</p>
-                                <button> Add Ticket </button>
+                                <button> + </button>
+                                <button> - </button>
                                 <button> Remove Ticket </button>
                             </li>
                             
@@ -52,7 +55,8 @@ const PublishList = () => {
                                 <p>Vancouver</p>
                                 <p>BC Place</p>
                                 <p>581</p>
-                                <button> Add Ticket </button>
+                                <button> + </button>
+                                <button> - </button>
                                 <button> Remove Ticket </button>
                             </li>
                         </ul>
@@ -63,4 +67,4 @@ const PublishList = () => {
         </>
     )
 }
-export default PublishList;
+export default ViewOnlyList;
