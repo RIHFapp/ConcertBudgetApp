@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import firebase from "../firebase";
-import {ref, getDatabase, push, set} from "firebase/database"; 
+import {ref, getDatabase, push/* , set */} from "firebase/database"; 
 
 // import { motion } from "framer-motion";
 
@@ -15,6 +15,13 @@ const SearchPage = () => {
   const [city, setCity] = useState(null);
   const [checked, setChecked ] = useState(false);
   const [apiRes, setApiRes] = useState([]);
+  // name, eventDate, venueCity, venueName, maxPrice, key)
+  const [name, setName] = useState("");
+  const [eventDate, setEventDate] = useState("");
+  const [venueCity, setVenueCity] = useState(""); 
+  const [venueName, setVenueName] = useState("");
+  const [maxPrice, setMaxPrice] = useState(0);
+  const [key, setKey] = useState("");
 
 
 
@@ -24,7 +31,8 @@ const SearchPage = () => {
     // preventing the refreshing after submit
     event.preventDefault();
 
-    console.log(event.target.form);
+    setUserListName(event.target.form[0].value);
+    setBudgetInput(event.target.form[1].value);
     // //connecting to the firebase
     // const database = getDatabase(firebase);
     // // const dbRef = ref(database);
@@ -53,7 +61,6 @@ const SearchPage = () => {
   // On Search Page mount - trigger an API call based on input content availability.
   useEffect (() => {
     if (artist === null && city === null) {
-      //console.log("hello world");
     } else {
       axios({
         url: "https://app.ticketmaster.com/discovery/v2/events",
@@ -66,16 +73,13 @@ const SearchPage = () => {
         }
       }).then((res) => {
         const list = res.data._embedded.events.filter((event) => {
-          // console.log(event);
-
           if (checked === false) {
-            return event
+            return event;
           } else if (checked === true && event.priceRanges !== undefined) {
-            return event
+            return event;
           }
         
         })
-        console.log(list);
         setApiRes(list); 
       })
     }  
@@ -83,23 +87,35 @@ const SearchPage = () => {
   },[artist, city, checked])
 
 
-  const handleAddConcert = (name, eventDate, venueCity, venueName, maxPrice, key) => {
+  // const handleFirebaseConnection = () => {
+  //   // const database = getDatabase(firebase);
+  //   // const dbRef = ref(database);
 
-    //event handler on the + button
-    //grab the details of the concert
-    //slap in into the firebase (details + key)
-    //next step: event handler on the tickets' number
-    // next step: decreasing the number of ticket
-    //useState to store the information about the number of tickets
-    // next step: removing event from the firebase
-
-    const concertDetails = {name, eventDate, venueCity, venueName, maxPrice};
-    const database = getDatabase(firebase);
-    const userList = `${key}`
-    const userId = 'Iza';
-    const childRef = ref(database, `/${userId}/${userList}`)
     
-    set(childRef, concertDetails);
+  //   //event handler on the + button
+  //   //grab the details of the concert
+  //   //slap in into the firebase (details + key)
+  //   //next step: event handler on the tickets' number
+  //   // next step: decreasing the number of ticket
+  //   //useState to store the information about the number of tickets
+  //   // next step: removing event from the firebase
+
+  //   // const concertDetails = {name, eventDate, venueCity, venueName, maxPrice};
+  //   // const database = getDatabase(firebase);
+  //   // const userList = `${key}`
+  //   // const userId = 'Iza';
+  //   // const childRef = ref(database, `/${userId}/${userList}`)
+    
+  //   // set(childRef, concertDetails);
+  // }
+
+  const handleAddConcert = (name, eventDate, venueCity, venueName, maxPrice, key) => {
+    setName(name);
+    setEventDate(eventDate);
+    setVenueCity(venueCity);
+    setVenueName(venueName);
+    setMaxPrice(maxPrice);
+    setKey(key);
   }
 
     return(
@@ -113,14 +129,14 @@ const SearchPage = () => {
               <input
                 type="text"
                 id="newName"
-                placeholder="name of your list" />
+                placeholder="Name Of Your List" />
 
               {/* user's budget input */}
               <label htmlFor="newBudget"></label>
               <input
                 type="text"
                 id="newBudget"
-                placeholder="your budget" />
+                placeholder="Your Budget" />
 
               <button onClick={handleSubmitUser}>
                 Add List
@@ -138,7 +154,6 @@ const SearchPage = () => {
                   className="artistSearch"
                   id="artist"
                   placeholder="Artist..."
-                  // onChange= {handleArtistInput}
               />
          
 
@@ -147,7 +162,6 @@ const SearchPage = () => {
                   className="citySearch"
                   id="city"
                   placeholder="City..."
-                  // onChange={handleCityInput}
               />
 
 
@@ -220,7 +234,18 @@ const SearchPage = () => {
         </section>
 
         <section>
-          <button></button>
+          <div>
+            <div>
+              {userListName}
+              {userBudget}
+            </div>
+            <div>
+
+            </div>
+          </div>
+          <button
+          /* onClick={handleFirebaseConnection} */
+          ></button>
         </section>
       </>
     )
