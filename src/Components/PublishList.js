@@ -5,44 +5,46 @@ const PublishList = () => {
                 <div className="wrapper">
                     <div className="detaliedList">
                         <h2>Created List</h2>
+                        <div className="listHeading">
+                        <h3>Concernt 6000 </h3>
+                        <h3>vs</h3>
+                        <h3>Budget 10</h3>
+                        </div>
+                        
                         <ul>
-                            <h3>Rana's List:placeholder info</h3>
                             <li>
-                            <p>Date Created:2023/2/16</p>
-                            <p>Budget of the list : $1000</p>
-                            <p>Total amount of the concert $2000</p>
-                            <p>$1000 vs $2000</p>
-                            <p>oh no</p>
+                            <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
+                            <p>2023-09-11</p>
+                            <p>Vancouver</p>
+                            <p>BC Place</p>
+                            <p>581</p>
                             </li>
                         </ul>
                         <ul>
-                            <h3>Rana's List:placeholder info</h3>
-                            <li>
-                            <p>Date Created:2023/2/16</p>
-                            <p>Budget of the list : $1000</p>
-                            <p>Total amount of the concert $2000</p>
-                            <p>$1000 vs $2000</p>
-                            <p>oh no</p>
+                        <li>
+                            <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
+                            <p>2023-09-11</p>
+                            <p>Vancouver</p>
+                            <p>BC Place</p>
+                            <p>581</p>
                             </li>
                         </ul>
                         <ul>
-                            <h3>Rana's List:placeholder info</h3>
-                            <li>
-                            <p>Date Created:2023/2/16</p>
-                            <p>Budget of the list : $1000</p>
-                            <p>Total amount of the concert $2000</p>
-                            <p>$1000 vs $2000</p>
-                            <p>oh no</p>
+                        <li>
+                            <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
+                            <p>2023-09-11</p>
+                            <p>Vancouver</p>
+                            <p>BC Place</p>
+                            <p>581</p>
                             </li>
                         </ul>
                         <ul>
-                            <h3>Rana's List:placeholder info</h3>
-                            <li>
-                            <p>Date Created:2023/2/16</p>
-                            <p>Budget of the list : $1000</p>
-                            <p>Total amount of the concert $2000</p>
-                            <p>$1000 vs $2000</p>
-                            <p>oh no</p>
+                        <li>
+                            <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
+                            <p>2023-09-11</p>
+                            <p>Vancouver</p>
+                            <p>BC Place</p>
+                            <p>581</p>
                             </li>
                         </ul>
                     </div>
