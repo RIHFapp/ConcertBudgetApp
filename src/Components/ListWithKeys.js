@@ -13,6 +13,19 @@ const ViewOnlyList = () => {
                         </div>
                         
                         <ul>
+                        <li className="listTags">
+                            <div className="listConcertTags">
+                                <p>Name</p>
+                                <p>Date</p>
+                                <p>City</p>
+                                <p>Location</p>
+                                <p>Price</p>
+                            </div>
+                            <div className="listButtonTags">
+                                <p>adjusting concerts</p>
+                            </div>
+                                
+                            </li>
                             <li className="one">
                                 <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
                                 <p>2023-09-11</p>

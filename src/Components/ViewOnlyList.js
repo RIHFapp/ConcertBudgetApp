@@ -13,6 +13,13 @@ const PublishList = () => {
                         </div>
                         
                         <ul>
+                            <li className="listTags">
+                                <p>Name</p>
+                                <p>Date</p>
+                                <p>City</p>
+                                <p>Location</p>
+                                <p>Price</p>
+                            </li>
                             <li className="one">
                                 <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
                                 <p>2023-09-11</p>
@@ -24,31 +31,31 @@ const PublishList = () => {
                         
                         
                             <li className="two">
-                                <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
-                                <p>2023-09-11</p>
-                                <p>Vancouver</p>
-                                <p>BC Place</p>
-                                <p>581</p>
+                                <p>Name: BEYONCÉ - RENAISSANCE WORLD TOUR</p>
+                                <p>Date: 2023-09-11</p>
+                                <p>City: Vancouver</p>
+                                <p>Location: BC Place</p>
+                                <p>Price: 581</p>
                                 
                             </li>
                             
                         
                             <li className="three">
-                                <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
-                                <p>2023-09-11</p>
-                                <p>Vancouver</p>
-                                <p>BC Place</p>
-                                <p>581</p>
+                                <p>Name: BEYONCÉ - RENAISSANCE WORLD TOUR</p>
+                                <p>Date: 2023-09-11</p>
+                                <p>City: Vancouver</p>
+                                <p>Location: BC Place</p>
+                                <p>Price: 581</p>
                             
                             </li>
                             
                         
                             <li className="one">
-                                <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
-                                <p>2023-09-11</p>
-                                <p>Vancouver</p>
-                                <p>BC Place</p>
-                                <p>581</p>
+                            <p>Name: BEYONCÉ - RENAISSANCE WORLD TOUR</p>
+                                <p>Date: 2023-09-11</p>
+                                <p>City: Vancouver</p>
+                                <p>Location: BC Place</p>
+                                <p>Price: 581</p>
                             </li>
                         </ul>
                     </div>
