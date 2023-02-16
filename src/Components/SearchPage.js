@@ -252,6 +252,7 @@ const SearchPage = () => {
               {userBudget}
             </div>
             <div>
+                <form className="myList wrapper">
                 {addedList.map( (list, index) =>{
                   const { name, eventDate, venueCity, venueName, maxPrice, key } = list;
                   return(
@@ -264,11 +265,12 @@ const SearchPage = () => {
                     </li>
                   )
                 })}
+              <button
+              /* onClick={handleFirebaseConnection} */
+              >submit</button>
+                </form>
             </div>
           </div>
-          <button
-          /* onClick={handleFirebaseConnection} */
-          ></button>
         </section>
       </>
     )
