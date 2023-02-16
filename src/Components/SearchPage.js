@@ -16,12 +16,12 @@ const SearchPage = () => {
   const [checked, setChecked ] = useState(false);
   const [apiRes, setApiRes] = useState([]);
   // name, eventDate, venueCity, venueName, maxPrice, key)
-  const [name, setName] = useState("");
-  const [eventDate, setEventDate] = useState("");
-  const [venueCity, setVenueCity] = useState(""); 
-  const [venueName, setVenueName] = useState("");
-  const [maxPrice, setMaxPrice] = useState(0);
-  const [key, setKey] = useState("");
+  // const [name, setName] = useState("");
+  // const [eventDate, setEventDate] = useState("");
+  // const [venueCity, setVenueCity] = useState(""); 
+  // const [venueName, setVenueName] = useState("");
+  // const [maxPrice, setMaxPrice] = useState(0);
+  // const [key, setKey] = useState("");
   const [addedList, setAddedList] = useState([]);
 
 
@@ -254,7 +254,7 @@ const SearchPage = () => {
             <div>
                 <form className="myList wrapper">
                 {addedList.map( (list, index) =>{
-                  const { name, eventDate, venueCity, venueName, maxPrice, key } = list;
+                  const { name, eventDate, venueCity, venueName, maxPrice} = list;
                   return(
                     <li key={index}>
                       <p>{name}</p>
