@@ -22,6 +22,7 @@ const SearchPage = () => {
   const [venueName, setVenueName] = useState("");
   const [maxPrice, setMaxPrice] = useState(0);
   const [key, setKey] = useState("");
+  const [addedList, setAddedList] = useState([]);
 
 
 
@@ -108,16 +109,19 @@ const SearchPage = () => {
     
   //   // set(childRef, concertDetails);
   // }
-
+ 
   const handleAddConcert = (name, eventDate, venueCity, venueName, maxPrice, key) => {
-    setName(name);
-    setEventDate(eventDate);
-    setVenueCity(venueCity);
-    setVenueName(venueName);
-    setMaxPrice(maxPrice);
-    setKey(key);
+    // setName(name);
+    // setEventDate(eventDate);
+    // setVenueCity(venueCity);
+    // setVenueName(venueName);
+    // setMaxPrice(maxPrice);
+    // setKey(key);
+    const concertData = {name, eventDate, venueCity, venueName, maxPrice, key}
+    setAddedList(concertData)
+    console.log(addedList);
   }
-
+  
     return(
       <>
         <section >
@@ -189,6 +193,7 @@ const SearchPage = () => {
                   {
                     apiRes.map((concertInfo)=>{
                       // const { name, dates.start.localDate } = concertInfo
+                      console.log(concertInfo);
                       const name = concertInfo.name; 
                       const eventDate = concertInfo.dates.start.localDate;
                       const venueCity = concertInfo._embedded.venues[0].city.name;
@@ -240,7 +245,14 @@ const SearchPage = () => {
               {userBudget}
             </div>
             <div>
-
+                {addedList.map( (list) =>{
+                  const {name, eventDate, venueCity, venueName, maxPrice, key}= list
+                  return(
+                    <li key={key}>
+                      <p>{name}</p>
+                    </li>
+                  )
+                })}
             </div>
           </div>
           <button
