@@ -3,7 +3,7 @@ import './App.scss';
 
 
 // Componetns
-import HomePage from "./Components/HomePage"
+import HomePage from "./Components/HomePage";
 import SearchPage from './Components/SearchPage';
 
 
@@ -13,7 +13,7 @@ function App() {
 return (
   <div className="">
 
-    <HomePage />   
+    {/* <HomePage />    */}
     <SearchPage />
     
   </div>
