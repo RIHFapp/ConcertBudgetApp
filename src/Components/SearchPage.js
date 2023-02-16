@@ -117,7 +117,14 @@ const SearchPage = () => {
     // setVenueName(venueName);
     // setMaxPrice(maxPrice);
     // setKey(key);
-    const concertData = [name, eventDate, venueCity, venueName, maxPrice, key]
+    const concertData = {
+      name: name,
+      eventDate: eventDate,
+      venueCity: venueCity,
+      venueName: venueName,
+      maxPrice: maxPrice,
+      key: key
+    }
     setAddedList([...addedList, concertData]);
     console.log(addedList);
   }
@@ -245,11 +252,15 @@ const SearchPage = () => {
               {userBudget}
             </div>
             <div>
-                {addedList.map( (list, key) =>{
-                
+                {addedList.map( (list, index) =>{
+                  const { name, eventDate, venueCity, venueName, maxPrice, key } = list;
                   return(
-                    <li key={key}>
-                      <p>{list[0]}</p>
+                    <li key={index}>
+                      <p>{name}</p>
+                      <p>{eventDate}</p>
+                      <p>{venueCity}</p>
+                      <p>{venueName}</p>
+                      <p>{maxPrice}</p>
                     </li>
                   )
                 })}
