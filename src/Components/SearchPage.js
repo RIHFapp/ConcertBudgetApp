@@ -4,10 +4,12 @@ import axios from "axios";
 import firebase from "../firebase";
 import {ref, getDatabase, push, child, set} from "firebase/database"; 
 import { v4 as uuidv4 } from "uuid";
-
+// import { /* Route, Routes */ useParams/* , Link */ } from "react-router-dom";
 // import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const SearchPage = () => {
+  const [passShareId, setPassShareId] = useState("");
   // States for User Budget Information
   const [userListName, setUserListName] = useState('');
   const [userBudget, setBudgetInput] = useState('');
@@ -17,7 +19,13 @@ const SearchPage = () => {
   const [checked, setChecked ] = useState(false);
   const [apiRes, setApiRes] = useState([]);
   const [addedList, setAddedList] = useState([]);
-
+  const shareIdRef = id =>{
+    setPassShareId(id);
+    console.log(id);
+  }
+  const editIdRef = id =>{
+    console.log(id);
+  }
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
     event.preventDefault();
@@ -78,6 +86,7 @@ const SearchPage = () => {
     setAddedList([...addedList, concertData]);
   }
 
+  
   //When pressed Submit - the information gets sent to Firebase
   const handleFirebaseConnection = () => {
     // Generate a random key for shearable and editable views
@@ -85,17 +94,18 @@ const SearchPage = () => {
     const editKey = uuidv4();
     // Store child node information
     const totalInfo = {
-        listname: userListName,
-        userBudget: userBudget,
-        budgetConcertContent: addedList, 
+      listname: userListName,
+      userBudget: userBudget,
+      budgetConcertContent: addedList, 
     }
-
+    
     // Connect to Firebase
     const database = getDatabase(firebase);
     const dbRef = push(ref(database));
     const shareKeyRef = child(dbRef, shareKey);
     const editKeyRef = child(dbRef, editKey);
-
+    shareIdRef(shareKey)
+    editIdRef(editKey)
     set(shareKeyRef, totalInfo);
     set(editKeyRef, totalInfo);
   };
@@ -232,14 +242,16 @@ const SearchPage = () => {
                           <p>{maxPrice}</p>
                         </div>
                         <div className="concertListImage">
-                          <img src ={concertImg} alt="concert poster information"></img>
+                          <img src ={concertImg} alt={`Poster of ${name}`} />
                         </div>
                       </li>
                     )
                   })}
-                  <button onClick={handleFirebaseConnection}>
-                    Submit
-                  </button>
+                  <Link to={`/listWithKeys`}>
+                    <button onClick={handleFirebaseConnection}>
+                      Submit
+                    </button>
+                  </Link>
                 </ul>
             </div>
         </section>
