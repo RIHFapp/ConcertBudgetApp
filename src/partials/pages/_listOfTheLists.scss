@@ -1,1 +1,19 @@
 @use "../abstracts/variables" as*;
+
+
+.listOfTheListsContainer {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   .listContainer {
+      width: 70%;
+      background-color: #97DAE8;
+      border-radius: 25px;
+      padding: 2rem;
+      margin-bottom: 40px;
+   }
+
+}
+
+
+
