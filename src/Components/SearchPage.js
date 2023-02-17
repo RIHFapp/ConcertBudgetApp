@@ -247,7 +247,7 @@ const SearchPage = () => {
                       </li>
                     )
                   })}
-                  <Link to={`/listWithKeys`}>
+                  <Link to={`/listOfLists`}>
                     <button onClick={handleFirebaseConnection}>
                       Submit
                     </button>
