@@ -81,7 +81,7 @@
     .listTags{
         text-align: center;
         p{
-            width: 12.5%;
+            width: 20%;
         }
     }
 
@@ -96,3 +96,15 @@
             width: 100%;
         }
     }
+
+    .inKeys{
+        p{
+            width: 12.5%;
+        }
+        .listButtonTags{
+            p{
+                width: 100%;
+            }
+        }
+    }
+    

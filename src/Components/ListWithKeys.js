@@ -13,7 +13,7 @@ const ViewOnlyList = () => {
                         </div>
                         
                         <ul>
-                        <li className="listTags">
+                        <li className="listTags inKeys">
                             <div className="listConcertTags">
                                 <p>Name</p>
                                 <p>Date</p>
