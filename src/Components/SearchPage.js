@@ -3,63 +3,39 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import firebase from "../firebase";
 import {ref, getDatabase, push, child, set} from "firebase/database"; 
-import uuid from "uuid"
+import { v4 as uuidv4 } from "uuid";
 
 // import { motion } from "framer-motion";
 
 const SearchPage = () => {
-
-  // States
+  // States for User Budget Information
   const [userListName, setUserListName] = useState('');
   const [userBudget, setBudgetInput] = useState('');
+  // State for Concert Search
   const [artist, setArtist] = useState(null);
   const [city, setCity] = useState(null);
   const [checked, setChecked ] = useState(false);
   const [apiRes, setApiRes] = useState([]);
-  // name, eventDate, venueCity, venueName, maxPrice, key)
-  // const [name, setName] = useState("");
-  // const [eventDate, setEventDate] = useState("");
-  // const [venueCity, setVenueCity] = useState(""); 
-  // const [venueName, setVenueName] = useState("");
-  // const [maxPrice, setMaxPrice] = useState(0);
-  // const [key, setKey] = useState("");
   const [addedList, setAddedList] = useState([]);
 
-
-
-
-  //submit handler => connecting with the firebase 
-  const handleSubmitUser = (event) => {
-    // preventing the refreshing after submit
+  // Renders user budget information when user clicks 
+  const handleListConfig = (event) => {
     event.preventDefault();
 
     setUserListName(event.target.form[0].value);
     setBudgetInput(event.target.form[1].value);
-    // //connecting to the firebase
-    // const database = getDatabase(firebase);
-    // // const dbRef = ref(database);
 
-    // //creating the data structure
-    // const listUser = `${userListName}`;
-    // const listBudget = { userBudget: `${userBudget}` };
-    // const parentRef = ref(database, `/${listUser}`)
-    // // {userListName:userListName, userBudget:userBudget}
-    // //pushing to the firebase
-    // set(parentRef, listBudget);
-
-    //clearing the state setters (empty input field after submitting )
-    // setUserListName('');
-    // setBudgetInput('');
   }
 
-  // api submit button
+  // Api submit button
   const handleSubmitConcert = (e) => {
     e.preventDefault();
+
     setArtist(e.target.form[0].value);
     setCity(e.target.form[1].value);
     setChecked(e.target.form[3].checked);
-
   }
+
   // On Search Page mount - trigger an API call based on input content availability.
   useEffect (() => {
     if (artist === null && city === null) {
@@ -88,71 +64,8 @@ const SearchPage = () => {
 
   },[artist, city, checked])
 
-
-  const handleFirebaseConnection = () => {
-    const shareKey = 'mesopoor';
-    const editKey = 'ranasorichy';
-    const totalInfo = {
-        listname: userListName,
-        userBudget: userBudget,
-        budgetConcertContent: addedList, 
-    }
-
-    // const newObject = {
-    //   'UUID': {
-    //     listname: 'listName'
-    //   }
-    // }
-    const database = getDatabase(firebase);
-    const dbRef = push(ref(database));
-    const shareKeyRef = child(dbRef, shareKey);
-    const editKeyRef = child(dbRef, editKey);
-    // const keyRef = {
-    //   editKeyRef,
-    //   shareKeyRef
-    // }
-    set(shareKeyRef, totalInfo);
-    set(editKeyRef, totalInfo);
-
-    // `/${shareKey}` 
-    // const database = getDatabase(firebase);
-    // const dbRef = ref(database);
-    // push(dbRef)
-
-  };
-
-    
-
-
-
-
-    
-    // event handler on the + button
-    // grab the details of the concert
-    // slap in into the firebase (details + key)
-    // next step: event handler on the tickets' number
-    // next step: decreasing the number of ticket
-    // useState to store the information about the number of tickets
-    // next step: removing event from the firebase
-
-  //   const concertDetails = {name, eventDate, venueCity, venueName, maxPrice};
-  //   const database = getDatabase(firebase);
-  //   const userList = `${key}`
-  //   const userId = 'Iza';
-  //   const childRef = ref(database, `/${userId}/${userList}`)
-    
-  //   set(childRef, concertDetails);
-
-
-
- 
+  // user adds concert to their dynamic list 
   const handleAddConcert = (name, eventDate, venueCity, venueName, maxPrice, concertImg, key) => {
-    // setName(name);
-    // setEventDate(eventDate);
-    // setVenueCity(venueCity);
-    // setVenueName(venueName);
-    // setMaxPrice(maxPrice);
-    // setKey(key);
     const concertData = {
       name: name,
       eventDate: eventDate,
@@ -163,8 +76,29 @@ const SearchPage = () => {
       key: key
     }
     setAddedList([...addedList, concertData]);
-    console.log(addedList);
   }
+
+  //When pressed Submit - the information gets sent to Firebase
+  const handleFirebaseConnection = () => {
+    // Generate a random key for shearable and editable views
+    const shareKey = uuidv4();
+    const editKey = uuidv4();
+    // Store child node information
+    const totalInfo = {
+        listname: userListName,
+        userBudget: userBudget,
+        budgetConcertContent: addedList, 
+    }
+
+    // Connect to Firebase
+    const database = getDatabase(firebase);
+    const dbRef = push(ref(database));
+    const shareKeyRef = child(dbRef, shareKey);
+    const editKeyRef = child(dbRef, editKey);
+
+    set(shareKeyRef, totalInfo);
+    set(editKeyRef, totalInfo);
+  };
 
     return(
       <>
@@ -178,19 +112,19 @@ const SearchPage = () => {
                 type="text"
                 id="newName"
                 placeholder="Name Of Your List" />
-
+              
               {/* user's budget input */}
               <label htmlFor="newBudget"></label>
               <input
                 type="text"
                 id="newBudget"
                 placeholder="Your Budget" />
+                
               <div>
-                <button onClick={handleSubmitUser}>
+                <button onClick={handleListConfig}>
                   Add List
                 </button>
               </div>
-
             </form>
           </div>
         </section>
@@ -204,7 +138,6 @@ const SearchPage = () => {
                   id="artist"
                   placeholder="Artist..."
               />
-         
 
               <label htmlFor="city"></label>
               <input 
@@ -213,9 +146,7 @@ const SearchPage = () => {
                   placeholder="City..."
               />
 
-
               <fieldset>
-                {/* <legend> With or Without Price</legend> */}
                 <label htmlFor="displayPricedConcerts">
                   Click to show only priced concerts
                 </label>
@@ -238,8 +169,6 @@ const SearchPage = () => {
               <ul className="searchResultList wrapper">
                   {
                     apiRes.map((concertInfo)=>{
-                      // const { name, dates.start.localDate } = concertInfo
-                      
                       const name = concertInfo.name; 
                       const eventDate = concertInfo.dates.start.localDate;
                       const venueCity = concertInfo._embedded.venues[0].city.name;
@@ -252,9 +181,6 @@ const SearchPage = () => {
                       const key = concertInfo.id;
                       return (
                         <li 
-                        // initial={{ opacity: 0 }}
-                        // animate={{ opacity: 1 }}
-                        // transition={{duration:2}}
                         key = {key}
                         className="concertResponse wrapper">
                           { 
