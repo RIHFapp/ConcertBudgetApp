@@ -1,8 +1,9 @@
 //importing hooks
 import { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 import firebase from "../firebase";
-import {ref, getDatabase, push/* , set */} from "firebase/database"; 
+import {ref, getDatabase, push, set} from "firebase/database"; 
+import uuid from "uuid"
 
 // import { motion } from "framer-motion";
 
@@ -88,27 +89,46 @@ const SearchPage = () => {
   },[artist, city, checked])
 
 
-  // const handleFirebaseConnection = () => {
-  //   // const database = getDatabase(firebase);
-  //   // const dbRef = ref(database);
+  const handleFirebaseConnection = () => {
+    const shareKey = 'ukshiseisf';
+    // const editKey = 'jdskdhakhdes';
+    const totalInfo = {
+        listname: userListName,
+        userBudget: userBudget,
+        budgetConcertContent: addedList, 
+    }
+
+    // `/${shareKey}` 
+    const database = getDatabase(firebase);
+    const dbRef = ref(database);
+    push(dbRef, `/${shareKey}`.set(totalInfo))
+
+  };
 
     
-  //   //event handler on the + button
-  //   //grab the details of the concert
-  //   //slap in into the firebase (details + key)
-  //   //next step: event handler on the tickets' number
-  //   // next step: decreasing the number of ticket
-  //   //useState to store the information about the number of tickets
-  //   // next step: removing event from the firebase
 
-  //   // const concertDetails = {name, eventDate, venueCity, venueName, maxPrice};
-  //   // const database = getDatabase(firebase);
-  //   // const userList = `${key}`
-  //   // const userId = 'Iza';
-  //   // const childRef = ref(database, `/${userId}/${userList}`)
+
+
+
     
-  //   // set(childRef, concertDetails);
-  // }
+    // event handler on the + button
+    // grab the details of the concert
+    // slap in into the firebase (details + key)
+    // next step: event handler on the tickets' number
+    // next step: decreasing the number of ticket
+    // useState to store the information about the number of tickets
+    // next step: removing event from the firebase
+
+  //   const concertDetails = {name, eventDate, venueCity, venueName, maxPrice};
+  //   const database = getDatabase(firebase);
+  //   const userList = `${key}`
+  //   const userId = 'Iza';
+  //   const childRef = ref(database, `/${userId}/${userList}`)
+    
+  //   set(childRef, concertDetails);
+
+
+
  
   const handleAddConcert = (name, eventDate, venueCity, venueName, maxPrice, concertImg, key) => {
     // setName(name);
@@ -129,7 +149,7 @@ const SearchPage = () => {
     setAddedList([...addedList, concertData]);
     console.log(addedList);
   }
-  
+
     return(
       <>
         <section >
@@ -275,7 +295,7 @@ const SearchPage = () => {
                       </li>
                     )
                   })}
-                  <button /* onClick={handleFirebaseConnection} */>
+                  <button onClick={handleFirebaseConnection}>
                     Submit
                   </button>
                 </ul>
