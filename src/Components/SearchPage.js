@@ -91,7 +91,7 @@ const SearchPage = () => {
 
   const handleFirebaseConnection = () => {
     const shareKey = 'ukshiseisf';
-    // const editKey = 'jdskdhakhdes';
+    const editKey = 'jdskdhakhdes';
     const totalInfo = {
         listname: userListName,
         userBudget: userBudget,
@@ -101,8 +101,9 @@ const SearchPage = () => {
     const database = getDatabase(firebase);
     const dbRef = push(ref(database));
     const shareKeyRef = child(dbRef, shareKey);
-    // const editKeyRef = child(pushRef, shareKey);
-    set(shareKeyRef, totalInfo);
+    const editKeyRef = child(dbRef, editKey);
+
+    set((shareKeyRef,editKeyRef), totalInfo);
 
     // `/${shareKey}` 
     // const database = getDatabase(firebase);
