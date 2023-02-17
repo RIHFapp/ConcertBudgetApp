@@ -110,7 +110,7 @@ const SearchPage = () => {
   //   // set(childRef, concertDetails);
   // }
  
-  const handleAddConcert = (name, eventDate, venueCity, venueName, maxPrice, key) => {
+  const handleAddConcert = (name, eventDate, venueCity, venueName, maxPrice, concertImg, key) => {
     // setName(name);
     // setEventDate(eventDate);
     // setVenueCity(venueCity);
@@ -123,6 +123,7 @@ const SearchPage = () => {
       venueCity: venueCity,
       venueName: venueName,
       maxPrice: maxPrice,
+      image: concertImg,
       key: key
     }
     setAddedList([...addedList, concertData]);
@@ -132,7 +133,7 @@ const SearchPage = () => {
     return(
       <>
         <section >
-          <div className="wrapper inputSection">
+          <div className="inputSection wrapper">
             <h2>Welcome! lets Start planning your concert list</h2>
             <form action="submit">
               {/* name of the list input */}
@@ -148,10 +149,11 @@ const SearchPage = () => {
                 type="text"
                 id="newBudget"
                 placeholder="Your Budget" />
-
-              <button onClick={handleSubmitUser}>
-                Add List
-              </button>
+              <div>
+                <button onClick={handleSubmitUser}>
+                  Add List
+                </button>
+              </div>
 
             </form>
           </div>
@@ -181,6 +183,7 @@ const SearchPage = () => {
                 <label htmlFor="displayPricedConcerts">
                   Click to show only priced concerts
                 </label>
+                
                 <input
                   id="displayPricedConcerts"
                   className="displayPricedConcerts"
@@ -221,7 +224,7 @@ const SearchPage = () => {
                           { 
                             concertInfo.priceRanges !== undefined ? ( 
                               <button
-                              onClick = {() => {handleAddConcert(name, eventDate, venueCity, venueName, maxPrice, key)}}> + </button>
+                              onClick = {() => {handleAddConcert(name, eventDate, venueCity, venueName, maxPrice, concertImg, key)}}> + </button>
                              ) : null
                           }
                           <div className="concertListInfo">
@@ -231,11 +234,13 @@ const SearchPage = () => {
                             <p> {venueName} </p>
                             <p> {maxPrice} </p>
                           </div>
-                          <div>
+                          <div className="ticketNumber">
+                            <p>-</p>
                             <p>1</p>
+                            <p>+</p>
                           </div>
                           <div className="concertListImage">
-                            <img src ={concertImg} alt=""></img>
+                            <img src ={concertImg} alt="concert poster information"></img>
                           </div>
                         </li>
                       )
@@ -246,31 +251,35 @@ const SearchPage = () => {
         </section>
 
         <section>
-          <div>
-            <div>
-              {userListName}
-              {userBudget}
+          <div className="myList wrapper">
+            <div className="userBudgetInfo">
+              <p className="userInput"> {userListName} </p>
+              <p className="userInput"> {userBudget} </p>
             </div>
-            <div>
-                <form className="myList wrapper">
-                {addedList.map( (list, index) =>{
-                  const { name, eventDate, venueCity, venueName, maxPrice} = list;
-                  return(
-                    <li key={index}>
-                      <p>{name}</p>
-                      <p>{eventDate}</p>
-                      <p>{venueCity}</p>
-                      <p>{venueName}</p>
-                      <p>{maxPrice}</p>
-                    </li>
-                  )
-                })}
-              <button
-              /* onClick={handleFirebaseConnection} */
-              >submit</button>
-                </form>
+
+                <ul className="myList wrapper">
+                  {addedList.map( (list, index) =>{
+                    const { name, eventDate, venueCity, venueName, maxPrice, concertImg} = list;
+                    return(
+                      <li key={index}>
+                        <div className="concertListInfo">
+                          <p>{name}</p>
+                          <p>{eventDate}</p>
+                          <p>{venueCity}</p>
+                          <p>{venueName}</p>
+                          <p>{maxPrice}</p>
+                        </div>
+                        <div className="concertListImage">
+                          <img src ={concertImg} alt="concert poster information"></img>
+                        </div>
+                      </li>
+                    )
+                  })}
+                  <button /* onClick={handleFirebaseConnection} */>
+                    Submit
+                  </button>
+                </ul>
             </div>
-          </div>
         </section>
       </>
     )
