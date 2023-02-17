@@ -4,7 +4,7 @@ import axios from "axios";
 import firebase from "../firebase";
 import {ref, getDatabase, push, child, set} from "firebase/database"; 
 import { v4 as uuidv4 } from "uuid";
-
+import { /* Route, Routes */ useParams/* , Link */ } from "react-router-dom";
 // import { motion } from "framer-motion";
 
 const SearchPage = () => {
@@ -78,6 +78,7 @@ const SearchPage = () => {
     setAddedList([...addedList, concertData]);
   }
 
+  
   //When pressed Submit - the information gets sent to Firebase
   const handleFirebaseConnection = () => {
     // Generate a random key for shearable and editable views

@@ -1,5 +1,5 @@
 import './App.scss';
-// import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 
 // Componetns
@@ -15,15 +15,13 @@ function App() {
 //return jsx
 return (
   <div className="">
-
-    {/* <HomePage />    */}
-    <SearchPage />
-
-    <ViewOnlyList />
-    <ListWithKeys />
-
-    <ListOfTheLists/>
-
+    <Routes>
+      <Route path="/" element= {  <HomePage /> }/>  
+      <Route path="/searchPage" element= {  <SearchPage /> }/>  
+      <Route path="/listOfLists" element= {  <ListOfTheLists/>}/>  
+      <Route path="/viewOnlyList" element= {  <ViewOnlyList /> }/>  
+      <Route path="/listWithKeys" element= {  <ListWithKeys />}/>  
+    </Routes>
   </div>
 );
 }
