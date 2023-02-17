@@ -19,7 +19,11 @@
 //pages 
 @use "./partials/pages/homepage";
 @use "./partials/pages/searchPage";
+
+@use "./partials/pages/publishList";
+
 @use "./partials/pages/listOfTheLists";
+
 
 //media queries
 @use "./partials/abstracts/mediaQueries"; 
