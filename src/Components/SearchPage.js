@@ -98,12 +98,17 @@ const SearchPage = () => {
         budgetConcertContent: addedList, 
     }
 
+    // const newObject = {
+    //   'UUID': {
+    //     listname: 'listName'
+    //   }
+    // }
     const database = getDatabase(firebase);
     const dbRef = push(ref(database));
     const shareKeyRef = child(dbRef, shareKey);
     const editKeyRef = child(dbRef, editKey);
-
-    set((shareKeyRef,editKeyRef), totalInfo);
+    set(shareKeyRef, totalInfo);
+    set(editKeyRef, totalInfo);
 
     // `/${shareKey}` 
     // const database = getDatabase(firebase);
