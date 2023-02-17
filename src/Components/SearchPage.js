@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import firebase from "../firebase";
-import {ref, getDatabase, push, set} from "firebase/database"; 
+import {ref, getDatabase, push, child, set} from "firebase/database"; 
 import uuid from "uuid"
 
 // import { motion } from "framer-motion";
@@ -98,10 +98,16 @@ const SearchPage = () => {
         budgetConcertContent: addedList, 
     }
 
-    // `/${shareKey}` 
     const database = getDatabase(firebase);
-    const dbRef = ref(database);
-    push(dbRef, `/${shareKey}`.set(totalInfo))
+    const dbRef = push(ref(database));
+    const shareKeyRef = child(dbRef, shareKey);
+    // const editKeyRef = child(pushRef, shareKey);
+    set(shareKeyRef, totalInfo);
+
+    // `/${shareKey}` 
+    // const database = getDatabase(firebase);
+    // const dbRef = ref(database);
+    // push(dbRef)
 
   };
 
