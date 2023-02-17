@@ -4,7 +4,7 @@ import taylor from "../partials/asset/placeholder-tay.webp";
 import pink from "../partials/asset/placeholder-pink.webp";
 import john from "../partials/asset/placeholder-john.webp";
 import sha from "../partials/asset/placeholder-sha.webp";
-
+import { Link } from "react-router-dom";
 
 
 
@@ -24,7 +24,14 @@ const Homepage = () => {
           </div>
         </div>
       </section>
-
+      <section>
+        <form action="submit">
+          <input className="searchResultContainer"></input>
+          <Link to={`/searchPage`}>
+          <button>go seacrh</button>
+          </Link>
+        </form>
+      </section>
 
       <section >
         <div className="wrapper suggested">

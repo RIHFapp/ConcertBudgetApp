@@ -14,12 +14,13 @@ function App() {
  
 //return jsx
 return (
+  
   <div className="">
     <Routes>
       <Route path="/" element= {  <HomePage /> }/>  
       <Route path="/searchPage" element= {  <SearchPage /> }/>  
       <Route path="/listOfLists" element= {  <ListOfTheLists/>}/>  
-      <Route path="/viewOnlyList" element= {  <ViewOnlyList /> }/>  
+      <Route path="/viewOnlyList/:shareID" element= {  <ViewOnlyList /> }/>  
       <Route path="/listWithKeys" element= {  <ListWithKeys />}/>  
     </Routes>
   </div>
