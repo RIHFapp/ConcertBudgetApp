@@ -4,7 +4,10 @@ import './App.scss';
 
 // Componetns
 import HomePage from "./Components/HomePage";
+import ListWithKeys from './Components/ListWithKeys';
+import ViewOnlyList from './Components/ViewOnlyList';
 import SearchPage from './Components/SearchPage';
+import ListOfTheLists from './Components/ListOfTheLists';
 
 
 function App() {
@@ -15,7 +18,12 @@ return (
 
     {/* <HomePage />    */}
     <SearchPage />
-    
+
+    <ViewOnlyList />
+    <ListWithKeys />
+
+    <ListOfTheLists/>
+
   </div>
 );
 }
