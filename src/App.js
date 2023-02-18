@@ -1,7 +1,7 @@
 import './App.scss';
 import { Route, Routes } from 'react-router-dom';
 
-import { useState, useEffect } from "react";
+import { useState} from "react";
 
 // Componetns
 import HomePage from "./Components/HomePage";
