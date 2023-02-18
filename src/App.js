@@ -10,6 +10,7 @@ import ViewOnlyList from './Components/ViewOnlyList';
 import SearchPage from './Components/SearchPage';
 import ListOfTheLists from './Components/ListOfTheLists';
 import ErrorPage from './Components/ErrorPage';
+import BgOverlay from './Components/BgOverlay';
 
 function App() {
 
@@ -30,9 +31,7 @@ function App() {
 return (
   
   <div className="main">
-    <div className='overlay'>
-    </div>
-    <div className='blur'></div>
+    <BgOverlay />
     <Routes>
       <Route path="/" element= {  <HomePage /> }/>  
       <Route path="/searchPage" element= {  <SearchPage 
