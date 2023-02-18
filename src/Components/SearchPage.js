@@ -19,10 +19,9 @@ const SearchPage = (props) => {
   const [checked, setChecked ] = useState(false);
   const [apiRes, setApiRes] = useState([]);
   const [addedList, setAddedList] = useState([]);
-  const [passEditId, setPassEditId] = useState('');
-  const [passShareId, setPassShareId] = useState('');
 
   console.log(props);
+
 
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
@@ -61,9 +60,10 @@ const SearchPage = (props) => {
             return event;
           } else if (checked === true && event.priceRanges !== undefined) {
             return event;
+          } else {
+            return false; // return false if neither condition is true
           }
-        
-        })
+        });
         setApiRes(list); 
       })
     }  
