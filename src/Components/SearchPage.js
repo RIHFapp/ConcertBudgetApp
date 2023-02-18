@@ -22,6 +22,7 @@ const SearchPage = () => {
   const [passEditId, setPassEditId] = useState('');
   const editIdRef = EditId =>{
     setPassEditId(EditId);
+    console.log(passEditId);
   }
   const shareIdRef = ShareId =>{
     
