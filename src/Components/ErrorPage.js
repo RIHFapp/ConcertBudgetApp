@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom'
 
 const ErrorPage = () => {
    return (
-       <div>
-           <h1>404!</h1>
-           <p>Not all those who wander are lost, but you seem to be looking for a page that doesn't exist.</p>
-           <Link to={`/`}>
-               <h2>Back</h2>
-           </Link>
-       </div>
+    <div className='oopss'>
+      <div className='error-text'>
+          <img src="https://cdn.rawgit.com/ahmedhosna95/upload/1731955f/sad404.svg" alt="404"/>
+          <h2>404 PAGE</h2>
+          <p>. The page you were looking for could not be found</p>
+          <Link to={`/`}>
+          <button class="back">... Go Back!</button>
+          </Link>
+      </div>
+    </div>
    )
 }
 
