@@ -26,18 +26,21 @@ const Homepage = () => {
       </section>
       <section className="enterID">
         <form action="submit" >
-          <div>
+          <div className="onLogin">
+            <Link to={`/searchPage`}>
+              <button>Create new List</button>
+            </Link>
+          <div className="editList">
             {/* name of the list input */}
-            <label htmlFor="newName"></label>
+            <label htmlFor="yourID"></label>
             <input
                 type="text"
-                id="newName"
-                placeholder="List of ID" />             
-          </div>
-          <div>
+                id="yourID"
+                placeholder="UUID" />             
             <Link to={`/searchPage`}>
-              <button>To Your List!</button>
+              <button>Edit your list</button>
             </Link>
+            </div>           
           </div>
         </form>
       </section>

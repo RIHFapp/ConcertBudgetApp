@@ -46,7 +46,8 @@ form{
        border-radius: 25px;
        background-color: $thirdColor;
        border: none;
-       color: grey;
+       color: rgb(0, 0, 0);
+       font-style: italic;
        &:focus{
          outline: 1px solid white;
        }

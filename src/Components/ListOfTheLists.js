@@ -33,30 +33,28 @@ const ListOfTheLists = (props) => {
                <h2> List of created list</h2> 
                <ul> {
                   lists.map((list, key) => {
-                     let totalMaxPrice = 0;
-                     for (let i = 0; i < list.budgetConcertContent.length; i++) {
-                     totalMaxPrice += list.budgetConcertContent[i].maxPrice;
-                     }
+                     // let totalMaxPrice = 0;
+                     // for (let i = 0; i < list.budgetConcertContent.length; i++) {
+                     // totalMaxPrice += list.budgetConcertContent[i].maxPrice;
+                     // }
+                     // const length = list.budgetConcertContent.length
                      return (
                         <li key={key}>
                            <p>Name of the list:{list.listname}</p>
                            <p>Budget:{list.userBudget}</p>
                            <p></p>
-                           <p>Total price of the concerts: {totalMaxPrice}</p>
+                           {/* <p>Total price of the concerts:{totalMaxPrice} CAD</p> */}
+                           {/* <p>Total concerts:{length}</p> */}
+                           <button>View the List</button>
+                           <button>Edit the List(with ID)</button>
                         </li>
                      )
                   })
                   }
 
-                  <div className="listContainer">
-                     <h3>First Web Developers' paycheck concert list</h3>
-                     <p>budget: 1000 CAD </p>
-                  </div>
+                  
                </ul>
-                  <div className="listContainer">
-                     <h3>Second Web Developers' paycheck concert list</h3>
-                     <p>budget: 1000 CAD </p>
-                  </div>
+                  
             </div>
             <Link to={`/`}>
             <button id="LOLButton">back</button>
