@@ -20,7 +20,7 @@ const SearchPage = (props) => {
   const [apiRes, setApiRes] = useState([]);
   const [addedList, setAddedList] = useState([]);
 
-  console.log(props);
+  // console.log(props);
 
 
   // Renders user budget information when user clicks 
