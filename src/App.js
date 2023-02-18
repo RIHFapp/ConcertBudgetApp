@@ -43,7 +43,7 @@ return (
         passShareId={passShareId}
       />}/>  
       <Route path="/viewOnlyList/:shareID" element= {  <ViewOnlyList /> }/>  
-      <Route path="/listWithKeys" element= {  <ListWithKeys 
+      <Route path="/listWithKeys/:editID" element= {  <ListWithKeys 
         passEditId={passEditId}
         passShareId={passShareId}
       />}/>

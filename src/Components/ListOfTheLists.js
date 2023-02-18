@@ -45,8 +45,12 @@ const ListOfTheLists = (props) => {
                            <p></p>
                            {/* <p>Total price of the concerts:{totalMaxPrice} CAD</p> */}
                            {/* <p>Total concerts:{length}</p> */}
+                           <Link to={`/viewOnlyList/:shareID`}>
                            <button>View the List</button>
+                           </Link>
+                           <Link to={`/listWithKeys/:editID`}>
                            <button>Edit the List(with ID)</button>
+                           </Link>
                         </li>
                      )
                   })
