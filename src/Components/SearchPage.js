@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
 
 const SearchPage = () => {
-  const [passShareId, setPassShareId] = useState("");
+  // const [passShareId, setPassShareId] = useState("");
   // States for User Budget Information
   const [userListName, setUserListName] = useState('');
   const [userBudget, setBudgetInput] = useState('');
@@ -20,7 +20,7 @@ const SearchPage = () => {
   const [apiRes, setApiRes] = useState([]);
   const [addedList, setAddedList] = useState([]);
   const shareIdRef = id =>{
-    setPassShareId(id);
+    
     console.log(id);
   }
   const editIdRef = id =>{

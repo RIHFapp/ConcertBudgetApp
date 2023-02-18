@@ -1,4 +1,4 @@
-const ViewOnlyList = () => {
+const ListWithKeys = () => {
     return(
         <>
             <section>
@@ -80,4 +80,4 @@ const ViewOnlyList = () => {
         </>
     )
 }
-export default ViewOnlyList;
+export default ListWithKeys;

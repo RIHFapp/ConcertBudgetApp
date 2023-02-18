@@ -1,4 +1,4 @@
-const PublishList = () => {
+const ViewOnlyList = () => {
     return(
         <>
             <section>
@@ -65,4 +65,4 @@ const PublishList = () => {
         </>
     )
 }
-export default PublishList;
+export default ViewOnlyList;
