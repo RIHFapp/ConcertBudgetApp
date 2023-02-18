@@ -1,5 +1,6 @@
-const ListOfTheLists = () => {
-
+const ListOfTheLists = (props) => {
+   console.log(props.passEditId)
+   console.log(props.passShareId)
       return (
          <>
             <div className="wrapper listOfTheListsContainer">

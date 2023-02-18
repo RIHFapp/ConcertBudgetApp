@@ -1,6 +1,7 @@
 import './App.scss';
 import { Route, Routes } from 'react-router-dom';
 
+import { useState, useEffect } from "react";
 
 // Componetns
 import HomePage from "./Components/HomePage";
@@ -11,17 +12,39 @@ import ListOfTheLists from './Components/ListOfTheLists';
 
 
 function App() {
- 
+
+  const [passEditId, setPassEditId] = useState('');
+  const [passShareId, setPassShareId] = useState('');
+
+  const editIdRef = (EditId) => {
+    setPassEditId(EditId);
+  }
+
+  const shareIdRef = (ShareId) => {
+    setPassShareId(ShareId);
+  }
+
+
+
 //return jsx
 return (
   
   <div className="">
     <Routes>
       <Route path="/" element= {  <HomePage /> }/>  
-      <Route path="/searchPage" element= {  <SearchPage /> }/>  
-      <Route path="/listOfLists" element= {  <ListOfTheLists/>}/>  
+      <Route path="/searchPage" element= {  <SearchPage 
+        editIdRef={editIdRef}
+        shareIdRef={shareIdRef}
+      /> }/>  
+      <Route path="/listOfLists" element= {  <ListOfTheLists 
+        passEditId={passEditId}
+        passShareId={passShareId}
+      />}/>  
       <Route path="/viewOnlyList/:shareID" element= {  <ViewOnlyList /> }/>  
-      <Route path="/listWithKeys" element= {  <ListWithKeys />}/>  
+      <Route path="/listWithKeys" element= {  <ListWithKeys 
+        passEditId={passEditId}
+        passShareId={passShareId}
+      />}/>  
     </Routes>
   </div>
 );

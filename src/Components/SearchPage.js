@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 // import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-const SearchPage = () => {
+const SearchPage = (props) => {
   // const [passShareId, setPassShareId] = useState("");
   // States for User Budget Information
   const [userListName, setUserListName] = useState('');
@@ -20,13 +20,10 @@ const SearchPage = () => {
   const [apiRes, setApiRes] = useState([]);
   const [addedList, setAddedList] = useState([]);
   const [passEditId, setPassEditId] = useState('');
-  const editIdRef = EditId =>{
-    setPassEditId(EditId);
-  }
-  const shareIdRef = ShareId =>{
-    
-    console.log(ShareId);
-  }
+  const [passShareId, setPassShareId] = useState('');
+
+  console.log(props);
+
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
     event.preventDefault();
@@ -91,7 +88,7 @@ const SearchPage = () => {
   //When pressed Submit - the information gets sent to Firebase
   const handleFirebaseConnection = () => {
     // Generate a random key for shearable and editable views
-    const shareKey = uuidv4("budguet");
+    const shareKey = uuidv4("budget");
     const editKey = uuidv4("edit");
     // Store child node information
     const totalInfo = {
@@ -105,8 +102,10 @@ const SearchPage = () => {
     const dbRef = push(ref(database));
     const shareKeyRef = child(dbRef, shareKey);
     const editKeyRef = child(dbRef, editKey);
-    shareIdRef(shareKey)
-    editIdRef(editKey)
+
+    props.shareIdRef(shareKey);
+    props.editIdRef(editKey);
+
     set(shareKeyRef, totalInfo);
     set(editKeyRef, totalInfo);
   };
@@ -248,7 +247,7 @@ const SearchPage = () => {
                       </li>
                     )
                   })}
-                  <Link to={`/listOfLists`}>
+              <Link to={`/listWithKeys`}>
                     <button onClick={handleFirebaseConnection}>
                       Submit
                     </button>

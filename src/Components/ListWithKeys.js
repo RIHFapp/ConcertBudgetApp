@@ -1,4 +1,7 @@
-const ListWithKeys = () => {
+const ListWithKeys = (props) => {
+
+    console.log(props.passEditId);
+    console.log(props.passShareId);
     return(
         <>
             <section>
