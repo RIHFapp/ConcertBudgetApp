@@ -1,6 +1,7 @@
 import firebase from "../firebase";
 import {ref, getDatabase, onValue} from "firebase/database"; 
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const ListOfTheLists = (props) => {
 
@@ -49,7 +50,9 @@ const ListOfTheLists = (props) => {
                      <p>budget: 1000 CAD </p>
                   </div>
             </div>
+            <Link to={`/`}>
             <button id="LOLButton">back</button>
+            </Link>
          </>
    )
 

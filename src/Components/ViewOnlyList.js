@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const ViewOnlyList = () => {
     return(
         <>
@@ -61,6 +62,9 @@ const ViewOnlyList = () => {
                     </div>
 
                 </div>
+                <Link to={`/`}>
+            <button id="LOLButton">back</button>
+            </Link>
             </section>
         </>
     )
