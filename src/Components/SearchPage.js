@@ -233,8 +233,8 @@ const SearchPage = (props) => {
         <section>
           <div className="myList wrapper">
             <div className="userBudgetInfo">
-              <p className="userInput"> {userListName} </p>
-              <p className="userInput"> {userBudget} </p>
+              <h2 className="userInput"> List:{userListName} </h2>
+              <h2 className="userInput"> Budget:{userBudget} </h2>
             </div>
 
                 <ul className="myConcert wrapper">

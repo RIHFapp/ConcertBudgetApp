@@ -191,3 +191,19 @@ section{
     }
 
 }
+.userBudgetInfo{
+        display: flex;
+        padding: 1rem;
+        border-radius: 25px;
+        background-color: $secondColor;
+        list-style-type: none;
+        border: 3px solid rgba(255, 255, 255, 0.904);
+        justify-content: space-around;
+        align-items: center;
+        width: 50%;
+        margin: 1.5% auto;
+        h2{
+            font-size: 3rem;
+            text-align: center;
+        }
+}
