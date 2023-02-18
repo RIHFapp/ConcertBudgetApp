@@ -91,23 +91,29 @@ const SearchPage = (props) => {
     const shareKey = uuidv4("budget");
     const editKey = uuidv4("edit");
     // Store child node information
-    const totalInfo = {
-      listname: userListName,
-      userBudget: userBudget,
-      budgetConcertContent: addedList, 
-    }
+    // const totalInfo = {
+    //   listname: userListName,
+    //   userBudget: userBudget,
+    //   budgetConcertContent: addedList, 
+    // }
     
     // Connect to Firebase
     const database = getDatabase(firebase);
-    const dbRef = push(ref(database));
-    const shareKeyRef = child(dbRef, shareKey);
-    const editKeyRef = child(dbRef, editKey);
+    const dbRef = ref(database)
+    
+    const keyRef = {
+      shareKey,
+      editKey,
+      listname: userListName,
+      userBudget: userBudget,
+      budgetConcertContent: addedList, 
+    };
 
     props.shareIdRef(shareKey);
     props.editIdRef(editKey);
 
-    set(shareKeyRef, totalInfo);
-    set(editKeyRef, totalInfo);
+    push(dbRef, keyRef);
+    
   };
 
     return(
@@ -227,8 +233,8 @@ const SearchPage = (props) => {
         <section>
           <div className="myList wrapper">
             <div className="userBudgetInfo">
-              <p className="userInput"> {userListName} </p>
-              <p className="userInput"> {userBudget} </p>
+              <h2 className="userInput"> List:{userListName} </h2>
+              <h2 className="userInput"> Budget:{userBudget} </h2>
             </div>
 
                 <ul className="myConcert wrapper">
@@ -250,7 +256,7 @@ const SearchPage = (props) => {
                       </li>
                     )
                   })}
-              <Link to={`/listWithKeys`}>
+              <Link to={`/listOfLists`}>
                     <button onClick={handleFirebaseConnection}>
                       Submit
                     </button>

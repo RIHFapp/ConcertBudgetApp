@@ -9,7 +9,7 @@ html{
 .overlay{
     position: absolute;
     top: 20%;
-    left: 30%;
+    left: 35%;
     height: 65%;
     width: 30%;
     background: #dbf0ef;
@@ -28,10 +28,10 @@ html{
             rotate:360deg;
         }
     }
-    animation: rotate 10s infinite;
-    transform: translate(45px,66px);
-    -webkit-transform: translate(45px,66px);
-    -moz-transform: translate(45px,66px);
+    animation: rotate 8s infinite;
+    transform: translate(-24px,14px);
+-webkit-transform: translate(-24px,14px);
+-moz-transform: translate(-24px,14px);
     
 }
 .blur{
