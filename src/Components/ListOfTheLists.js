@@ -30,11 +30,13 @@ const ListOfTheLists = (props) => {
             <div className="wrapper listOfTheListsContainer">
                <h2> List of created list</h2> 
                <ul> {
-                  lists.map((list ,index) => {
+                  lists.map((list, key) => {
                      console.log(list)
                      return (
-                        <li key={index}>
-                           <p>{list.data}</p>
+                        <li key={key}>
+                           <p>Name of the list:{list.listname}</p>
+                           <p>Budget:{list.userBudget}</p>
+                           {/* <p>{list.budgetConcertContent}</p> */}
                         </li>
                      )
                   })
