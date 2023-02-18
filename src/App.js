@@ -9,7 +9,7 @@ import ListWithKeys from './Components/ListWithKeys';
 import ViewOnlyList from './Components/ViewOnlyList';
 import SearchPage from './Components/SearchPage';
 import ListOfTheLists from './Components/ListOfTheLists';
-
+import ErrorPage from './Components/ErrorPage';
 
 function App() {
 
@@ -47,7 +47,8 @@ return (
       <Route path="/listWithKeys" element= {  <ListWithKeys 
         passEditId={passEditId}
         passShareId={passShareId}
-      />}/>  
+      />}/>
+      <Route path='*' element={<ErrorPage />} />  
     </Routes>
     
   </div>
