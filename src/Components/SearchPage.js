@@ -19,12 +19,13 @@ const SearchPage = () => {
   const [checked, setChecked ] = useState(false);
   const [apiRes, setApiRes] = useState([]);
   const [addedList, setAddedList] = useState([]);
-  const shareIdRef = id =>{
-    
-    console.log(id);
+  const [passEditId, setPassEditId] = useState('');
+  const editIdRef = EditId =>{
+    setPassEditId(EditId);
   }
-  const editIdRef = id =>{
-    console.log(id);
+  const shareIdRef = ShareId =>{
+    
+    console.log(ShareId);
   }
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
@@ -90,8 +91,8 @@ const SearchPage = () => {
   //When pressed Submit - the information gets sent to Firebase
   const handleFirebaseConnection = () => {
     // Generate a random key for shearable and editable views
-    const shareKey = uuidv4();
-    const editKey = uuidv4();
+    const shareKey = uuidv4("budguet");
+    const editKey = uuidv4("edit");
     // Store child node information
     const totalInfo = {
       listname: userListName,
