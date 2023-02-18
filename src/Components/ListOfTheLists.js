@@ -2,7 +2,7 @@ import firebase from "../firebase";
 import {ref, getDatabase, onValue} from "firebase/database"; 
 import { useState, useEffect } from "react";
 
-const ListOfTheLists = () => {
+const ListOfTheLists = (props) => {
 
    const [lists, setLists] = useState([]);
 
@@ -22,28 +22,7 @@ const ListOfTheLists = () => {
 
    })
 
-
-
    }, [])
-  
-   
-   // const newState = [];
-   
-   //   // here we store the response from our query to Firebase inside of a variable called data.
-   //   // .val() is a Firebase method that gets us the information we want
-   //   const data = response.val();
-   // //   // data is an object, so we iterate through it using a for in loop to access each book name 
-   
-   //   for (let key in data) {
-   //     // inside the loop, we push each book name to an array we already created inside the onValue() function called newState
-   //     newState.push(data[key]);
-   //   }
-   
-   //   // then, we call setBooks in order to update our component's state using the local array newState
-   //   setBooks(newState);
-   // });
-
-
 
       return (
          <>
