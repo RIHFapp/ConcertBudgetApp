@@ -8,6 +8,11 @@ const ListWithKeys = (props) => {
     // console.log(props.passEditId);
     // console.log(props.passShareId);
 
+    //
+
+//editKey must be send as a props from the List of the lists
+
+
 
     //connecting to the firebase data
     //pulling the information about the list 
@@ -33,27 +38,30 @@ const ListWithKeys = (props) => {
 const [myEditableList, setMyEditableList] = useState([]);
 
 
-        // useEffect( () => {
+useEffect( () => {
      
-      const database = getDatabase(firebase);
-        const dbRef = ref(database);
-        onValue(dbRef, (response) => {
-           const listsData = response.val();
-           const newState = [];
-           for (let key in listsData) {
-              newState.push(listsData[key]);
+const database = getDatabase(firebase);
+const dbRef = ref(database);
+        
+onValue(dbRef, (response) => {
+        const listContent = response.val();
+        console.log(listContent)
+        const newListInfo = [];
+        
+        for (let key in listContent) {
+            newListInfo.push(listContent[key]);
            }
-        //    setLists(newState);
+           setMyEditableList(newListInfo);
         })
      
-        // }, [])
+        }, [])
 
     return(
         <>
             <section>
                 <div className="wrapper">
                     <div className="detaliedList">
-                        <p>{list}</p>
+                        <p>{"list"}</p>
                     
                         <h2>Rana but poor after joining bootcamp</h2>
                         
