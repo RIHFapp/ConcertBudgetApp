@@ -12,13 +12,12 @@ const ListOfTheLists = () => {
  const database = getDatabase(firebase);
    const dbRef = ref(database);
    onValue(dbRef, (response) => {
-      console.log(response.val())
-      const newState = [];
       const listsData = response.val();
+      const newState = [];
       for (let key in listsData) {
          newState.push(listsData[key]);
       }
-      console.log(newState)
+      // console.log(newState.object)
       setLists(newState)
 
    })
@@ -51,12 +50,11 @@ const ListOfTheLists = () => {
             <div className="wrapper listOfTheListsContainer">
                <h2> List of created list</h2> 
                <ul> {
-                  lists.map((list) => {
+                  lists.map((list ,index) => {
                      console.log(list)
-                     console.log(list.key)
                      return (
-                        <li key="list.key">
-                           <p>{list.toString()}</p>
+                        <li key={index}>
+                           <p>{list.data}</p>
                         </li>
                      )
                   })
