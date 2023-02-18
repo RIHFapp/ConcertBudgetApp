@@ -18,6 +18,7 @@
 @use "./partials/layout/footer";
 
 //pages 
+@use "./partials/pages/greeting";
 @use "./partials/pages/homepage";
 @use "./partials/pages/searchPage";
 
