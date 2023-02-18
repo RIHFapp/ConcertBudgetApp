@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 // import { /* Route, Routes */ useParams/* , Link */ } from "react-router-dom";
 // import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 const SearchPage = (props) => {
   // const [passShareId, setPassShareId] = useState("");
@@ -19,6 +20,8 @@ const SearchPage = (props) => {
   const [checked, setChecked ] = useState(false);
   const [apiRes, setApiRes] = useState([]);
   const [addedList, setAddedList] = useState([]);
+
+  const [link, setLink] = useState('#');
 
   // console.log(props);
 
@@ -87,33 +90,46 @@ const SearchPage = (props) => {
   
   //When pressed Submit - the information gets sent to Firebase
   const handleFirebaseConnection = () => {
-    // Generate a random key for shearable and editable views
-    const shareKey = uuidv4("budget");
-    const editKey = uuidv4("edit");
-    // Store child node information
-    // const totalInfo = {
-    //   listname: userListName,
-    //   userBudget: userBudget,
-    //   budgetConcertContent: addedList, 
-    // }
-    
-    // Connect to Firebase
-    const database = getDatabase(firebase);
-    const dbRef = ref(database)
-    
-    const keyRef = {
-      shareKey,
-      editKey,
-      listname: userListName,
-      userBudget: userBudget,
-      budgetConcertContent: addedList, 
-    };
+    if (userBudget === "" && userListName === "") {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
+    } else if (addedList.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
+    } else {
+      // Generate a random key for shearable and editable views
+      const shareKey = uuidv4("budget");
+      const editKey = uuidv4("edit");
+      // Store child node information
+      // const totalInfo = {
+      //   listname: userListName,
+      //   userBudget: userBudget,
+      //   budgetConcertContent: addedList,
+      // }
+      // Connect to Firebase
+      const database = getDatabase(firebase);
+      const dbRef = ref(database)
+      const keyRef = {
+        shareKey,
+        editKey,
+        listname: userListName,
+        userBudget: userBudget,
+        budgetConcertContent: addedList,
+      };
+      props.shareIdRef(shareKey);
+      props.editIdRef(editKey);
+      push(dbRef, keyRef);
 
-    props.shareIdRef(shareKey);
-    props.editIdRef(editKey);
-
-    push(dbRef, keyRef);
-    
+      setLink(`/listOfLists`)
+    }
   };
 
     return(
@@ -256,7 +272,8 @@ const SearchPage = (props) => {
                       </li>
                     )
                   })}
-              <Link to={`/listOfLists`}>
+
+                  <Link to={`${link}`}>
                     <button onClick={handleFirebaseConnection}>
                       Submit
                     </button>
