@@ -18,8 +18,10 @@ const ListOfTheLists = (props) => {
       for (let key in listsData) {
          newState.push(listsData[key]);
       }
-      // console.log(newState.object)
       setLists(newState)
+      console.log(newState);
+
+
 
    })
 
@@ -31,12 +33,16 @@ const ListOfTheLists = (props) => {
                <h2> List of created list</h2> 
                <ul> {
                   lists.map((list, key) => {
-                     console.log(list)
+                     let totalMaxPrice = 0;
+                     for (let i = 0; i < list.budgetConcertContent.length; i++) {
+                     totalMaxPrice += list.budgetConcertContent[i].maxPrice;
+                     }
                      return (
                         <li key={key}>
                            <p>Name of the list:{list.listname}</p>
                            <p>Budget:{list.userBudget}</p>
-                           {/* <p>{list.budgetConcertContent}</p> */}
+                           <p></p>
+                           <p>Total price of the concerts: {totalMaxPrice}</p>
                         </li>
                      )
                   })
