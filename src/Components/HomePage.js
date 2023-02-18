@@ -18,18 +18,27 @@ const Homepage = () => {
       >
       <section>
         <div className="featured wrapper">
-          <h2> Featured concert</h2>
+          <h2> Budget <span>Vs</span> Concert</h2>
           <div className="featureImage">
           <img src={beyonce} alt=""/>
           </div>
         </div>
       </section>
-      <section>
-        <form action="submit">
-          <input className="searchResultContainer"></input>
-          <Link to={`/searchPage`}>
-          <button>go seacrh</button>
-          </Link>
+      <section className="enterID">
+        <form action="submit" >
+          <div>
+            {/* name of the list input */}
+            <label htmlFor="newName"></label>
+            <input
+                type="text"
+                id="newName"
+                placeholder="List of ID" />             
+          </div>
+          <div>
+            <Link to={`/searchPage`}>
+              <button>To Your List!</button>
+            </Link>
+          </div>
         </form>
       </section>
 

@@ -29,7 +29,10 @@ function App() {
 //return jsx
 return (
   
-  <div className="">
+  <div className="main">
+    <div className='overlay'>
+    </div>
+    <div className='blur'></div>
     <Routes>
       <Route path="/" element= {  <HomePage /> }/>  
       <Route path="/searchPage" element= {  <SearchPage 
@@ -46,6 +49,7 @@ return (
         passShareId={passShareId}
       />}/>  
     </Routes>
+    
   </div>
 );
 }

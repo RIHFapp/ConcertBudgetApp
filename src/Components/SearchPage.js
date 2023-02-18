@@ -176,7 +176,9 @@ const SearchPage = (props) => {
               > Search </button>
           </form>
           <div className="searchResultContainer">
+              
               <ul className="searchResultList wrapper">
+              <h3>Up coming concerts...</h3>
                   {
                     apiRes.map((concertInfo)=>{
                       const name = concertInfo.name; 
@@ -200,11 +202,11 @@ const SearchPage = (props) => {
                              ) : null
                           }
                           <div className="concertListInfo">
-                            <p> {name} </p>
+                            <span><p> {name} </p></span>
                             <p> {eventDate} </p>
                             <p> {venueCity} </p>
                             <p> {venueName} </p>
-                            <p> {maxPrice} </p>
+                            <span><p>{maxPrice}</p></span>
                           </div>
                           <div className="ticketNumber">
                             <p>-</p>
@@ -229,17 +231,18 @@ const SearchPage = (props) => {
               <p className="userInput"> {userBudget} </p>
             </div>
 
-                <ul className="myList wrapper">
+                <ul className="myConcert wrapper">
+                <h3>Selected Concerts</h3>
                   {addedList.map( (list, index) =>{
                     const { name, eventDate, venueCity, venueName, maxPrice, concertImg} = list;
                     return(
                       <li key={index}>
                         <div className="concertListInfo">
-                          <p>{name}</p>
+                          <span><p>{name}</p></span>
                           <p>{eventDate}</p>
                           <p>{venueCity}</p>
                           <p>{venueName}</p>
-                          <p>{maxPrice}</p>
+                          <span><p>{maxPrice}</p></span>
                         </div>
                         <div className="concertListImage">
                           <img src ={concertImg} alt={`Poster of ${name}`} />

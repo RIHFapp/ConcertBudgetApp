@@ -1,1 +1,29 @@
 @use "../abstracts/variables" as*;
+@import url('https://fonts.googleapis.com/css2?family=Maitree:wght@400;700&display=swap');
+body,
+button,
+input{
+    font-family: 'Maitree', serif;
+}
+h1,
+h2,
+h3,
+h4
+p
+{
+    text-transform: uppercase;
+    font-weight: 700;
+    text-shadow: 4px 4px 2px rgba(0,0,0,0.09);
+    color: white;
+}
+span{
+    font-weight: 700;
+}
+h1,
+h2{
+    font-size: 4rem;
+}
+
+h3{
+    font-size: 2rem;
+}
