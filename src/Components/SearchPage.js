@@ -65,9 +65,10 @@ const SearchPage = () => {
             return event;
           } else if (checked === true && event.priceRanges !== undefined) {
             return event;
+          } else {
+            return false; // return false if neither condition is true
           }
-        
-        })
+        });
         setApiRes(list); 
       })
     }  
