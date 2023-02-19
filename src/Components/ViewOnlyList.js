@@ -49,15 +49,48 @@ const sumOfPrices = (arrayOfConcerts) => {
 }
 
 //getting the data from Firebase
-useEffect( () => {
+// useEffect( () => {
 
+//     const database = getDatabase(firebase);
+//     const dbRef = ref(database);
+
+//     onValue(dbRef, (response)=>{
+
+//             const allTheLists = response.val();
+//             const newState = [];
+
+//             for (let key in allTheLists) {
+//                 newState.push(allTheLists[key]);
+//             }
+
+
+//             const currentList = newState.filter((event)=>{
+//                 if (event.shareKey !== `${ID}`){
+//                     return null;
+//                 } else {
+//                     const currentShareList = event;
+//                     return currentShareList;
+//                 }
+//             })
+
+//             console.log(currentList)
+//             setShareList(currentList);
+//             // console.log(shareList);
+//     })
+        
+// }, [])  
+
+useEffect(() => {
 
     const database = getDatabase(firebase);
     const dbRef = ref(database);
 
-    onValue(dbRef, (response)=>{
 
-            const allTheLists = response.val();
+    get(dbRef).then((snapshot) => {
+
+        if (snapshot.exists()) {
+
+            const allTheLists = snapshot.val();
             const newState = [];
 
             for (let key in allTheLists) {
@@ -77,14 +110,14 @@ useEffect( () => {
             console.log(currentList)
             setShareList(currentList);
             // console.log(shareList);
+
+        } else {
+            console.log("No data available")
+        }
+    }).catch((error) => {
+        console.log(error)
     })
-        
-
- 
-
-
-
-}, [])  
+}, []) 
 
 
 
