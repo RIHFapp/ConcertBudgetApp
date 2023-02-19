@@ -47,7 +47,10 @@ const SearchPage = (props) => {
   useEffect (() => {
     if (artist === null && city === null) {
       return;
-    } else {
+    } else if (artist === 'undefined' && city === 'undefined') {
+      setError(true);
+    }
+    else {
     setLoading(true);
     setError(false);
       axios({
@@ -71,26 +74,28 @@ const SearchPage = (props) => {
         });
         setApiRes(list); 
         setTimeout(() => {
-        setLoading(false);
-        new Promise ((newRes) => {
-            return newRes;
-            }).then(() => {
-              setLoading(true);
-            }).then(() => {
-              setTimeout(() => {
-                setLoading(false)
-              }, 2000)
-            })
+          setLoading(false);
+          new Promise ((newRes) => {
+              return newRes;
+              })
+              .then(() => {
+                setLoading(true);
+              })
+              .then(() => {
+                setTimeout(() => {
+                  setLoading(false)
+                }, 3000);
+              });
         }, 1000)
       }).catch((err)=> {
-          setError(true);
           setLoading(false);
+          setError(true);
           setTimeout(() => {
             setError(false);
           }, 2000)
         }
     )}
-  },[artist, city, checked, loading])
+  },[artist, city, checked])
 
   // user adds concert to their dynamic list 
   const handleAddConcert = (name, eventDate, venueCity, venueName, maxPrice, concertImg, key) => {
