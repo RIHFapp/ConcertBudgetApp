@@ -317,9 +317,13 @@ const SearchPage = (/* {pageLoad} */) => {
                           <span><p>{maxPrice}</p></span>
                         </div>
                         <div className="ticketNumber">
-                          <button onClick={handleTicketNumIncrease}>+</button>
+                          <button 
+                          // onClick={handleTicketNumIncrease}
+                          >+</button>
                           <p>{ticketNumber}</p>
-                          <button onClick={handleTicketNumDecrease}>-</button>
+                          <button 
+                          // onClick={handleTicketNumDecrease}
+                          >-</button>
                         </div>
                         <div className="concertListImage">
                           <img src={image} alt={`Poster of ${name}`} />
