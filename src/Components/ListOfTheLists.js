@@ -92,7 +92,7 @@ useEffect( () => {
                </ul>
                   
             </div>
-            <Link to={`/`}>
+            <Link to={`/listOfLists`}>
             <button id="LOLButton">back</button>
             </Link>
          </>

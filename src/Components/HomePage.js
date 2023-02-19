@@ -26,7 +26,7 @@ const Homepage = () => {
       >
       <section>
         <div className="featured wrapper">
-          <h2> Budget <span>Vs</span> Concert</h2>
+          <h1> Concert Budget Master</h1>
           <div className="featureImage">
           <img src={beyonce} alt=""/>
           </div>

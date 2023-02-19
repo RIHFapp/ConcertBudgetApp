@@ -66,7 +66,7 @@ const ViewOnlyList = (props) => {
                     </div>
 
                 </div>
-                <Link to={`/`}>
+                <Link to={`/listOfLists`}>
             <button id="LOLButton">back</button>
             </Link>
             </section>
