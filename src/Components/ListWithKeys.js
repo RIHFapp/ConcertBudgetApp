@@ -5,15 +5,11 @@ import { useEffect, useState } from "react";
 
 const ListWithKeys = () => {
 
-const keyToMyList = "-NObYc3j2pihbas9FGh7"
-
-
-const [myEditableList, setMyEditableList] = useState([]);
+const keyToMyList = "-NOeqhYOho6hRXNgky2j"
 const [nameOfTheList, setNameOfTheList] = useState("Your list");
 const [budgetValue, setBudgetValue] = useState("0");
 const [listOfConcerts, setListOfConcerts] = useState([]);
-
-
+const [totalTicketPrice, setTotalTicketPrice] = useState();
 
 
 //function setting the states for displaying the data from the firebase
@@ -23,6 +19,15 @@ const checkoutTheData = (name, budget, concerts)=> {
     setListOfConcerts(concerts);
 }
 
+
+const sumOfPrices = (arrayOfConcerts) => {
+let totalPrice = 0
+    for (let price of arrayOfConcerts) {
+        totalPrice += price.maxPrice
+        console.log(totalPrice)
+        }
+        return totalPrice
+}
 
 useEffect( () => {
 
@@ -41,18 +46,20 @@ useEffect( () => {
         const budget = allTheLists[keyToMyList].userBudget;
         const allChosenConcerts = allTheLists[keyToMyList].budgetConcertContent;
         checkoutTheData(nameFromList, budget, allChosenConcerts);
+        
+        setTotalTicketPrice(sumOfPrices(allChosenConcerts))
+
 
         } else {
         console.log("No data available")
         }
     }).catch((error) => {
         console.log(error)
-    })
-            
-
-        
+    }) 
 }, [])  
-           
+
+
+
     return(
         <>
             <section>
@@ -82,7 +89,7 @@ useEffect( () => {
                                 </div>         
                             </li>
                             {
-                                listOfConcerts.map( (oneConcert, key) => {
+                                listOfConcerts.map( (oneConcert) => {
                                     return (
                                    
                                         <li className="one" key={oneConcert.key}>
