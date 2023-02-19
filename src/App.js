@@ -1,6 +1,6 @@
 import './App.scss';
-import { Route, Switch } from 'react-router-dom';
-import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 // Componetns
 import HomePage from "./Components/HomePage";
@@ -14,32 +14,36 @@ import Footer from './Components/Footer';
 import Loading from './Components/Loading';
 
 function App() {
-const [isLoading, setIsLoading] = useState(false); 
+   const [pageLoad, setPageLoad] = useState(true);
 
-const handlePageLoading = () => {
-  setIsLoading(true);
-}
-
+  useEffect(() => {
+    const loadPage = async() => {
+      await new Promise ((event) => {
+        console.log(event);
+        setTimeout(setPageLoad(false), 2000); 
+      });
+    }
+    setTimeout(()=> {
+      loadPage()
+    }, 2000);
+  }, [])
 
 return (
   
   <div className="main">
     <BgOverlay />
-    {isLoading ? <Loading /> : (
-    <Switch>
-      <Route path="/" element= {  <HomePage 
-      handlePageLoading={handlePageLoading}
-      isLoading = {isLoading}
-      /> }/>  
-      <Route path="/searchPage" element= {  <SearchPage /> }/>  
-
-      <Route path="/listOfLists" element= {  <ListOfTheLists />}/>  
-
-      <Route path="/viewOnlyList/:shareID" element= {  <ViewOnlyList />}/>  
-      
-      <Route path="/listWithKeys/:editID" element= {  <ListWithKeys />}/>
-      <Route path='*' element={<ErrorPage />} />  
-    </Switch>
+    {pageLoad ? <Loading /> : (
+      <Routes>
+        <Route path="/" element= {  <HomePage 
+        pageLoad={pageLoad}
+        /> }/>  
+        <Route path="/searchPage" element= {  <SearchPage pageLoad={pageLoad
+        } /> }/>  
+        <Route path="/listOfLists" element= {  <ListOfTheLists />}/>  
+        <Route path="/viewOnlyList/:shareID" element= {  <ViewOnlyList />}/>  
+        <Route path="/listWithKeys/:editID" element= {  <ListWithKeys />}/>
+        <Route path='*' element={<ErrorPage />} />  
+      </Routes>
     )}
     <Footer />
   </div>

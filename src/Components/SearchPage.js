@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 
 
 
-const SearchPage = () => {
+const SearchPage = ({pageLoad}) => {
   // States for User Budget Information
   const [userListName, setUserListName] = useState('');
   const [userBudget, setBudgetInput] = useState('');
@@ -23,16 +23,31 @@ const SearchPage = () => {
   const [apiRes, setApiRes] = useState([]);
 
   const [addedList, setAddedList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [pageLoad, setPageLoad] = useState(true);
+  const [apiLoading, setApiLoading] = useState(false);
   const [error, setError] = useState (false);
   const [link, setLink] = useState('#');
   const [ticketNumber, setTicketNumber] = useState(0)
+
+  // Page Load when the current view mounts
+  // useEffect(() => {
+  //   const loadPage = async() => {
+  //     await new Promise ((event) => {
+  //       console.log(event);
+  //       setTimeout(setPageLoad(false), 2000); 
+  //     });
+  //   }
+  //   setTimeout(()=> {
+  //     loadPage()
+  //   }, 2000);
+  // }, [])
 
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
     event.preventDefault();
     setUserListName(event.target.form[0].value);
     setBudgetInput(event.target.form[1].value);
+    
   }
 
   // Api submit button
@@ -51,7 +66,7 @@ const SearchPage = () => {
       setError(true);
     }
     else {
-    setLoading(true);
+    setApiLoading(true);
     setError(false);
       axios({
         url: "https://app.ticketmaster.com/discovery/v2/events",
@@ -74,21 +89,21 @@ const SearchPage = () => {
         });
         setApiRes(list); 
         setTimeout(() => {
-          setLoading(false);
+          setApiLoading(false);
           new Promise ((newRes) => {
               return newRes;
               })
               .then(() => {
-                setLoading(true);
+                setApiLoading(true);
               })
               .then(() => {
                 setTimeout(() => {
-                  setLoading(false)
+                  setApiLoading(false)
                 }, 3000);
               });
         }, 1000)
       }).catch((err)=> {
-          setLoading(false);
+          setApiLoading(false);
           setError(true);
           setTimeout(() => {
             setError(false);
@@ -106,7 +121,7 @@ const SearchPage = () => {
       venueName: venueName,
       maxPrice: maxPrice,
       image: concertImg,
-      key: key, 
+      key: key
     }
     setAddedList([...addedList, concertData]);
     setLink(`/listOfLists`);
@@ -151,7 +166,6 @@ const SearchPage = () => {
         listname: userListName,
         userBudget: userBudget,
         budgetConcertContent: addedList,
-        ticketNumber: 0
       };
       push(dbRef, keyRef);
 
@@ -159,6 +173,7 @@ const SearchPage = () => {
     }
   };
 
+  
   const handleTicketNumIncrease = (ticketNumber) => {
     console.log(ticketNumber);
     if (ticketNumber >= 0 ) {
@@ -167,13 +182,15 @@ const SearchPage = () => {
       setTicketNumber(ticketNumber)
     }
   }
+
   const handleTicketNumDecrease = () => {
 
   }
+
     return(
       <>
       {/* Conditionally rendering the page based on loading or error state */}
-      {error ? <ErrorPage /> : loading ? <Loading/> : (
+      {error ? <ErrorPage /> : apiLoading ? <Loading/> : pageLoad ? <Loading /> : (
       // Your component code here
         <>
         <section >
@@ -242,7 +259,7 @@ const SearchPage = () => {
               
               <ul className="searchResultList wrapper">
               <h3>Up coming concerts...</h3>
-              {!loading && (
+              {!apiLoading && (
                     apiRes.map((concertInfo)=>{
                       const name = concertInfo.name; 
                       const eventDate = concertInfo.dates.start.localDate;
@@ -293,7 +310,7 @@ const SearchPage = () => {
                 <ul className="myConcert wrapper">
                 <h3>Selected Concerts</h3>
                   {addedList.map( (list, index) =>{
-                    const { name, eventDate, venueCity, venueName, maxPrice, concertImg, ticketNumber} = list;
+                    const { name, eventDate, venueCity, venueName, maxPrice, concertImg} = list;
                     return(
                       <li key={index}>
                         <div className="concertListInfo">
