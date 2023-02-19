@@ -25,8 +25,6 @@ const SearchPage = (props) => {
   const [error, setError] = useState (false);
   const [link, setLink] = useState('#');
 
-
-
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
     event.preventDefault();
@@ -111,7 +109,6 @@ const SearchPage = (props) => {
     setAddedList([...addedList, concertData]);
   }
 
-  
   //When pressed Submit - the information gets sent to Firebase
   const handleFirebaseConnection = () => {
     if (userBudget === "" && userListName === "") {
@@ -153,9 +150,6 @@ const SearchPage = (props) => {
     return(
       <>
       {/* Conditionally rendering the page based on loading or error state */}
-      {/* {error && <ErrorPage />} */}
-      {/* {loading && <Loading />} */}
-      {/* {!error && !loading && ( */}
       {error ? <ErrorPage /> : loading ? <Loading/> : (
       // Your component code here
         <>
@@ -176,7 +170,6 @@ const SearchPage = (props) => {
                 type="text"
                 id="newBudget"
                 placeholder="Your Budget" />
-                
               <div>
                 <button onClick={handleListConfig}>
                   Add List
