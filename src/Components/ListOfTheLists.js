@@ -66,14 +66,13 @@ useEffect( () => {
                   lists.map((list, key) => {
                      const { listname, userBudget, shareKey, editKey, budgetConcertContent} = list;
                      //filter price under 300
-                     const priceUnder500 = budgetConcertContent
-                     .filter(concert => concert.maxPrice < 500)
-                     .map(concert => ({ name: concert.name, maxPrice: concert.maxPrice }));
-
-                     const priceUnder1000 = budgetConcertContent
-                     .filter(concert => concert.maxPrice > 300 && concert.maxPrice < 1000)
-                     .map(concert => ({ name: concert.name, maxPrice: concert.maxPrice }));
-                     console.log(priceUnder500);
+                     function filterConcertsByPrice(concerts, minPrice, maxPrice) {
+                        return concerts.filter(concert => concert.maxPrice >= minPrice && concert.maxPrice <= maxPrice)
+                                       .map(concert => ({ name: concert.name, maxPrice: concert.maxPrice }));
+                      }
+                      
+                      const priceUnder500 = filterConcertsByPrice(budgetConcertContent, 0, 500);
+                      const priceUnder1000 = filterConcertsByPrice(budgetConcertContent, 300, 1000);
 
                      
                      return (
