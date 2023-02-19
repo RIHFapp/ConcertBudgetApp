@@ -5,7 +5,7 @@ import pink from "../partials/asset/placeholder-pink.webp";
 import john from "../partials/asset/placeholder-john.webp";
 import sha from "../partials/asset/placeholder-sha.webp";
 import { Link} from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState } from "react";
 
 
 

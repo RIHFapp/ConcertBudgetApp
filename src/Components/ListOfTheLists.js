@@ -1,7 +1,7 @@
 import firebase from "../firebase";
 import {ref, getDatabase, onValue} from "firebase/database"; 
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ListOfTheLists = (props) => {
 

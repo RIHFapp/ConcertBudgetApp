@@ -1,8 +1,6 @@
 import './App.scss';
 import { Route, Routes } from 'react-router-dom';
 
-import { useState} from "react";
-
 // Componetns
 import HomePage from "./Components/HomePage";
 import ListWithKeys from './Components/ListWithKeys';
