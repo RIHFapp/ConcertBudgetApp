@@ -157,6 +157,19 @@ const SearchPage = () => {
       setLink(`/listOfLists`)
     }
   };
+
+  
+  // const handleTicketNumIncrease = (ticketNumber) => {
+  //   console.log(ticketNumber);
+  //   if (ticketNumber >= 0 ) {
+  //     ticketNumber = ticketNumber + 1;
+  //     console.log(ticketNumber)
+  //     setTicketNumber(ticketNumber)
+  //   }
+  // }
+  // const handleTicketNumDecrease = () => {
+
+  // }
     return(
       <>
       {/* Conditionally rendering the page based on loading or error state */}
