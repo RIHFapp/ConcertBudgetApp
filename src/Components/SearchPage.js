@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 // import { /* Route, Routes */ useParams/* , Link */ } from "react-router-dom";
 // import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import ErrorPage from "./ErrorPage";
+import Loading from "./Loading";
 import Swal from 'sweetalert2';
 
 const SearchPage = (props) => {
@@ -20,10 +22,11 @@ const SearchPage = (props) => {
   const [checked, setChecked ] = useState(false);
   const [apiRes, setApiRes] = useState([]);
   const [addedList, setAddedList] = useState([]);
-
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState (false);
   const [link, setLink] = useState('#');
 
-  // console.log(props);
+
 
 
   // Renders user budget information when user clicks 
@@ -38,7 +41,6 @@ const SearchPage = (props) => {
   // Api submit button
   const handleSubmitConcert = (e) => {
     e.preventDefault();
-
     setArtist(e.target.form[0].value);
     setCity(e.target.form[1].value);
     setChecked(e.target.form[3].checked);
@@ -47,7 +49,10 @@ const SearchPage = (props) => {
   // On Search Page mount - trigger an API call based on input content availability.
   useEffect (() => {
     if (artist === null && city === null) {
+      return;
     } else {
+    setLoading(true);
+    setError(false);
       axios({
         url: "https://app.ticketmaster.com/discovery/v2/events",
         params: {
@@ -68,9 +73,26 @@ const SearchPage = (props) => {
           }
         });
         setApiRes(list); 
-      })
-    }  
-
+        setTimeout(() => {
+        setLoading(false);
+        new Promise ((newRes) => {
+            setTimeout(newRes, 1000) 
+            }).then(() => {
+              setLoading(true);
+            }).then(() => {
+              setTimeout(() => {
+                setLoading(false)
+              }, 1000)
+            })
+        }, 1000)
+      }).catch((err)=> {
+          setError(true);
+          setLoading(false);
+          setTimeout(() => {
+            setError(false);
+          }, 1000)
+        }
+    )}
   },[artist, city, checked])
 
   // user adds concert to their dynamic list 
@@ -134,6 +156,12 @@ const SearchPage = (props) => {
 
     return(
       <>
+      {/* Conditionally rendering the page based on loading or error state */}
+      {error && <ErrorPage />}
+      {loading && <Loading />}
+      {!error && !loading && (
+      // Your component code here
+        <>
         <section >
           <div className="inputSection wrapper">
             <h2>Welcome! lets Start planning your concert list</h2>
@@ -214,6 +242,7 @@ const SearchPage = (props) => {
                       const concertImg = concertInfo.images[3].url;
                       const key = concertInfo.id;
                       return (
+                    
                         <li 
                         key = {key}
                         className="concertResponse wrapper">
@@ -229,11 +258,6 @@ const SearchPage = (props) => {
                             <p> {venueCity} </p>
                             <p> {venueName} </p>
                             <span><p>{maxPrice}</p></span>
-                          </div>
-                          <div className="ticketNumber">
-                            <p>-</p>
-                            <p>1</p>
-                            <p>+</p>
                           </div>
                           <div className="concertListImage">
                             <img src ={concertImg} alt="concert poster information"></img>
@@ -266,6 +290,11 @@ const SearchPage = (props) => {
                           <p>{venueName}</p>
                           <span><p>{maxPrice}</p></span>
                         </div>
+                        <div className="ticketNumber">
+                          <p>-</p>
+                          <p>1</p>
+                          <p>+</p>
+                        </div>
                         <div className="concertListImage">
                           <img src ={concertImg} alt={`Poster of ${name}`} />
                         </div>
@@ -281,22 +310,11 @@ const SearchPage = (props) => {
                 </ul>
             </div>
         </section>
+        </>
+      )}
       </>
     )
 }
 
 export default SearchPage;
 
-
-
-
-    // Grab Artist Input
-    // const handleArtistInput = (e) => {
-    //     e.preventDefault();
-    //     setArtist(e.target.value);
-    // }
-    // // Grab City Input
-    // const handleCityInput = (e) => {
-    //     e.preventDefault();
-    //     setCity(e.target.value);
-    // }
