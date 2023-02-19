@@ -97,6 +97,12 @@
         }
     }
 
+    //ViewOnlyList Style
+    .tagsInView{
+        display: flex;
+        width: 100%;
+    }
+    //ListWithKeys style
     .inKeys{
         p{
             width: 12.5%;
