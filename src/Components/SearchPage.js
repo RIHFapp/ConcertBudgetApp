@@ -27,8 +27,7 @@ const SearchPage = (/* {pageLoad} */) => {
   const [apiLoading, setApiLoading] = useState(false);
   const [error, setError] = useState (false);
 
-  const [ticketNumber, setTicketNumber] = useState(0)
-  //  const [pageLoad, setPageLoad] = useState(true);
+  const [ticketNumber, setTicketNumber] = useState(0);
 
   useEffect(() => {
     const loadPage = async() => {
