@@ -1,9 +1,4 @@
 //importplace holder images
-import beyonce from "../partials/asset/placeholder-bey.webp";
-import taylor from "../partials/asset/placeholder-tay.webp";
-import pink from "../partials/asset/placeholder-pink.webp";
-import john from "../partials/asset/placeholder-john.webp";
-import sha from "../partials/asset/placeholder-sha.webp";
 import crowd from "../partials/asset/crowd.jpg";
 import music from "../partials/asset/music.JPG";
 import piggy from "../partials/asset/piggy.jpg";

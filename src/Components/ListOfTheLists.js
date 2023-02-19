@@ -64,15 +64,16 @@ useEffect( () => {
                <h2> List of created list</h2> 
                <ul> {
                   lists.map((list, key) => {
-                     const { listname, userBudget, shareKey, editKey, budgetConcertContent,ListCreated} = list;
+                     const { listname, userBudget, shareKey, editKey ,ListCreated} = list;
+                     //budgetConcertContent
                      //filter price under 300
-                     function filterConcertsByPrice(concerts, minPrice, maxPrice) {
-                        return concerts.filter(concert => concert.maxPrice >= minPrice && concert.maxPrice <= maxPrice)
-                                       .map(concert => ({ name: concert.name, maxPrice: concert.maxPrice }));
-                      }
+                     // function filterConcertsByPrice(concerts, minPrice, maxPrice) {
+                     //    return concerts.filter(concert => concert.maxPrice >= minPrice && concert.maxPrice <= maxPrice)
+                     //                   .map(concert => ({ name: concert.name, maxPrice: concert.maxPrice }));
+                     //  }
                       
-                      const priceUnder500 = filterConcertsByPrice(budgetConcertContent, 0, 500);
-                      const priceUnder1000 = filterConcertsByPrice(budgetConcertContent, 300, 1000);
+                     //  const priceUnder500 = filterConcertsByPrice(budgetConcertContent, 0, 500);
+                     //  const priceUnder1000 = filterConcertsByPrice(budgetConcertContent, 300, 1000);
                       const date = new Date(ListCreated)
                       const year = date.getFullYear();
                         const month = date.getMonth() + 1;
