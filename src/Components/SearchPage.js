@@ -11,7 +11,7 @@ import ErrorPage from "./ErrorPage";
 import Loading from "./Loading";
 import Swal from 'sweetalert2';
 
-const SearchPage = (props) => {
+const SearchPage = () => {
   // const [passShareId, setPassShareId] = useState("");
   // States for User Budget Information
   const [userListName, setUserListName] = useState('');
@@ -27,6 +27,7 @@ const SearchPage = (props) => {
   const [link, setLink] = useState('#');
 
 
+ 
 
 
   // Renders user budget information when user clicks 
@@ -146,8 +147,6 @@ const SearchPage = (props) => {
         userBudget: userBudget,
         budgetConcertContent: addedList,
       };
-      props.shareIdRef(shareKey);
-      props.editIdRef(editKey);
       push(dbRef, keyRef);
 
       setLink(`/listOfLists`)
@@ -191,7 +190,7 @@ const SearchPage = (props) => {
 
         <section>
           <form className="searchForm wrapper">
-            <p>Search for concerts by artist and your preffered city</p>
+            <p>Search for concerts by artist and your preferred city</p>
               <label htmlFor="artist"></label>
               <input 
                   className="artistSearch"
@@ -221,9 +220,9 @@ const SearchPage = (props) => {
 
               </fieldset>
 
-              <button
-                onClick={handleSubmitConcert}
-              > Search </button>
+              <button onClick={handleSubmitConcert}>
+                 Search 
+              </button>
           </form>
           <div className="searchResultContainer">
               
