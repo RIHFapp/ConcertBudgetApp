@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 
 
 
-const SearchPage = () => {
+const SearchPage = (/* {pageLoad} */) => {
   // States for User Budget Information
   const [userListName, setUserListName] = useState('');
   const [userBudget, setBudgetInput] = useState('');
@@ -23,11 +23,31 @@ const SearchPage = () => {
   const [apiRes, setApiRes] = useState([]);
 
   const [addedList, setAddedList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [pageLoad, setPageLoad] = useState(true);
+  const [apiLoading, setApiLoading] = useState(false);
   const [error, setError] = useState (false);
+
+  const [ticketNumber, setTicketNumber] = useState(0)
+  //  const [pageLoad, setPageLoad] = useState(true);
+
+  useEffect(() => {
+    const loadPage = async() => {
+      await new Promise ((event) => {
+        console.log(event);
+        setTimeout(()=> {setPageLoad(false)}, 2000); 
+      });
+    }
+    setTimeout(()=> {
+      loadPage();
+      setPageLoad(true);
+    }, 2000);
+  }, [])
+
   const [link, setLink] = useState('');
 
+
   const [eK, setEK] = useState('');
+
 
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
@@ -53,7 +73,7 @@ const SearchPage = () => {
       setError(true);
     }
     else {
-    setLoading(true);
+    setApiLoading(true);
     setError(false);
       axios({
         url: "https://app.ticketmaster.com/discovery/v2/events",
@@ -76,21 +96,21 @@ const SearchPage = () => {
         });
         setApiRes(list); 
         setTimeout(() => {
-          setLoading(false);
+          setApiLoading(false);
           new Promise ((newRes) => {
               return newRes;
               })
               .then(() => {
-                setLoading(true);
+                setApiLoading(true);
               })
               .then(() => {
                 setTimeout(() => {
-                  setLoading(false)
+                  setApiLoading(false)
                 }, 3000);
               });
         }, 1000)
       }).catch((err)=> {
-          setLoading(false);
+          setApiLoading(false);
           setError(true);
           setTimeout(() => {
             setError(false);
@@ -153,17 +173,21 @@ const SearchPage = () => {
     
   };
 
+
   useEffect(() => {
     // update link state when addedList is updated
     if (addedList.length > 0 && userBudget !== "" && userListName !== "" && eK) {
       setLink(`/listWithKeys/:${eK}`);
     }
+
   }, [addedList, userBudget, userListName, link, eK]);
   
+
+
     return(
       <>
       {/* Conditionally rendering the page based on loading or error state */}
-      {error ? <ErrorPage /> : loading ? <Loading/> : (
+      {error ? <ErrorPage /> : apiLoading ? <Loading/> : pageLoad ? <Loading /> : (
       // Your component code here
         <>
         <section >
@@ -232,7 +256,7 @@ const SearchPage = () => {
               
               <ul className="searchResultList wrapper">
               <h3>Up coming concerts...</h3>
-              {!loading && (
+              {!apiLoading && (
                     apiRes.map((concertInfo)=>{
                       const name = concertInfo.name; 
                       const eventDate = concertInfo.dates.start.localDate;
@@ -294,9 +318,9 @@ const SearchPage = () => {
                           <span><p>{maxPrice}</p></span>
                         </div>
                         <div className="ticketNumber">
-                          <p>-</p>
-                          <p>1</p>
-                          <p>+</p>
+                          <button onClick={handleTicketNumIncrease}>+</button>
+                          <p>{ticketNumber}</p>
+                          <button onClick={handleTicketNumDecrease}>-</button>
                         </div>
                         <div className="concertListImage">
                           <img src={image} alt={`Poster of ${name}`} />

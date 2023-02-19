@@ -1,5 +1,6 @@
 import './App.scss';
 import { Route, Routes } from 'react-router-dom';
+// import { useState, useEffect } from 'react';
 
 // Componetns
 import HomePage from "./Components/HomePage";
@@ -10,25 +11,23 @@ import ListOfTheLists from './Components/ListOfTheLists';
 import ErrorPage from './Components/ErrorPage';
 import BgOverlay from './Components/BgOverlay';
 import Footer from './Components/Footer';
+// import Loading from './Components/Loading';
 
 function App() {
 
-//return jsx
+
 return (
   
   <div className="main">
     <BgOverlay />
-    <Routes>
-      <Route path="/" element= {  <HomePage /> }/>  
-      <Route path="/searchPage" element= {  <SearchPage /> }/>  
-
-      <Route path="/listOfLists" element= {  <ListOfTheLists />}/>  
-
-      <Route path="/viewOnlyList/:shareID" element= {  <ViewOnlyList />}/>  
-      
-      <Route path="/listWithKeys/:editID" element= {  <ListWithKeys />}/>
-      <Route path='*' element={<ErrorPage />} />  
-    </Routes>
+      <Routes>
+        <Route path="/" element= {  <HomePage /> }/>  
+        <Route path="/searchPage" element= {  <SearchPage/> }/>  
+        <Route path="/listOfLists" element= {  <ListOfTheLists />}/>  
+        <Route path="/viewOnlyList/:shareID" element= {  <ViewOnlyList />}/>  
+        <Route path="/listWithKeys/:editID" element= {  <ListWithKeys />}/>
+        <Route path='*' element={<ErrorPage />} />  
+      </Routes>
     <Footer />
   </div>
 );

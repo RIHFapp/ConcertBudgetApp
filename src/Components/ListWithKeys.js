@@ -1,12 +1,30 @@
 import { Link, useParams } from "react-router-dom";
+import Loading from "./Loading";
+import { useEffect, useState} from 'react';
 const ListWithKeys = (props) => {
+    
+   const [pageLoad, setPageLoad] = useState(true);
 
+  useEffect(() => {
+    const loadPage = async() => {
+      await new Promise ((event) => {
+        console.log(event);
+        setTimeout(()=> {setPageLoad(false)}, 2000); 
+      });
+    }
+    setTimeout(()=> {
+      loadPage();
+      setPageLoad(true);
+    }, 2000);
+  }, []);
    
     const {editID} = useParams();
     console.log(editID);
 
     return(
         <>
+              {pageLoad ? <Loading /> : (
+                <>
             <section>
                 <div className="wrapper">
                     <div className="detaliedList">
@@ -86,7 +104,10 @@ const ListWithKeys = (props) => {
             <button id="LOLButton">back</button>
             </Link>
             </section>
+            </>
+            )}
         </>
     )
 }
+
 export default ListWithKeys;

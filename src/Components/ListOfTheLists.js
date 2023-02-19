@@ -2,6 +2,7 @@ import firebase from "../firebase";
 import {ref, getDatabase, onValue} from "firebase/database"; 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -11,6 +12,21 @@ const ListOfTheLists = (props) => {
    const [concertSum, setConcertSum] = useState([])
    const [concertCount, setConcertCount ] = useState([]);
 
+   const [pageLoad, setPageLoad] = useState(true);
+
+   // Page Loads on Component Mounts 
+  useEffect(() => {
+    const loadPage = async() => {
+      await new Promise ((event) => {
+        console.log(event);
+        setTimeout(()=> {setPageLoad(false)}, 2000); 
+      });
+    }
+    setTimeout(()=> {
+      loadPage();
+      setPageLoad(true);
+    }, 2000);
+  }, [])
 
 useEffect( () => {
 
@@ -62,6 +78,9 @@ useEffect( () => {
 
       return (
          <>
+
+            {pageLoad ? <Loading /> : (
+            <>
             <AnimatePresence>
             <motion.section className="wrapper listOfTheListsContainer"
                initial={{ opacity: 0 }}
@@ -69,6 +88,9 @@ useEffect( () => {
                transition={{duration:0.5}}
                exit={{ opacity: 0 }}
             >
+
+            <div className="wrapper listOfTheListsContainer">
+
                <h2> List of created list</h2> 
                
                <ul> {
@@ -135,10 +157,20 @@ useEffect( () => {
                   </motion.button>
                </Link>
                </ul>
+
                
             </motion.section>
             
             </AnimatePresence>
+
+                  
+            </div>
+            <Link to={`/searchPage`}>
+            <button id="LOLButton">back</button>
+            </Link>
+            </>
+               )}
+
          </>
    )
 
