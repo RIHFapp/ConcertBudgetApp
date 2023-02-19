@@ -9,6 +9,7 @@ import SearchPage from './Components/SearchPage';
 import ListOfTheLists from './Components/ListOfTheLists';
 import ErrorPage from './Components/ErrorPage';
 import BgOverlay from './Components/BgOverlay';
+import Footer from './Components/Footer';
 
 function App() {
 
@@ -28,7 +29,7 @@ return (
       <Route path="/listWithKeys/:editID" element= {  <ListWithKeys />}/>
       <Route path='*' element={<ErrorPage />} />  
     </Routes>
-    
+    <Footer />
   </div>
 );
 }

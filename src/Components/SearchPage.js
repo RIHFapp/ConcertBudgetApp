@@ -4,15 +4,15 @@ import axios from "axios";
 import firebase from "../firebase";
 import { ref, getDatabase, push } from "firebase/database"; 
 import { v4 as uuidv4 } from "uuid";
-// import { /* Route, Routes */ useParams/* , Link */ } from "react-router-dom";
 // import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Loading from "./Loading";
 import Swal from 'sweetalert2';
 
+
+
 const SearchPage = () => {
-  // const [passShareId, setPassShareId] = useState("");
   // States for User Budget Information
   const [userListName, setUserListName] = useState('');
   const [userBudget, setBudgetInput] = useState('');
@@ -27,14 +27,9 @@ const SearchPage = () => {
   const [error, setError] = useState (false);
   const [link, setLink] = useState('#');
 
-
- 
-
-
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
     event.preventDefault();
-
     setUserListName(event.target.form[0].value);
     setBudgetInput(event.target.form[1].value);
     
@@ -52,7 +47,10 @@ const SearchPage = () => {
   useEffect (() => {
     if (artist === null && city === null) {
       return;
-    } else {
+    } else if (artist === 'undefined' && city === 'undefined') {
+      setError(true);
+    }
+    else {
     setLoading(true);
     setError(false);
       axios({
@@ -76,23 +74,25 @@ const SearchPage = () => {
         });
         setApiRes(list); 
         setTimeout(() => {
-        setLoading(false);
-        new Promise ((newRes) => {
-            setTimeout(newRes, 1000) 
-            }).then(() => {
-              setLoading(true);
-            }).then(() => {
-              setTimeout(() => {
-                setLoading(false)
-              }, 1000)
-            })
+          setLoading(false);
+          new Promise ((newRes) => {
+              return newRes;
+              })
+              .then(() => {
+                setLoading(true);
+              })
+              .then(() => {
+                setTimeout(() => {
+                  setLoading(false)
+                }, 3000);
+              });
         }, 1000)
       }).catch((err)=> {
-          setError(true);
           setLoading(false);
+          setError(true);
           setTimeout(() => {
             setError(false);
-          }, 1000)
+          }, 2000)
         }
     )}
   },[artist, city, checked])
@@ -111,7 +111,6 @@ const SearchPage = () => {
     setAddedList([...addedList, concertData]);
     setLink(`/listOfLists`);
   }
-
 
   //When pressed Submit - the information gets sent to Firebase
   const handleFirebaseConnection = () => {
@@ -161,9 +160,7 @@ const SearchPage = () => {
     return(
       <>
       {/* Conditionally rendering the page based on loading or error state */}
-      {error && <ErrorPage />}
-      {loading && <Loading />}
-      {!error && !loading && (
+      {error ? <ErrorPage /> : loading ? <Loading/> : (
       // Your component code here
         <>
         <section >
@@ -183,7 +180,6 @@ const SearchPage = () => {
                 type="text"
                 id="newBudget"
                 placeholder="Your Budget" />
-                
               <div>
                 <button onClick={handleListConfig}>
                   Add List
@@ -233,7 +229,7 @@ const SearchPage = () => {
               
               <ul className="searchResultList wrapper">
               <h3>Up coming concerts...</h3>
-                  {
+              {!loading && (
                     apiRes.map((concertInfo)=>{
                       const name = concertInfo.name; 
                       const eventDate = concertInfo.dates.start.localDate;
@@ -268,8 +264,8 @@ const SearchPage = () => {
                           </div>
                         </li>
                       )
-                    })
-                  }
+                  })
+                  )}
               </ul>
           </div>
         </section>
