@@ -27,6 +27,8 @@ const SearchPage = () => {
   const [error, setError] = useState (false);
   const [link, setLink] = useState('');
 
+  // const [ticket, setTicket] = useState(1);
+
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
     event.preventDefault();
@@ -98,7 +100,7 @@ const SearchPage = () => {
   },[artist, city, checked])
 
   // user adds concert to their dynamic list 
-  const handleAddConcert = (name, eventDate, venueCity, venueName, maxPrice, concertImg, key) => {
+  const handleAddConcert = (name, eventDate, venueCity, venueName, maxPrice, concertImg, key, numberOfTickets) => {
     const concertData = {
       name: name,
       eventDate: eventDate,
@@ -106,7 +108,8 @@ const SearchPage = () => {
       venueName: venueName,
       maxPrice: maxPrice,
       image: concertImg,
-      key: key
+      key: key,
+      numberOfTickets: numberOfTickets
     }
     setAddedList([...addedList, concertData]);
     // setLink(`/listOfLists`);
@@ -158,6 +161,26 @@ const SearchPage = () => {
       setLink(`/listOfLists`);
     }
   }, [addedList, link]);
+
+
+  const handleClickMinus = (numberOfTickets, index) => {
+    if (addedList[index].numberOfTickets === 0){
+      return;
+    } else {
+      const xticket = addedList[index].numberOfTickets;
+      const currentTicket = xticket - numberOfTickets;
+      return addedList[index].numberOfTickets = currentTicket;
+    }
+  }
+
+  const handleClickPlus = (numberOfTickets, index) => {
+
+    const xticket = addedList[index].numberOfTickets;
+    const currentTicket = xticket + numberOfTickets;
+    return addedList[index].numberOfTickets = currentTicket;
+  
+  }
+  
   
     return(
       <>
@@ -237,6 +260,7 @@ const SearchPage = () => {
                       const eventDate = concertInfo.dates.start.localDate;
                       const venueCity = concertInfo._embedded.venues[0].city.name;
                       const venueName = concertInfo._embedded.venues[0].name;
+                      let numberOfTickets = 1;
                       const maxPrice = concertInfo.priceRanges !== undefined
                         ? concertInfo.priceRanges[0].max
                         : 'To be announced';
@@ -251,7 +275,7 @@ const SearchPage = () => {
                           { 
                             concertInfo.priceRanges !== undefined ? ( 
                               <button
-                              onClick = {() => {handleAddConcert(name, eventDate, venueCity, venueName, maxPrice, concertImg, key)}}> + </button>
+                                onClick={() => { handleAddConcert(name, eventDate, venueCity, venueName, maxPrice, concertImg, key, numberOfTickets)}}> + </button>
                              ) : null
                           }
                           <div className="concertListInfo">
@@ -282,7 +306,7 @@ const SearchPage = () => {
                 <ul className="myConcert wrapper">
                 <h3>Selected Concerts</h3>
                   {addedList.map( (list, index) =>{
-                    const { name, eventDate, venueCity, venueName, maxPrice, image} = list;
+                    const { name, eventDate, venueCity, venueName, maxPrice, image, numberOfTickets } = list;
                     return(
                       <li key={index}>
                         <div className="concertListInfo">
@@ -293,9 +317,11 @@ const SearchPage = () => {
                           <span><p>{maxPrice}</p></span>
                         </div>
                         <div className="ticketNumber">
-                          <p>-</p>
-                          <p>1</p>
-                          <p>+</p>
+                          <button onClick={() => { handleClickMinus(numberOfTickets, index)}}>-</button>
+                          <button onClick={() => { handleClickPlus(numberOfTickets, index) }}>+</button>
+                          {
+                            (numberOfTickets === 1) ? <p>{numberOfTickets}</p>:<p>{numberOfTickets}</p>
+                          }
                         </div>
                         <div className="concertListImage">
                           <img src={image} alt={`Poster of ${name}`} />
