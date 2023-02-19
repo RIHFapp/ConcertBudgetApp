@@ -82,7 +82,7 @@ const ListWithKeys = (props) => {
                     </div>
 
                 </div>
-                <Link to={`/searchPage`}>
+                <Link to={`/listOfLists`}>
             <button id="LOLButton">back</button>
             </Link>
             </section>
