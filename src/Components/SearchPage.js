@@ -14,8 +14,8 @@ import Swal from 'sweetalert2';
 const SearchPage = (props) => {
   // const [passShareId, setPassShareId] = useState("");
   // States for User Budget Information
-  const [userListName, setUserListName] = useState('NoName');
-  const [userBudget, setBudgetInput] = useState('unset');
+  const [userListName, setUserListName] = useState('');
+  const [userBudget, setBudgetInput] = useState('');
   // State for Concert Search
   const [artist, setArtist] = useState(null);
   const [city, setCity] = useState(null);
@@ -141,12 +141,6 @@ const SearchPage = (props) => {
       // Generate a random key for shearable and editable views
       const shareKey = uuidv4("budget");
       const editKey = uuidv4("edit");
-      // Store child node information
-      // const totalInfo = {
-      //   listname: userListName,
-      //   userBudget: userBudget,
-      //   budgetConcertContent: addedList,
-      // }
       // Connect to Firebase
       const database = getDatabase(firebase);
       const dbRef = ref(database)
