@@ -280,7 +280,7 @@ const SearchPage = () => {
                 <ul className="myConcert wrapper">
                 <h3>Selected Concerts</h3>
                   {addedList.map( (list, index) =>{
-                    const { name, eventDate, venueCity, venueName, maxPrice, concertImg} = list;
+                    const { name, eventDate, venueCity, venueName, maxPrice, image} = list;
                     return(
                       <li key={index}>
                         <div className="concertListInfo">
@@ -296,7 +296,7 @@ const SearchPage = () => {
                           <p>+</p>
                         </div>
                         <div className="concertListImage">
-                          <img src ={concertImg} alt={`Poster of ${name}`} />
+                          <img src={image} alt={`Poster of ${name}`} />
                         </div>
                       </li>
                     )

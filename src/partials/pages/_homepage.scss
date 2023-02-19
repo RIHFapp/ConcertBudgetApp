@@ -2,13 +2,20 @@
 
 .featured{
     margin: 0 auto;
+    p{
+        margin: 0;
+        font-size: 1.5rem;
+        color: white;
+        font-weight: 700;
+        line-height: 25px;
+        text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.09);
+    }
 }
 .featured,
 .suggested{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: center;
 }
 
 .concertImage{
@@ -99,13 +106,10 @@
   }
   
   .item {
-    background: white;
     border-radius: 100%;
-    width: 90%;
-    height: 90%;
     margin: 5% auto;
     img{
-        width: 100%;
+        width: 90%;
         border-radius: 50%;
     }
   }

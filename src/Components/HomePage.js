@@ -19,8 +19,8 @@ const container = {
     opacity: 1,
     scale: 1,
     transition: {
-      delayChildren: 0.3,
-      staggerChildren: 0.2
+      delayChildren: 0.5,
+      staggerChildren: 0.3
     }
   }
 };
@@ -54,6 +54,8 @@ const Homepage = () => {
       <section>
         <div className="featured wrapper">
           <h1> Concert Budget Master</h1>
+          <p>Too much concert ! Tight on budget</p>
+          <p>lets start planning!</p>
         </div>
       </section>
       <motion.ul
