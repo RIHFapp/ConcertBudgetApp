@@ -1,5 +1,9 @@
-import { Link } from "react-router-dom";
-const ViewOnlyList = () => {
+import { Link, useParams } from "react-router-dom";
+const ViewOnlyList = (props) => {
+
+    const { shareID } = useParams();
+    console.log(shareID);
+ 
     return(
         <>
             <section>

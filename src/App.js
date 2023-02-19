@@ -1,8 +1,6 @@
 import './App.scss';
 import { Route, Routes } from 'react-router-dom';
 
-import { useState} from "react";
-
 // Componetns
 import HomePage from "./Components/HomePage";
 import ListWithKeys from './Components/ListWithKeys';
@@ -15,19 +13,6 @@ import Footer from './Components/Footer';
 
 function App() {
 
-  const [passEditId, setPassEditId] = useState('');
-  const [passShareId, setPassShareId] = useState('');
-
-  const editIdRef = (EditId) => {
-    setPassEditId(EditId);
-  }
-
-  const shareIdRef = (ShareId) => {
-    setPassShareId(ShareId);
-  }
-
-
-
 //return jsx
 return (
   
@@ -35,19 +20,13 @@ return (
     <BgOverlay />
     <Routes>
       <Route path="/" element= {  <HomePage /> }/>  
-      <Route path="/searchPage" element= {  <SearchPage 
-        editIdRef={editIdRef}
-        shareIdRef={shareIdRef}
-      /> }/>  
-      <Route path="/listOfLists" element= {  <ListOfTheLists 
-        passEditId={passEditId}
-        passShareId={passShareId}
-      />}/>  
-      <Route path="/viewOnlyList/:shareID" element= {  <ViewOnlyList /> }/>  
-      <Route path="/listWithKeys/:editID" element= {  <ListWithKeys 
-        passEditId={passEditId}
-        passShareId={passShareId}
-      />}/>
+      <Route path="/searchPage" element= {  <SearchPage /> }/>  
+
+      <Route path="/listOfLists" element= {  <ListOfTheLists />}/>  
+
+      <Route path="/viewOnlyList/:shareID" element= {  <ViewOnlyList />}/>  
+      
+      <Route path="/listWithKeys/:editID" element= {  <ListWithKeys />}/>
       <Route path='*' element={<ErrorPage />} />  
     </Routes>
     <Footer />

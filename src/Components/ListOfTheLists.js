@@ -10,7 +10,6 @@ const ListOfTheLists = (props) => {
    const [concertCount, setConcertCount ] = useState([]);
 
 
-
 useEffect( () => {
 
    
@@ -77,11 +76,12 @@ useEffect( () => {
                            <p></p>
                            <p>Total price of the concerts:{concertSum[key]} CAD</p>
                            <p>Total concerts:{concertCount[key]}</p>
-                           <Link to={`/viewOnlyList/:shareID`}>
-                           <button>View the List</button>
+                           <Link to={`/viewOnlyList/:${list.shareKey}`}>
+                              <button>View the List</button>
                            </Link>
-                           <Link to={`/listWithKeys/:editID`}>
-                           <button>Edit the List(with ID)</button>
+
+                           <Link to={`/listWithKeys/:${list.editKey}`}>
+                              <button>Edit the List(with ID)</button>
                            </Link>
                         </li>
                      )

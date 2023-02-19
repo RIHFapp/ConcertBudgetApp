@@ -4,11 +4,19 @@ import taylor from "../partials/asset/placeholder-tay.webp";
 import pink from "../partials/asset/placeholder-pink.webp";
 import john from "../partials/asset/placeholder-john.webp";
 import sha from "../partials/asset/placeholder-sha.webp";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
+import { useState } from "react";
 
 
 
 const Homepage = () => {
+
+  const [userInput, setUserInput] = useState('');
+
+
+  const handleChangeInputChange = (e) => {
+    setUserInput(e.target.value)
+  }
 
     return(
     <div
@@ -32,14 +40,20 @@ const Homepage = () => {
             </Link>
           <div className="editList">
             {/* name of the list input */}
-            <label htmlFor="yourID"></label>
+            <label htmlFor="yourID">Enter Your Key Here:</label>
             <input
                 type="text"
                 id="yourID"
-                placeholder="UUID" />             
-            <Link to={`/searchPage`}>
+                placeholder="UUID" 
+                onChange={handleChangeInputChange}
+                value={userInput}
+            />             
+            {
+            userInput===""? null :
+            <Link to={`/listWithKeys/:${userInput}`}>
               <button>Edit your list</button>
             </Link>
+            }
             </div>           
           </div>
         </form>

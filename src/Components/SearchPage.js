@@ -4,14 +4,15 @@ import axios from "axios";
 import firebase from "../firebase";
 import { ref, getDatabase, push } from "firebase/database"; 
 import { v4 as uuidv4 } from "uuid";
-// import { /* Route, Routes */ useParams/* , Link */ } from "react-router-dom";
 // import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Loading from "./Loading";
 import Swal from 'sweetalert2';
 
-const SearchPage = (props) => {
+
+
+const SearchPage = () => {
   // States for User Budget Information
   const [userListName, setUserListName] = useState('');
   const [userBudget, setBudgetInput] = useState('');
@@ -20,6 +21,7 @@ const SearchPage = (props) => {
   const [city, setCity] = useState(null);
   const [checked, setChecked ] = useState(false);
   const [apiRes, setApiRes] = useState([]);
+
   const [addedList, setAddedList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState (false);
@@ -30,7 +32,7 @@ const SearchPage = (props) => {
     event.preventDefault();
     setUserListName(event.target.form[0].value);
     setBudgetInput(event.target.form[1].value);
-
+    
   }
 
   // Api submit button
@@ -107,25 +109,36 @@ const SearchPage = (props) => {
       key: key
     }
     setAddedList([...addedList, concertData]);
+    setLink(`/listOfLists`);
   }
 
   //When pressed Submit - the information gets sent to Firebase
   const handleFirebaseConnection = () => {
-    if (userBudget === "" && userListName === "") {
+    if(userBudget === "" && userListName === "" && addedList.length === true) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>'
+        title: 'Empty Named List Sumbited',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, Im aware of this , thank you'
       })
     } else if (addedList.length === 0) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>'
+        text: 'Please add items to your list',
       })
-    } else {
+    }
+    else if (userBudget === "" && userListName === "") {
+      Swal.fire({
+        title: 'Empty Named List Sumbited',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, Im aware of this , thank you'
+      })
+    } 
+    else {
       // Generate a random key for shearable and editable views
       const shareKey = uuidv4("budget");
       const editKey = uuidv4("edit");
@@ -139,14 +152,11 @@ const SearchPage = (props) => {
         userBudget: userBudget,
         budgetConcertContent: addedList,
       };
-      props.shareIdRef(shareKey);
-      props.editIdRef(editKey);
       push(dbRef, keyRef);
 
       setLink(`/listOfLists`)
     }
   };
-
     return(
       <>
       {/* Conditionally rendering the page based on loading or error state */}
@@ -181,7 +191,7 @@ const SearchPage = (props) => {
 
         <section>
           <form className="searchForm wrapper">
-            <p>Search for concerts by artist and your preffered city</p>
+            <p>Search for concerts by artist and your preferred city</p>
               <label htmlFor="artist"></label>
               <input 
                   className="artistSearch"
@@ -211,9 +221,9 @@ const SearchPage = (props) => {
 
               </fieldset>
 
-              <button
-                onClick={handleSubmitConcert}
-              > Search </button>
+              <button onClick={handleSubmitConcert}>
+                 Search 
+              </button>
           </form>
           <div className="searchResultContainer">
               
