@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 const ListWithKeys = (props) => {
 
-    console.log(props.passEditId);
-    console.log(props.passShareId);
+   
+    const {editID} = useParams();
+    console.log(editID);
+
     return(
         <>
             <section>

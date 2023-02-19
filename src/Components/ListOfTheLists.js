@@ -1,14 +1,13 @@
 import firebase from "../firebase";
 import {ref, getDatabase, onValue} from "firebase/database"; 
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const ListOfTheLists = (props) => {
 
    const [lists, setLists] = useState([]);
    const [concertSum, setConcertSum] = useState([])
    const [concertCount, setConcertCount ] = useState([]);
-
 
 
 useEffect( () => {
@@ -77,11 +76,12 @@ useEffect( () => {
                            <p></p>
                            <p>Total price of the concerts:{concertSum[key]} CAD</p>
                            <p>Total concerts:{concertCount[key]}</p>
-                           <Link to={`/viewOnlyList/:shareID`}>
-                           <button>View the List</button>
+                           <Link to={`/viewOnlyList/:${list.shareKey}`}>
+                              <button>View the List</button>
                            </Link>
-                           <Link to={`/listWithKeys/:editID`}>
-                           <button>Edit the List(with ID)</button>
+
+                           <Link to={`/listWithKeys/:${list.editKey}`}>
+                              <button>Edit the List(with ID)</button>
                            </Link>
                         </li>
                      )
