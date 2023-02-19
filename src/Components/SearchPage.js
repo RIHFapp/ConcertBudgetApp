@@ -174,11 +174,11 @@ const SearchPage = (/* {pageLoad} */) => {
 
 
   useEffect(() => {
-    // update link state when addedList is updated
-    if (addedList.length > 0 && userBudget !== "" && userListName !== "" && eK) {
+    if (eK) {
       setLink(`/listWithKeys/:${eK}`);
+    } else if (addedList.length > 0 && userBudget !== "" && userListName !== "" && !link) {
+      setEK(uuidv4("edit"));
     }
-
   }, [addedList, userBudget, userListName, link, eK]);
   
 
