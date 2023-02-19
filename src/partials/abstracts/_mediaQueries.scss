@@ -1,1 +1,23 @@
 @use "./variables" as*;
+
+/* Portrait tablet and small desktops */
+@media (max-width: 940px) {
+    .concertImage{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 80%;
+        .smallImage{
+            flex-basis: 45%;
+            margin: 1%;
+        }
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+}

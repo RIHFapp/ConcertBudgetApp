@@ -13,11 +13,9 @@
 
 .concertImage{
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    width: 55%;
     .smallImage{
-        flex-basis: 45%;
+        // flex-basis: 45%;
         margin: 1%;
     }
 }

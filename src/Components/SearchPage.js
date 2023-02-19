@@ -2,13 +2,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import firebase from "../firebase";
-import {ref, getDatabase, push, child, set} from "firebase/database"; 
+import { ref, getDatabase, push } from "firebase/database"; 
 import { v4 as uuidv4 } from "uuid";
 // import { /* Route, Routes */ useParams/* , Link */ } from "react-router-dom";
 // import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Loading from "./Loading";
+import Swal from 'sweetalert2';
 
 const SearchPage = (props) => {
   // const [passShareId, setPassShareId] = useState("");
@@ -23,6 +24,8 @@ const SearchPage = (props) => {
   const [addedList, setAddedList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState (false);
+  const [link, setLink] = useState('#');
+
 
 
 
@@ -109,33 +112,46 @@ const SearchPage = (props) => {
   
   //When pressed Submit - the information gets sent to Firebase
   const handleFirebaseConnection = () => {
-    // Generate a random key for shearable and editable views
-    const shareKey = uuidv4("budget");
-    const editKey = uuidv4("edit");
-    // Store child node information
-    // const totalInfo = {
-    //   listname: userListName,
-    //   userBudget: userBudget,
-    //   budgetConcertContent: addedList, 
-    // }
-    
-    // Connect to Firebase
-    const database = getDatabase(firebase);
-    const dbRef = ref(database)
-    
-    const keyRef = {
-      shareKey,
-      editKey,
-      listname: userListName,
-      userBudget: userBudget,
-      budgetConcertContent: addedList, 
-    };
+    if (userBudget === "" && userListName === "") {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
+    } else if (addedList.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        footer: '<a href="">Why do I have this issue?</a>'
+      })
+    } else {
+      // Generate a random key for shearable and editable views
+      const shareKey = uuidv4("budget");
+      const editKey = uuidv4("edit");
+      // Store child node information
+      // const totalInfo = {
+      //   listname: userListName,
+      //   userBudget: userBudget,
+      //   budgetConcertContent: addedList,
+      // }
+      // Connect to Firebase
+      const database = getDatabase(firebase);
+      const dbRef = ref(database)
+      const keyRef = {
+        shareKey,
+        editKey,
+        listname: userListName,
+        userBudget: userBudget,
+        budgetConcertContent: addedList,
+      };
+      props.shareIdRef(shareKey);
+      props.editIdRef(editKey);
+      push(dbRef, keyRef);
 
-    props.shareIdRef(shareKey);
-    props.editIdRef(editKey);
-
-    push(dbRef, keyRef);
-    
+      setLink(`/listOfLists`)
+    }
   };
 
     return(
@@ -285,7 +301,8 @@ const SearchPage = (props) => {
                       </li>
                     )
                   })}
-              <Link to={`/listOfLists`}>
+
+                  <Link to={`${link}`}>
                     <button onClick={handleFirebaseConnection}>
                       Submit
                     </button>
@@ -301,16 +318,3 @@ const SearchPage = (props) => {
 
 export default SearchPage;
 
-
-
-
-    // Grab Artist Input
-    // const handleArtistInput = (e) => {
-    //     e.preventDefault();
-    //     setArtist(e.target.value);
-    // }
-    // // Grab City Input
-    // const handleCityInput = (e) => {
-    //     e.preventDefault();
-    //     setCity(e.target.value);
-    // }

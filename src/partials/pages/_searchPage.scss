@@ -46,6 +46,7 @@ section{
 // Concert Results Container 
 .searchResultContainer{
         margin: 4rem auto;
+        backdrop-filter: blur(25px);
     h3{
         padding-left: 3%;
     }
@@ -106,6 +107,7 @@ section{
     background-color: $forthColor;
     border-radius: 25px;
     margin-bottom: 1%;
+    backdrop-filter: blur(25px);
     ul{
         .wrapper{
             margin-bottom: 2rem;
@@ -200,7 +202,7 @@ section{
         border: 3px solid rgba(255, 255, 255, 0.904);
         justify-content: space-around;
         align-items: center;
-        width: 50%;
+        width: 80%;
         margin: 1.5% auto;
         h2{
             font-size: 3rem;
