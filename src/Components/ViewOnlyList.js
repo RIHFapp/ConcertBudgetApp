@@ -13,6 +13,11 @@ const ViewOnlyList = () => {
 const { shareID } = useParams();
 console.log(shareID);
 
+let ID = shareID;
+ID = ID.replace(':', '');
+
+console.log(ID)
+
 //temporary key to the firebase
 const keyToMyList = "-NOeqhYOho6hRXNgky2j"
 
@@ -21,6 +26,9 @@ const [nameOfTheList, setNameOfTheList] = useState("Your list");
 const [budgetValue, setBudgetValue] = useState("0");
 const [listOfConcerts, setListOfConcerts] = useState([]);
 const [totalTicketPrice, setTotalTicketPrice] = useState();
+
+const [lists, setLists] = useState([]);
+const [shareList, setShareList] = useState()
 
 
 //function setting the states for displaying the data from the firebase
@@ -53,20 +61,47 @@ useEffect( () => {
         // We call `.val()` on our snapshot to get the contents of our data. The returned data will be an object that we can  iterate through later
         // console.log(snapshot.val())
         
+            const allTheLists = snapshot.val();
+            const newState = [];
+
+            for (let key in allTheLists) {
+                newState.push(allTheLists[key]);
+            }
+
+            setLists(newState);
+
+            console.log(lists)
+
+            const currentList = lists.filter((event)=>{
+                if (event.shareKey !== `${ID}`){
+                    return null;
+                } else {
+                    const currentShareList = event;
+                    return currentShareList
+                }
+            })
+
+            setShareList(currentList)
+            console.log(shareList)
+            // newState.map()
+            // console.log(newState)
+
         //whole object from Firebase
-        const allTheLists = snapshot.val();
+ 
 
-        //specific data from firebase
 
-        const nameFromList = allTheLists[keyToMyList].listname;
-        const budget = allTheLists[keyToMyList].userBudget;
-        const allChosenConcerts = allTheLists[keyToMyList].budgetConcertContent;
+
+        // //specific data from firebase
+
+        // const nameFromList = allTheLists[keyToMyList].listname;
+        // const budget = allTheLists[keyToMyList].userBudget;
+        // const allChosenConcerts = allTheLists[keyToMyList].budgetConcertContent;
         
-        //taking the data for states
-        checkoutTheData(nameFromList, budget, allChosenConcerts);
+        // //taking the data for states
+        // checkoutTheData(nameFromList, budget, allChosenConcerts);
         
-        //taking the data for total price
-        setTotalTicketPrice(sumOfPrices(allChosenConcerts))
+        // //taking the data for total price
+        // setTotalTicketPrice(sumOfPrices(allChosenConcerts))
 
         } else {
             console.log("No data available")
