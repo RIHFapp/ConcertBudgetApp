@@ -64,7 +64,7 @@ useEffect( () => {
                <h2> List of created list</h2> 
                <ul> {
                   lists.map((list, key) => {
-                     const { listname, userBudget, shareKey, editKey, budgetConcertContent} = list;
+                     const { listname, userBudget, shareKey, editKey, budgetConcertContent,ListCreated} = list;
                      //filter price under 300
                      function filterConcertsByPrice(concerts, minPrice, maxPrice) {
                         return concerts.filter(concert => concert.maxPrice >= minPrice && concert.maxPrice <= maxPrice)
@@ -73,8 +73,11 @@ useEffect( () => {
                       
                       const priceUnder500 = filterConcertsByPrice(budgetConcertContent, 0, 500);
                       const priceUnder1000 = filterConcertsByPrice(budgetConcertContent, 300, 1000);
-
-                     
+                      const date = new Date(ListCreated)
+                      const year = date.getFullYear();
+                        const month = date.getMonth() + 1;
+                        const day = date.getDate();
+                        const formattedDateTime = `${year}-${month}-${day}`;
                      return (
                         <li key={key}>
                            <p>Name of the list:{listname}</p>
@@ -82,8 +85,9 @@ useEffect( () => {
                            <p></p>
                            <p>Total price of the concerts:{concertSum[key]} CAD</p>
                            <p>Total concerts:{concertCount[key]}</p>
-                           <p>Tickets under $500: {priceUnder500.map(concert => `${concert.name.substr(0, 10)}... ($${concert.maxPrice})`).join(', ')}</p>
-                           <p>Tickets $300-$1000 : {priceUnder1000.map(concert => `${concert.name.substr(0, 10)}... ($${concert.maxPrice})`).join(', ')}</p>
+                           {/* <p>Tickets under $500: {priceUnder500.map(concert => `${concert.name.substr(0, 10)}... ($${concert.maxPrice})`).join(', ')}</p>
+                           <p>Tickets $300-$1000 : {priceUnder1000.map(concert => `${concert.name.substr(0, 10)}... ($${concert.maxPrice})`).join(', ')}</p> */}
+                           <p>created on {formattedDateTime}</p>
                            <Link to={`/viewOnlyList/:${shareKey}`}>
                               <button>View the List</button>
                            </Link>
@@ -98,7 +102,7 @@ useEffect( () => {
                </ul>
                   
             </div>
-            <Link to={`/listOfLists`}>
+            <Link to={`/searchPage`}>
             <button id="LOLButton">back</button>
             </Link>
          </>

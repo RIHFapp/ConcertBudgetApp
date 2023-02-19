@@ -142,7 +142,9 @@ const SearchPage = () => {
       // Generate a random key for shearable and editable views
       const shareKey = uuidv4("budget");
       const editKey = uuidv4("edit");
+      const timestamp = new Date().getTime();
       // Connect to Firebase
+      const currentTime=timestamp
       const database = getDatabase(firebase);
       const dbRef = ref(database)
       const keyRef = {
@@ -151,6 +153,7 @@ const SearchPage = () => {
         listname: userListName,
         userBudget: userBudget,
         budgetConcertContent: addedList,
+        ListCreated: currentTime,
       };
       push(dbRef, keyRef);
 
