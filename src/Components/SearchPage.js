@@ -120,13 +120,11 @@ const SearchPage = () => {
         title: 'Oops...',
         text: 'Please add items to your list',
       })
-    } else if (userBudget === "" || userListName === "") {
+    } else if (userBudget === "" && userListName === "" && addedList.length > 0) {
       Swal.fire({
-        title: 'Empty Named List ',
-        text: "please name your List",
-        icon: 'warning',
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, Im aware of this , thank you'
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please give you list a name',
       })
     } else {
       // Generate a random key for shearable and editable views
@@ -154,10 +152,10 @@ const SearchPage = () => {
 
   useEffect(() => {
     // update link state when addedList is updated
-    if (addedList.length > 0 && !link) {
+    if (addedList.length > 0 && userBudget !== "" && userListName !== "" && !link) {
       setLink(`/listOfLists`);
     }
-  }, [addedList, link]);
+  }, [addedList, userBudget, userListName, link]);
   
     return(
       <>
