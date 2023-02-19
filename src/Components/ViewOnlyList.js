@@ -6,6 +6,7 @@ import firebase from "../firebase";
 import { getDatabase, ref, get } from "firebase/database";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Loading from "./Loading";
 
 const ViewOnlyList = () => {
 
@@ -21,6 +22,20 @@ const [nameOfTheList, setNameOfTheList] = useState("Your list");
 const [budgetValue, setBudgetValue] = useState("0");
 const [listOfConcerts, setListOfConcerts] = useState([]);
 const [totalTicketPrice, setTotalTicketPrice] = useState();
+const [pageLoad, setPageLoad] = useState(true);
+
+  useEffect(() => {
+    const loadPage = async() => {
+      await new Promise ((event) => {
+        console.log(event);
+        setTimeout(()=> {setPageLoad(false)}, 2000); 
+      });
+    }
+    setTimeout(()=> {
+      loadPage();
+      setPageLoad(true);
+    }, 2000);
+  }, []);
 
 
 //function setting the states for displaying the data from the firebase
@@ -80,6 +95,8 @@ useEffect( () => {
 
     return(
         <>
+        {pageLoad ? <Loading /> : (
+            <>
             <section>
                 <div className="wrapper">
                     <div className="detaliedList">
@@ -121,6 +138,8 @@ useEffect( () => {
                     <button id="LOLButton">back</button>
                 </Link>
             </section>
+            </>
+            )}
         </>
     )
 }
