@@ -3,7 +3,7 @@
 //pairing the shareID and the object from firebase-> check const keyToMyList
 
 import firebase from "../firebase";
-import { getDatabase, ref, get } from "firebase/database";
+import { getDatabase, ref, get, onValue } from "firebase/database";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
@@ -19,7 +19,7 @@ ID = ID.replace(':', '');
 console.log(ID)
 
 //temporary key to the firebase
-const keyToMyList = "-NOeqhYOho6hRXNgky2j"
+// const keyToMyList = "-NOeqhYOho6hRXNgky2j"
 
 //states
 const [nameOfTheList, setNameOfTheList] = useState("Your list");
@@ -27,9 +27,9 @@ const [budgetValue, setBudgetValue] = useState("0");
 const [listOfConcerts, setListOfConcerts] = useState([]);
 const [totalTicketPrice, setTotalTicketPrice] = useState();
 
-const [lists, setLists] = useState([]);
-const [shareList, setShareList] = useState()
 
+const [shareList, setShareList] = useState([])
+ 
 
 //function setting the states for displaying the data from the firebase
 const checkoutTheData = (name, budget, concerts)=> {
@@ -51,62 +51,39 @@ const sumOfPrices = (arrayOfConcerts) => {
 //getting the data from Firebase
 useEffect( () => {
 
+
     const database = getDatabase(firebase);
     const dbRef = ref(database);
 
+    onValue(dbRef, (response)=>{
 
-    get(dbRef).then((snapshot) => {
-
-        if(snapshot.exists()){
-        // We call `.val()` on our snapshot to get the contents of our data. The returned data will be an object that we can  iterate through later
-        // console.log(snapshot.val())
-        
-            const allTheLists = snapshot.val();
+            const allTheLists = response.val();
             const newState = [];
 
             for (let key in allTheLists) {
                 newState.push(allTheLists[key]);
             }
 
-            setLists(newState);
 
-            console.log(lists)
-
-            const currentList = lists.filter((event)=>{
+            const currentList = newState.filter((event)=>{
                 if (event.shareKey !== `${ID}`){
                     return null;
                 } else {
                     const currentShareList = event;
-                    return currentShareList
+                    return currentShareList;
                 }
             })
 
-            setShareList(currentList)
-            console.log(shareList)
-            // newState.map()
-            // console.log(newState)
-
-        //whole object from Firebase
-        // //specific data from firebase
-
-        // const nameFromList = allTheLists[keyToMyList].listname;
-        // const budget = allTheLists[keyToMyList].userBudget;
-        // const allChosenConcerts = allTheLists[keyToMyList].budgetConcertContent;
+            console.log(currentList)
+            setShareList(currentList);
+            // console.log(shareList);
+    })
         
-        // //taking the data for states
-        // checkoutTheData(nameFromList, budget, allChosenConcerts);
-        
-        // //taking the data for total price
-        // setTotalTicketPrice(sumOfPrices(allChosenConcerts))
 
-        } else {
-            console.log("No data available")
-        }
-    }).catch((error) => {
-        console.log(error)
-    }) 
+ 
 
-    
+
+
 }, [])  
 
 
