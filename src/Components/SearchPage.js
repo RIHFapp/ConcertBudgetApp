@@ -26,6 +26,7 @@ const SearchPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState (false);
   const [link, setLink] = useState('#');
+  const [ticketNumber, setTicketNumber] = useState(0)
 
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
