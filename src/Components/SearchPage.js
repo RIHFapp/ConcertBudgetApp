@@ -165,7 +165,7 @@ const SearchPage = () => {
         <>
         <section >
           <div className="inputSection wrapper">
-            <h2>Welcome! lets Start planning your concert list</h2>
+            <h2>Create Your List!</h2>
             <form action="submit">
               {/* name of the list input */}
               <label htmlFor="newName"></label>

@@ -25,9 +25,6 @@ useEffect( () => {
          newState.push(listsData[key]);
       }
       setLists(newState);
-
-      console.log(newState)
-
       //getting total cost amount for each budget
       let totalListPrice = 0;
       const maxPriceArray = [];
@@ -67,28 +64,38 @@ useEffect( () => {
                <h2> List of created list</h2> 
                <ul> {
                   lists.map((list, key) => {
-                     
+                     const { listname, userBudget, shareKey, editKey, budgetConcertContent} = list;
+                     //filter price under 300
+                     const priceUnder500 = budgetConcertContent
+                     .filter(concert => concert.maxPrice < 500)
+                     .map(concert => ({ name: concert.name, maxPrice: concert.maxPrice }));
 
+                     const priceUnder1000 = budgetConcertContent
+                     .filter(concert => concert.maxPrice > 300 && concert.maxPrice < 1000)
+                     .map(concert => ({ name: concert.name, maxPrice: concert.maxPrice }));
+                     console.log(priceUnder500);
+
+                     
                      return (
                         <li key={key}>
-                           <p>Name of the list:{list.listname}</p>
-                           <p>Budget:{list.userBudget}</p>
+                           <p>Name of the list:{listname}</p>
+                           <p>Budget:{userBudget}</p>
                            <p></p>
                            <p>Total price of the concerts:{concertSum[key]} CAD</p>
                            <p>Total concerts:{concertCount[key]}</p>
-                           <Link to={`/viewOnlyList/:${list.shareKey}`}>
+                           <p>Tickets under $500: {priceUnder500.map(concert => `${concert.name.substr(0, 10)}... ($${concert.maxPrice})`).join(', ')}</p>
+                           <p>Tickets $300-$1000 : {priceUnder1000.map(concert => `${concert.name.substr(0, 10)}... ($${concert.maxPrice})`).join(', ')}</p>
+                           <Link to={`/viewOnlyList/:${shareKey}`}>
                               <button>View the List</button>
                            </Link>
 
-                           <Link to={`/listWithKeys/:${list.editKey}`}>
+                           <Link to={`/listWithKeys/:${editKey}`}>
                               <button>Edit the List(with ID)</button>
                            </Link>
                         </li>
                      )
                   })
-                  }
-
-                  
+                  }               
                </ul>
                   
             </div>
