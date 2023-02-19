@@ -87,10 +87,6 @@ useEffect( () => {
             // console.log(newState)
 
         //whole object from Firebase
- 
-
-
-
         // //specific data from firebase
 
         // const nameFromList = allTheLists[keyToMyList].listname;
@@ -109,6 +105,8 @@ useEffect( () => {
     }).catch((error) => {
         console.log(error)
     }) 
+
+    
 }, [])  
 
 
