@@ -243,11 +243,6 @@ const SearchPage = (props) => {
                             <p> {venueName} </p>
                             <span><p>{maxPrice}</p></span>
                           </div>
-                          <div className="ticketNumber">
-                            <p>-</p>
-                            <p>1</p>
-                            <p>+</p>
-                          </div>
                           <div className="concertListImage">
                             <img src ={concertImg} alt="concert poster information"></img>
                           </div>
@@ -278,6 +273,11 @@ const SearchPage = (props) => {
                           <p>{venueCity}</p>
                           <p>{venueName}</p>
                           <span><p>{maxPrice}</p></span>
+                        </div>
+                        <div className="ticketNumber">
+                          <p>-</p>
+                          <p>1</p>
+                          <p>+</p>
                         </div>
                         <div className="concertListImage">
                           <img src ={concertImg} alt={`Poster of ${name}`} />
