@@ -46,6 +46,9 @@ const SearchPage = (/* {pageLoad} */) => {
   const [link, setLink] = useState('');
 
 
+  const [eK, setEK] = useState('');
+
+
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
     event.preventDefault();
@@ -149,6 +152,8 @@ const SearchPage = (/* {pageLoad} */) => {
       // Generate a random key for shearable and editable views
       const shareKey = uuidv4("budget");
       const editKey = uuidv4("edit");
+      setEK(editKey);
+
       const timestamp = new Date().getTime();
       // Connect to Firebase
       const currentTime = timestamp;
@@ -163,8 +168,7 @@ const SearchPage = (/* {pageLoad} */) => {
         ListCreated: currentTime,
       };
       push(dbRef, keyRef);
-    
-      setLink(`/listOfLists`)
+      setLink(`/listWithKeys/:${eK}`)
     }
     
   };
@@ -172,10 +176,13 @@ const SearchPage = (/* {pageLoad} */) => {
 
   useEffect(() => {
     // update link state when addedList is updated
-    if (addedList.length > 0 && userBudget !== "" && userListName !== "" && !link) {
-      setLink(`/listOfLists`);
+    if (addedList.length > 0 && userBudget !== "" && userListName !== "" && eK) {
+      setLink(`/listWithKeys/:${eK}`);
     }
-  }, [addedList, userBudget, userListName, link]);
+
+  }, [addedList, userBudget, userListName, link, eK]);
+  
+
 
     return(
       <>

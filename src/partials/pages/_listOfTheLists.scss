@@ -1,26 +1,89 @@
-@use "../abstracts/variables" as*;
+@use "../abstracts/variables" as *;
 
+.listOfTheListsContainer {
+  margin-top: 4rem;
+  background: rgba(255, 255, 255, 0.342);
+  border-radius: 25px;
+  padding: 1%;
 
- 
-.listOfTheListsContainer{
-   padding: 1px;
-   border-radius: 25px;
-   margin-bottom: 1%;
-   li{
-       display: flex;
-       justify-content: space-between;
-       align-items: center;
-       padding: 1rem;
-       border-radius: 25px;
-       background-color: $firstColor;
-       list-style-type: none;
-       margin-bottom: 2%;
-           p{
-               font-size: 1.6rem;
-           }
-   }
+  .listItem1 {
+    background-color: $firstColor;
+    box-shadow: 8px 11px 5px 1px rgba(219, 240, 239, 0.66);
+    -webkit-box-shadow: 8px 11px 5px 1px rgba(219, 240, 239, 0.66);
+    -moz-box-shadow: 8px 11px 5px 1px rgba(219, 240, 239, 0.66);
+  }
 
+  .listItem2 {
+    background-color: $secondColor;
+    box-shadow: 8px 11px 5px 1px rgba(151, 219, 232, 0.66);
+    -webkit-box-shadow: 8px 11px 5px 1px rgba(151, 219, 232, 0.66);
+    -moz-box-shadow: 8px 11px 5px 1px rgba(151, 219, 232, 0.66);
+  }
+
+  .listItem3 {
+    background-color: $thirdColor;
+    box-shadow: 8px 11px 5px 1px rgba(151, 169, 232, 0.66);
+    -webkit-box-shadow: 8px 11px 5px 1px rgba(151, 169, 232, 0.66);
+    -moz-box-shadow: 8px 11px 5px 1px rgba(151, 169, 232, 0.66);
+  }
+
+  p {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  ul {
+    padding-left: 0;
+    background-color: #ffffff00;
+    border-radius: 25px;
+    padding: 2rem;
+
+    .wrapper {
+      margin-bottom: 2rem;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem;
+      border: 3px solid rgba(255, 255, 255, 0.815);
+      border-radius: 25px;
+      list-style-type: none;
+      margin-bottom: 2%;
+      transition: 0.6s;
+      &:hover,
+      &:focus{
+        scale: 1.05;
+      }
+    }
+  }
+
+  .fairBaseList {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 72%;
+  }
+
+  .listButtons {
+    width: 28%;
+  }
+
+  a {
+    width: 14%;
+    margin: 0 auto;
+
+    button {
+      font-size: 1.5rem;
+      margin-left: 5%;
+    }
+
+    span {
+      text-decoration: underline;
+      text-transform: lowercase;
+      font-weight: 400;
+      font-size: 1.3rem;
+    }
+  }
 }
-
-
-
