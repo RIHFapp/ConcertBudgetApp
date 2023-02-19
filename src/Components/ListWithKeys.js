@@ -32,10 +32,16 @@ const keyToMyList = "-NOaq6mPoOGyMdREbJ5E"
 
 
 const [myEditableList, setMyEditableList] = useState([]);
-const [nameOfTheList, setNameOfTheList] = useState()
+const [nameOfTheList, setNameOfTheList] = useState("Your list");
+const [budgetValue, setBudgetValue] = useState("0");
+const [listOfConcerts, setListOfConcerts] = useState([])
 
-const checkoutTheData = (name)=> {
-    setNameOfTheList(name)
+
+//function setting the states for displaying the data from the firebase
+const checkoutTheData = (name, budget, concerts)=> {
+    setNameOfTheList(name);
+    setBudgetValue(budget);
+    setListOfConcerts(concerts)
 }
 
 
@@ -44,25 +50,22 @@ useEffect( () => {
 const database = getDatabase(firebase);
 const dbRef = ref(database);
 
+//Please keep in mind that I'm not sure if it's gonna be get, or rather onValue!
+
 get(dbRef).then((snapshot) => {
     // One of the returned values is a method called ".exists()", which will return a boolean value for whether there is a returned value from our "get" function 
     if(snapshot.exists()){
       // We call `.val()` on our snapshot to get the contents of our data. The returned data will be an object that we can  iterate through later
     console.log(snapshot.val())
     const allTheLists = snapshot.val();
-    // for (let property in allTheLists) {
-    //     console.log(allTheLists[property])
-    // }
 
-
-if (allTheLists.hasOwnProperty("-NOaq6mPoOGyMdREbJ5E") === true) {
-    console.log(allTheLists["-NOaq6mPoOGyMdREbJ5E"].listname)
     
-    const nameFromList = allTheLists["-NOaq6mPoOGyMdREbJ5E"].listname;
-    checkoutTheData(nameFromList)
-    console.log(allTheLists["-NOaq6mPoOGyMdREbJ5E"].userBudget)
-    console.log(allTheLists["-NOaq6mPoOGyMdREbJ5E"].budgetConcertContent)
-}
+    const nameFromList = allTheLists[keyToMyList].listname;
+    const budget = allTheLists[keyToMyList].userBudget;
+    const allChosenConcerts = allTheLists[keyToMyList].budgetConcertContent;
+    checkoutTheData(nameFromList, budget, allChosenConcerts);
+    
+// }
 
     //   for (let key in allTheLists) {
     //     myListToDisplay.push(allTheLists[key]);
@@ -86,16 +89,16 @@ if (allTheLists.hasOwnProperty("-NOaq6mPoOGyMdREbJ5E") === true) {
                     <div className="detaliedList">
                         <p></p>
                     
-                        <h2>{nameOfTheList} haha</h2>
+                        <h2>{nameOfTheList}</h2>
                         
                         <div className="listHeading">
                         <h3>Concernt <span id="budgetValue">6000</span> </h3>
                         <h3>vs</h3>
-                        <h3>Budget <span id="totalTicketPrice">10</span></h3>
+                        <h3>Budget <span id="totalTicketPrice">{budgetValue}</span></h3>
                         </div>
                         
-                        <ul>
-                        <li className="listTags inKeys">
+                        <ul> 
+                            <li className="listTags inKeys">
                             <div className="listConcertTags">
                                 <p>Name</p>
                                 <p>Date</p>
