@@ -6,19 +6,21 @@ import john from "../partials/asset/placeholder-john.webp";
 import sha from "../partials/asset/placeholder-sha.webp";
 import { Link} from "react-router-dom";
 import { useState } from "react";
+import Loading from "./Loading";
 
 
 
-const Homepage = () => {
-
+const Homepage = (props) => {
+   const { isLoading, handlePageLoading } = props;
   const [userInput, setUserInput] = useState('');
-
 
   const handleChangeInputChange = (e) => {
     setUserInput(e.target.value)
   }
 
     return(
+      <>
+      {isLoading ? <Loading /> : (
     <div
       // initial={{ opacity: 0 }}
       // animate={{ opacity: 1 }}
@@ -50,7 +52,10 @@ const Homepage = () => {
             />             
             {
             userInput===""? null :
-            <Link to={`/listWithKeys/:${userInput}`}>
+            <Link
+               to={`/listWithKeys/:${userInput}`}
+               onClick={() => handlePageLoading(isLoading)}
+            >
               <button>Edit your list</button>
             </Link>
             }
@@ -93,6 +98,8 @@ const Homepage = () => {
       </ul> */}
       </section>
       </div>
+    )}
+    </>
     )
     
 }

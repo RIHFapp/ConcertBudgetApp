@@ -26,13 +26,13 @@ const SearchPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState (false);
   const [link, setLink] = useState('#');
+  const [ticketNumber, setTicketNumber] = useState(0)
 
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
     event.preventDefault();
     setUserListName(event.target.form[0].value);
     setBudgetInput(event.target.form[1].value);
-    
   }
 
   // Api submit button
@@ -106,7 +106,7 @@ const SearchPage = () => {
       venueName: venueName,
       maxPrice: maxPrice,
       image: concertImg,
-      key: key
+      key: key, 
     }
     setAddedList([...addedList, concertData]);
     setLink(`/listOfLists`);
@@ -151,12 +151,25 @@ const SearchPage = () => {
         listname: userListName,
         userBudget: userBudget,
         budgetConcertContent: addedList,
+        ticketNumber: 0
       };
       push(dbRef, keyRef);
 
       setLink(`/listOfLists`)
     }
   };
+
+  const handleTicketNumIncrease = (ticketNumber) => {
+    console.log(ticketNumber);
+    if (ticketNumber >= 0 ) {
+      ticketNumber = ticketNumber + 1;
+      console.log(ticketNumber)
+      setTicketNumber(ticketNumber)
+    }
+  }
+  const handleTicketNumDecrease = () => {
+
+  }
     return(
       <>
       {/* Conditionally rendering the page based on loading or error state */}
@@ -280,7 +293,7 @@ const SearchPage = () => {
                 <ul className="myConcert wrapper">
                 <h3>Selected Concerts</h3>
                   {addedList.map( (list, index) =>{
-                    const { name, eventDate, venueCity, venueName, maxPrice, concertImg} = list;
+                    const { name, eventDate, venueCity, venueName, maxPrice, concertImg, ticketNumber} = list;
                     return(
                       <li key={index}>
                         <div className="concertListInfo">
@@ -291,9 +304,9 @@ const SearchPage = () => {
                           <span><p>{maxPrice}</p></span>
                         </div>
                         <div className="ticketNumber">
-                          <p>-</p>
-                          <p>1</p>
-                          <p>+</p>
+                          <button onClick={handleTicketNumIncrease}>+</button>
+                          <p>{ticketNumber}</p>
+                          <button onClick={handleTicketNumDecrease}>-</button>
                         </div>
                         <div className="concertListImage">
                           <img src ={concertImg} alt={`Poster of ${name}`} />

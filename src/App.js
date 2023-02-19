@@ -1,5 +1,6 @@
 import './App.scss';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import { useState } from 'react';
 
 // Componetns
 import HomePage from "./Components/HomePage";
@@ -10,16 +11,26 @@ import ListOfTheLists from './Components/ListOfTheLists';
 import ErrorPage from './Components/ErrorPage';
 import BgOverlay from './Components/BgOverlay';
 import Footer from './Components/Footer';
+import Loading from './Components/Loading';
 
 function App() {
+const [isLoading, setIsLoading] = useState(false); 
 
-//return jsx
+const handlePageLoading = () => {
+  setIsLoading(true);
+}
+
+
 return (
   
   <div className="main">
     <BgOverlay />
-    <Routes>
-      <Route path="/" element= {  <HomePage /> }/>  
+    {isLoading ? <Loading /> : (
+    <Switch>
+      <Route path="/" element= {  <HomePage 
+      handlePageLoading={handlePageLoading}
+      isLoading = {isLoading}
+      /> }/>  
       <Route path="/searchPage" element= {  <SearchPage /> }/>  
 
       <Route path="/listOfLists" element= {  <ListOfTheLists />}/>  
@@ -28,7 +39,8 @@ return (
       
       <Route path="/listWithKeys/:editID" element= {  <ListWithKeys />}/>
       <Route path='*' element={<ErrorPage />} />  
-    </Routes>
+    </Switch>
+    )}
     <Footer />
   </div>
 );
