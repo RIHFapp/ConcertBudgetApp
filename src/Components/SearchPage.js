@@ -21,6 +21,7 @@ const SearchPage = (props) => {
   const [city, setCity] = useState(null);
   const [checked, setChecked ] = useState(false);
   const [apiRes, setApiRes] = useState([]);
+
   const [addedList, setAddedList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState (false);
