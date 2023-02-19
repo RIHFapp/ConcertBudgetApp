@@ -21,14 +21,14 @@ const ListWithKeys = (props) => {
    
     //adding the CAD to the price 
 
-
+//to check: can I download only one item from val (does .val accepts any query)
     //to discuss:
      //adding the number of tickets to the firebase data structure? -> in the budgetConcertContent
      //displaying the number of tickets
       //event handler on a "+" and "-" buttons => the buttons are changing the total price
         //why console.logs above?
 
-const keyToMyList = "-NOaq6mPoOGyMdREbJ5E"
+const keyToMyList = "-NObYc3j2pihbas9FGh7"
 
 
 const [myEditableList, setMyEditableList] = useState([]);
@@ -46,117 +46,88 @@ const checkoutTheData = (name, budget, concerts)=> {
 
 
 useEffect( () => {
-     
-const database = getDatabase(firebase);
-const dbRef = ref(database);
 
-//Please keep in mind that I'm not sure if it's gonna be get, or rather onValue!
+    const database = getDatabase(firebase);
+    const dbRef = ref(database);
 
-get(dbRef).then((snapshot) => {
-    // One of the returned values is a method called ".exists()", which will return a boolean value for whether there is a returned value from our "get" function 
-    if(snapshot.exists()){
-      // We call `.val()` on our snapshot to get the contents of our data. The returned data will be an object that we can  iterate through later
-    console.log(snapshot.val())
-    const allTheLists = snapshot.val();
+    //Please keep in mind that I'm not sure if it's gonna be get, or rather onValue!
 
-    
-    const nameFromList = allTheLists[keyToMyList].listname;
-    const budget = allTheLists[keyToMyList].userBudget;
-    const allChosenConcerts = allTheLists[keyToMyList].budgetConcertContent;
-    checkoutTheData(nameFromList, budget, allChosenConcerts);
-    
-// }
-
-    //   for (let key in allTheLists) {
-    //     myListToDisplay.push(allTheLists[key]);
-    //     console.log(myListToDisplay)
-    //   }
-    }else{
-      console.log("No data available")
-    }
-  }).catch((error) => {
-    console.log(error)
-  })
+    get(dbRef).then((snapshot) => {
+        // One of the returned values is a method called ".exists()", which will return a boolean value for whether there is a returned value from our "get" function 
+        if(snapshot.exists()){
+        // We call `.val()` on our snapshot to get the contents of our data. The returned data will be an object that we can  iterate through later
+        console.log(snapshot.val())
+        const allTheLists = snapshot.val();
+        const nameFromList = allTheLists[keyToMyList].listname;
+        const budget = allTheLists[keyToMyList].userBudget;
+        const allChosenConcerts = allTheLists[keyToMyList].budgetConcertContent;
+        checkoutTheData(nameFromList, budget, allChosenConcerts);
         
+    // }
 
-     
-        }, [])
+        //   for (let key in allTheLists) {
+        //     myListToDisplay.push(allTheLists[key]);
+        //     console.log(myListToDisplay)
+        //   }
+        }else{
+        console.log("No data available")
+        }
+    }).catch((error) => {
+        console.log(error)
+    })
+            
 
+        
+}, [])
+
+        
+        
+           
     return(
         <>
             <section>
                 <div className="wrapper">
                     <div className="detaliedList">
-                        <p></p>
+                        
                     
                         <h2>{nameOfTheList}</h2>
                         
                         <div className="listHeading">
-                        <h3>Concernt <span id="budgetValue">6000</span> </h3>
+                        <h3>Concert <span id="budgetValue">6000</span> </h3>
                         <h3>vs</h3>
                         <h3>Budget <span id="totalTicketPrice">{budgetValue}</span></h3>
                         </div>
                         
                         <ul> 
                             <li className="listTags inKeys">
-                            <div className="listConcertTags">
-                                <p>Name</p>
-                                <p>Date</p>
-                                <p>City</p>
-                                <p>Location</p>
-                                <p>Price</p>
-                            </div>
-                            <div className="listButtonTags">
-                                <p>adjusting concerts</p>
-                            </div>
-                                
+                                <div className="listConcertTags">
+                                    <p>Name</p>
+                                    <p>Date</p>
+                                    <p>City</p>
+                                    <p>Location</p>
+                                    <p>Price</p>
+                                </div>
+                                <div className="listButtonTags">
+                                    <p>adjusting concerts</p>
+                                </div>         
                             </li>
-                            <li className="one">
-                                <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
-                                <p>2023-09-11</p>
-                                <p>Vancouver</p>
-                                <p>BC Place</p>
-                                <p>581</p>
-                                <button> + </button>
-                                <button> - </button>
-                                <button> Remove Ticket </button>
-                            </li>
-                        
-                        
-                            <li className="two">
-                                <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
-                                <p>2023-09-11</p>
-                                <p>Vancouver</p>
-                                <p>BC Place</p>
-                                <p>581</p>
-                                <button> + </button>
-                                <button> - </button>
-                                <button> Remove Ticket </button>
-                            </li>
-                            
-                        
-                            <li className="three">
-                                <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
-                                <p>2023-09-11</p>
-                                <p>Vancouver</p>
-                                <p>BC Place</p>
-                                <p>581</p>
-                                <button> + </button>
-                                <button> - </button>
-                                <button> Remove Ticket </button>
-                            </li>
-                            
-                        
-                            <li className="one">
-                                <p>BEYONCÉ - RENAISSANCE WORLD TOUR</p>
-                                <p>2023-09-11</p>
-                                <p>Vancouver</p>
-                                <p>BC Place</p>
-                                <p>581</p>
-                                <button> + </button>
-                                <button> - </button>
-                                <button> Remove Ticket </button>
-                            </li>
+                            {
+                                listOfConcerts.map( (oneConcert) => {
+                                    return (
+                                   
+                                        <li className="one">
+                                            <p>{oneConcert.name}</p>
+                                            <p>{oneConcert.eventDate}</p>
+                                            <p>{oneConcert.venueCity}</p>
+                                            <p>{oneConcert.venueName}</p>
+                                            <p>{oneConcert.maxPrice}</p>
+                                            <button> + </button>
+                                            <button> - </button>
+                                            <button> Remove Ticket </button>
+                                        </li>
+                                    )
+                                })    
+                            } 
                         </ul>
                     </div>
 
