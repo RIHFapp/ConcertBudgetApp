@@ -12,7 +12,6 @@ import Loading from "./Loading";
 import Swal from 'sweetalert2';
 
 const SearchPage = (props) => {
-  // const [passShareId, setPassShareId] = useState("");
   // States for User Budget Information
   const [userListName, setUserListName] = useState('');
   const [userBudget, setBudgetInput] = useState('');
@@ -28,11 +27,9 @@ const SearchPage = (props) => {
 
 
 
-
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
     event.preventDefault();
-
     setUserListName(event.target.form[0].value);
     setBudgetInput(event.target.form[1].value);
 
@@ -76,13 +73,13 @@ const SearchPage = (props) => {
         setTimeout(() => {
         setLoading(false);
         new Promise ((newRes) => {
-            setTimeout(newRes, 1000) 
+            return newRes;
             }).then(() => {
               setLoading(true);
             }).then(() => {
               setTimeout(() => {
                 setLoading(false)
-              }, 1000)
+              }, 2000)
             })
         }, 1000)
       }).catch((err)=> {
@@ -90,10 +87,10 @@ const SearchPage = (props) => {
           setLoading(false);
           setTimeout(() => {
             setError(false);
-          }, 1000)
+          }, 2000)
         }
     )}
-  },[artist, city, checked])
+  },[artist, city, checked, loading])
 
   // user adds concert to their dynamic list 
   const handleAddConcert = (name, eventDate, venueCity, venueName, maxPrice, concertImg, key) => {
@@ -130,12 +127,6 @@ const SearchPage = (props) => {
       // Generate a random key for shearable and editable views
       const shareKey = uuidv4("budget");
       const editKey = uuidv4("edit");
-      // Store child node information
-      // const totalInfo = {
-      //   listname: userListName,
-      //   userBudget: userBudget,
-      //   budgetConcertContent: addedList,
-      // }
       // Connect to Firebase
       const database = getDatabase(firebase);
       const dbRef = ref(database)
@@ -157,9 +148,10 @@ const SearchPage = (props) => {
     return(
       <>
       {/* Conditionally rendering the page based on loading or error state */}
-      {error && <ErrorPage />}
-      {loading && <Loading />}
-      {!error && !loading && (
+      {/* {error && <ErrorPage />} */}
+      {/* {loading && <Loading />} */}
+      {/* {!error && !loading && ( */}
+      {error ? <ErrorPage /> : loading ? <Loading/> : (
       // Your component code here
         <>
         <section >
@@ -229,7 +221,7 @@ const SearchPage = (props) => {
               
               <ul className="searchResultList wrapper">
               <h3>Up coming concerts...</h3>
-                  {
+              {!loading && (
                     apiRes.map((concertInfo)=>{
                       const name = concertInfo.name; 
                       const eventDate = concertInfo.dates.start.localDate;
@@ -264,8 +256,8 @@ const SearchPage = (props) => {
                           </div>
                         </li>
                       )
-                    })
-                  }
+                  })
+                  )}
               </ul>
           </div>
         </section>
