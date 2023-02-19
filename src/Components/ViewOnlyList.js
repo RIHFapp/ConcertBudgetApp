@@ -1,11 +1,30 @@
 import { Link, useParams } from "react-router-dom";
+import{useEffect, useState} from 'react';
+import Loading from "./Loading";
 const ViewOnlyList = (props) => {
+        
+   const [pageLoad, setPageLoad] = useState(true);
+
+  useEffect(() => {
+    const loadPage = async() => {
+      await new Promise ((event) => {
+        console.log(event);
+        setTimeout(()=> {setPageLoad(false)}, 2000); 
+      });
+    }
+    setTimeout(()=> {
+      loadPage();
+      setPageLoad(true);
+    }, 2000);
+  }, []);
 
     const { shareID } = useParams();
     console.log(shareID);
  
     return(
         <>
+        {pageLoad ? <Loading /> : (
+            <>
             <section>
                 <div className="wrapper">
                     <div className="detaliedList">
@@ -70,6 +89,8 @@ const ViewOnlyList = (props) => {
             <button id="LOLButton">back</button>
             </Link>
             </section>
+            </>
+            )}
         </>
     )
 }

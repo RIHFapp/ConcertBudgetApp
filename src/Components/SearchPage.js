@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 
 
 
-const SearchPage = ({pageLoad}) => {
+const SearchPage = (/* {pageLoad} */) => {
   // States for User Budget Information
   const [userListName, setUserListName] = useState('');
   const [userBudget, setBudgetInput] = useState('');
@@ -23,24 +23,25 @@ const SearchPage = ({pageLoad}) => {
   const [apiRes, setApiRes] = useState([]);
 
   const [addedList, setAddedList] = useState([]);
-  // const [pageLoad, setPageLoad] = useState(true);
+  const [pageLoad, setPageLoad] = useState(true);
   const [apiLoading, setApiLoading] = useState(false);
   const [error, setError] = useState (false);
   const [link, setLink] = useState('#');
   const [ticketNumber, setTicketNumber] = useState(0)
+  //  const [pageLoad, setPageLoad] = useState(true);
 
-  // Page Load when the current view mounts
-  // useEffect(() => {
-  //   const loadPage = async() => {
-  //     await new Promise ((event) => {
-  //       console.log(event);
-  //       setTimeout(setPageLoad(false), 2000); 
-  //     });
-  //   }
-  //   setTimeout(()=> {
-  //     loadPage()
-  //   }, 2000);
-  // }, [])
+  useEffect(() => {
+    const loadPage = async() => {
+      await new Promise ((event) => {
+        console.log(event);
+        setTimeout(()=> {setPageLoad(false)}, 2000); 
+      });
+    }
+    setTimeout(()=> {
+      loadPage();
+      setPageLoad(true);
+    }, 2000);
+  }, [])
 
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
@@ -186,6 +187,10 @@ const SearchPage = ({pageLoad}) => {
   const handleTicketNumDecrease = () => {
 
   }
+
+  // const handlePageLoadChange = () => {
+
+  // }
 
     return(
       <>

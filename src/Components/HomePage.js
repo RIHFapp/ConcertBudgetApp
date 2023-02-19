@@ -5,22 +5,36 @@ import pink from "../partials/asset/placeholder-pink.webp";
 import john from "../partials/asset/placeholder-john.webp";
 import sha from "../partials/asset/placeholder-sha.webp";
 import { Link} from "react-router-dom";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import Loading from "./Loading";
+// import SearchPage from "./SearchPage";
+// import ListWithKeys from "./ListWithKeys";
 
 
 
 const Homepage = (props) => {
-   const { isLoading, handlePageLoading } = props;
   const [userInput, setUserInput] = useState('');
 
   const handleChangeInputChange = (e) => {
     setUserInput(e.target.value)
   }
+   const [pageLoad, setPageLoad] = useState(true);
 
+  useEffect(() => {
+    const loadPage = async() => {
+      await new Promise ((event) => {
+        console.log(event);
+        setTimeout(()=> {setPageLoad(false)}, 2000); 
+      });
+    }
+    setTimeout(()=> {
+      loadPage();
+      setPageLoad(true);
+    }, 2000);
+  }, [])
     return(
       <>
-      {isLoading ? <Loading /> : (
+      {pageLoad ? <Loading /> : (
     <div
       // initial={{ opacity: 0 }}
       // animate={{ opacity: 1 }}
@@ -54,9 +68,11 @@ const Homepage = (props) => {
             userInput===""? null :
             <Link
                to={`/listWithKeys/:${userInput}`}
-               onClick={() => handlePageLoading(isLoading)}
+               onClick={()=> {pageLoad && <Loading />}}
             >
-              <button>Edit your list</button>
+              <button>
+                Edit your list
+              </button>
             </Link>
             }
             </div>           

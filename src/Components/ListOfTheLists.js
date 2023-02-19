@@ -2,6 +2,7 @@ import firebase from "../firebase";
 import {ref, getDatabase, onValue} from "firebase/database"; 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 const ListOfTheLists = (props) => {
 
@@ -9,6 +10,21 @@ const ListOfTheLists = (props) => {
    const [concertSum, setConcertSum] = useState([])
    const [concertCount, setConcertCount ] = useState([]);
 
+   const [pageLoad, setPageLoad] = useState(true);
+
+   // Page Loads on Component Mounts 
+  useEffect(() => {
+    const loadPage = async() => {
+      await new Promise ((event) => {
+        console.log(event);
+        setTimeout(()=> {setPageLoad(false)}, 2000); 
+      });
+    }
+    setTimeout(()=> {
+      loadPage();
+      setPageLoad(true);
+    }, 2000);
+  }, [])
 
 useEffect( () => {
 
@@ -63,6 +79,8 @@ useEffect( () => {
 
       return (
          <>
+         {pageLoad ? <Loading /> : (
+            <>
             <div className="wrapper listOfTheListsContainer">
                <h2> List of created list</h2> 
                <ul> {
@@ -95,6 +113,8 @@ useEffect( () => {
             <Link to={`/`}>
             <button id="LOLButton">back</button>
             </Link>
+            </>
+               )}
          </>
    )
 

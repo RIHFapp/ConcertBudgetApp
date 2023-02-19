@@ -1,6 +1,6 @@
 import './App.scss';
 import { Route, Routes } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 
 // Componetns
 import HomePage from "./Components/HomePage";
@@ -11,40 +11,23 @@ import ListOfTheLists from './Components/ListOfTheLists';
 import ErrorPage from './Components/ErrorPage';
 import BgOverlay from './Components/BgOverlay';
 import Footer from './Components/Footer';
-import Loading from './Components/Loading';
+// import Loading from './Components/Loading';
 
 function App() {
-   const [pageLoad, setPageLoad] = useState(true);
 
-  useEffect(() => {
-    const loadPage = async() => {
-      await new Promise ((event) => {
-        console.log(event);
-        setTimeout(setPageLoad(false), 2000); 
-      });
-    }
-    setTimeout(()=> {
-      loadPage()
-    }, 2000);
-  }, [])
 
 return (
   
   <div className="main">
     <BgOverlay />
-    {pageLoad ? <Loading /> : (
       <Routes>
-        <Route path="/" element= {  <HomePage 
-        pageLoad={pageLoad}
-        /> }/>  
-        <Route path="/searchPage" element= {  <SearchPage pageLoad={pageLoad
-        } /> }/>  
+        <Route path="/" element= {  <HomePage /> }/>  
+        <Route path="/searchPage" element= {  <SearchPage/> }/>  
         <Route path="/listOfLists" element= {  <ListOfTheLists />}/>  
         <Route path="/viewOnlyList/:shareID" element= {  <ViewOnlyList />}/>  
         <Route path="/listWithKeys/:editID" element= {  <ListWithKeys />}/>
         <Route path='*' element={<ErrorPage />} />  
       </Routes>
-    )}
     <Footer />
   </div>
 );
