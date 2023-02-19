@@ -7,17 +7,18 @@ html{
     
 }
 .overlay{
-    position: absolute;
-    top: 20%;
-    left: 35%;
-    height: 65%;
-    width: 30%;
+    // position: absolute;
+    // top: 20%;
+    // left: 35%;
+    height: 800px;
+    width: 800px;
     background: #dbf0ef;
     background: linear-gradient(54deg,#dbf0ef 0%, #97dbe8 40%, #c0c8f0 80%);
     background: -webkit-linear-gradient(54deg,#dbf0ef 0%, #97dbe8 40%, #c0c8f0 80%);
     background: -moz-linear-gradient(54deg,#dbf0ef 0%, #97dbe8 40%, #c0c8f0 80%);
     z-index: -2;
     border-radius: 50%;
+    transition: 'all 0.2s ease-out'; // add transition property
     @keyframes rotate {
         from{
             rotate: 0deg;
@@ -28,7 +29,7 @@ html{
             rotate:360deg;
         }
     }
-    animation: rotate 8s infinite;
+    animation: rotate 15s infinite;
     transform: translate(-24px,14px);
 -webkit-transform: translate(-24px,14px);
 -moz-transform: translate(-24px,14px);
@@ -37,7 +38,7 @@ html{
 .blur{
     position: absolute;
     width: 100%;
-    height: 100%;
-    backdrop-filter: blur(20px);
+    height: 110%;
+    backdrop-filter: blur(25px);
     z-index: -1;
 }
