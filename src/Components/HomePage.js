@@ -47,7 +47,7 @@ const Homepage = () => {
 
       <section >
         <div className="wrapper suggested">
-          <h2>discover!</h2>
+          {/* <h2>discover!</h2> */}
           <div className="concertImage">
             <div className="smallImage">
               <img src={taylor} alt=""/>
