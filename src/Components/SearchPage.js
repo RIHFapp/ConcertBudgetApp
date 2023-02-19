@@ -160,17 +160,20 @@ const SearchPage = () => {
   };
 
   
-  // const handleTicketNumIncrease = (ticketNumber) => {
-  //   console.log(ticketNumber);
-  //   if (ticketNumber >= 0 ) {
-  //     ticketNumber = ticketNumber + 1;
-  //     console.log(ticketNumber)
-  //     setTicketNumber(ticketNumber)
-  //   }
-  // }
-  // const handleTicketNumDecrease = () => {
+  const handleTicketNumIncrease = (ticketNumber) => {
+    console.log(ticketNumber);
+    if (ticketNumber >= 0 ) {
+      ticketNumber = ticketNumber + 1;
+      console.log(ticketNumber)
+      setTicketNumber(ticketNumber)
+    }
+  }
+  
+  const handleTicketNumDecrease = () => {
 
-  // }
+  }
+
+  Push a ticket number 
     return(
       <>
       {/* Conditionally rendering the page based on loading or error state */}
@@ -305,9 +308,9 @@ const SearchPage = () => {
                           <span><p>{maxPrice}</p></span>
                         </div>
                         <div className="ticketNumber">
-                          <p>-</p>
-                          <p>1</p>
-                          <p>+</p>
+                          <button onClick={handleTicketNumIncrease}>+</button>
+                          <p>{ticketNumber}</p>
+                          <button onClick={handleTicketNumDecrease}>-</button>
                         </div>
                         <div className="concertListImage">
                           <img src ={concertImg} alt={`Poster of ${name}`} />
