@@ -25,7 +25,7 @@ const SearchPage = () => {
   const [addedList, setAddedList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState (false);
-  const [link, setLink] = useState('#');
+  const [link, setLink] = useState('');
 
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
@@ -109,44 +109,34 @@ const SearchPage = () => {
       key: key
     }
     setAddedList([...addedList, concertData]);
-    setLink(`/listOfLists`);
+    // setLink(`/listOfLists`);
   }
 
   //When pressed Submit - the information gets sent to Firebase
   const handleFirebaseConnection = () => {
-    if(userBudget === "" && userListName === "" && addedList.length === true) {
-      Swal.fire({
-        title: 'Empty Named List Sumbited',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, Im aware of this , thank you'
-      })
-    } else if (addedList.length === 0) {
+    if (addedList.length === 0) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Please add items to your list',
       })
-    }
-    else if (userBudget === "" && userListName === "") {
+    } else if (userBudget === "" || userListName === "") {
       Swal.fire({
-        title: 'Empty Named List Sumbited',
-        text: "You won't be able to revert this!",
+        title: 'Empty Named List ',
+        text: "please name your List",
         icon: 'warning',
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'Yes, Im aware of this , thank you'
       })
-    } 
-    else {
+    } else {
       // Generate a random key for shearable and editable views
       const shareKey = uuidv4("budget");
       const editKey = uuidv4("edit");
       const timestamp = new Date().getTime();
       // Connect to Firebase
-      const currentTime=timestamp
+      const currentTime = timestamp;
       const database = getDatabase(firebase);
-      const dbRef = ref(database)
+      const dbRef = ref(database);
       const keyRef = {
         shareKey,
         editKey,
@@ -156,10 +146,19 @@ const SearchPage = () => {
         ListCreated: currentTime,
       };
       push(dbRef, keyRef);
-
+    
       setLink(`/listOfLists`)
     }
+    
   };
+
+  useEffect(() => {
+    // update link state when addedList is updated
+    if (addedList.length > 0 && !link) {
+      setLink(`/listOfLists`);
+    }
+  }, [addedList, link]);
+  
     return(
       <>
       {/* Conditionally rendering the page based on loading or error state */}
