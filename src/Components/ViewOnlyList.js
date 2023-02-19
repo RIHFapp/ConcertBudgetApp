@@ -91,17 +91,14 @@ useEffect( () => {
                         </div>
                         
                         <ul> 
-                            <li className="listTags inKeys">
-                                <div className="listConcertTags">
+                            <li className="listTags inView">
+                                <div className="tagsInView">
                                     <p>Name</p>
                                     <p>Date</p>
                                     <p>City</p>
                                     <p>Location</p>
                                     <p>Price</p>
-                                </div>
-                                <div className="listButtonTags">
-                                    <p>adjusting concerts</p>
-                                </div>         
+                                </div>        
                             </li>
                             {
                                 listOfConcerts.map( (oneConcert) => {
@@ -120,7 +117,7 @@ useEffect( () => {
                         </ul>
                     </div>
                 </div>
-                <Link to={`/`}>
+                <Link to={`/listOfLists`}>
                     <button id="LOLButton">back</button>
                 </Link>
             </section>
