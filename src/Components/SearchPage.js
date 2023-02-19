@@ -26,7 +26,7 @@ const SearchPage = (/* {pageLoad} */) => {
   const [pageLoad, setPageLoad] = useState(true);
   const [apiLoading, setApiLoading] = useState(false);
   const [error, setError] = useState (false);
-  const [link, setLink] = useState('#');
+
   const [ticketNumber, setTicketNumber] = useState(0)
   //  const [pageLoad, setPageLoad] = useState(true);
 
@@ -42,6 +42,9 @@ const SearchPage = (/* {pageLoad} */) => {
       setPageLoad(true);
     }, 2000);
   }, [])
+
+  const [link, setLink] = useState('');
+
 
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
@@ -125,72 +128,54 @@ const SearchPage = (/* {pageLoad} */) => {
       key: key
     }
     setAddedList([...addedList, concertData]);
-    setLink(`/listOfLists`);
+    // setLink(`/listOfLists`);
   }
 
   //When pressed Submit - the information gets sent to Firebase
   const handleFirebaseConnection = () => {
-    if(userBudget === "" && userListName === "" && addedList.length === true) {
-      Swal.fire({
-        title: 'Empty Named List Sumbited',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, Im aware of this , thank you'
-      })
-    } else if (addedList.length === 0) {
+    if (addedList.length === 0) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Please add items to your list',
       })
-    }
-    else if (userBudget === "" && userListName === "") {
+    } else if (userBudget === "" && userListName === "" && addedList.length > 0) {
       Swal.fire({
-        title: 'Empty Named List Sumbited',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, Im aware of this , thank you'
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please give you list a name',
       })
-    } 
-    else {
+    } else {
       // Generate a random key for shearable and editable views
       const shareKey = uuidv4("budget");
       const editKey = uuidv4("edit");
+      const timestamp = new Date().getTime();
       // Connect to Firebase
+      const currentTime = timestamp;
       const database = getDatabase(firebase);
-      const dbRef = ref(database)
+      const dbRef = ref(database);
       const keyRef = {
         shareKey,
         editKey,
         listname: userListName,
         userBudget: userBudget,
         budgetConcertContent: addedList,
+        ListCreated: currentTime,
       };
       push(dbRef, keyRef);
-
+    
       setLink(`/listOfLists`)
     }
+    
   };
 
-  
-  const handleTicketNumIncrease = (ticketNumber) => {
-    console.log(ticketNumber);
-    if (ticketNumber >= 0 ) {
-      ticketNumber = ticketNumber + 1;
-      console.log(ticketNumber)
-      setTicketNumber(ticketNumber)
+
+  useEffect(() => {
+    // update link state when addedList is updated
+    if (addedList.length > 0 && userBudget !== "" && userListName !== "" && !link) {
+      setLink(`/listOfLists`);
     }
-  }
-
-  const handleTicketNumDecrease = () => {
-
-  }
-
-  // const handlePageLoadChange = () => {
-
-  // }
+  }, [addedList, userBudget, userListName, link]);
 
     return(
       <>
@@ -200,7 +185,7 @@ const SearchPage = (/* {pageLoad} */) => {
         <>
         <section >
           <div className="inputSection wrapper">
-            <h2>Welcome! lets Start planning your concert list</h2>
+            <h2>Create Your List!</h2>
             <form action="submit">
               {/* name of the list input */}
               <label htmlFor="newName"></label>
@@ -315,7 +300,7 @@ const SearchPage = (/* {pageLoad} */) => {
                 <ul className="myConcert wrapper">
                 <h3>Selected Concerts</h3>
                   {addedList.map( (list, index) =>{
-                    const { name, eventDate, venueCity, venueName, maxPrice, concertImg} = list;
+                    const { name, eventDate, venueCity, venueName, maxPrice, image} = list;
                     return(
                       <li key={index}>
                         <div className="concertListInfo">
@@ -331,7 +316,7 @@ const SearchPage = (/* {pageLoad} */) => {
                           <button onClick={handleTicketNumDecrease}>-</button>
                         </div>
                         <div className="concertListImage">
-                          <img src ={concertImg} alt={`Poster of ${name}`} />
+                          <img src={image} alt={`Poster of ${name}`} />
                         </div>
                       </li>
                     )

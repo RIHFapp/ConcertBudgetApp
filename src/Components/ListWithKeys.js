@@ -100,7 +100,7 @@ const ListWithKeys = (props) => {
                     </div>
 
                 </div>
-                <Link to={`/`}>
+                <Link to={`/searchPage`}>
             <button id="LOLButton">back</button>
             </Link>
             </section>

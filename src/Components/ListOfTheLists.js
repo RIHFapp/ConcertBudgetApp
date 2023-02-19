@@ -41,9 +41,6 @@ useEffect( () => {
          newState.push(listsData[key]);
       }
       setLists(newState);
-
-      console.log(newState)
-
       //getting total cost amount for each budget
       let totalListPrice = 0;
       const maxPriceArray = [];
@@ -85,32 +82,46 @@ useEffect( () => {
                <h2> List of created list</h2> 
                <ul> {
                   lists.map((list, key) => {
-                     
-
+                     const { listname, userBudget, shareKey, editKey ,ListCreated} = list;
+                     //budgetConcertContent
+                     //filter price under 300
+                     // function filterConcertsByPrice(concerts, minPrice, maxPrice) {
+                     //    return concerts.filter(concert => concert.maxPrice >= minPrice && concert.maxPrice <= maxPrice)
+                     //                   .map(concert => ({ name: concert.name, maxPrice: concert.maxPrice }));
+                     //  }
+                      
+                     //  const priceUnder500 = filterConcertsByPrice(budgetConcertContent, 0, 500);
+                     //  const priceUnder1000 = filterConcertsByPrice(budgetConcertContent, 300, 1000);
+                      const date = new Date(ListCreated)
+                      const year = date.getFullYear();
+                        const month = date.getMonth() + 1;
+                        const day = date.getDate();
+                        const formattedDateTime = `${year}-${month}-${day}`;
                      return (
                         <li key={key}>
-                           <p>Name of the list:{list.listname}</p>
-                           <p>Budget:{list.userBudget}</p>
+                           <p>Name of the list:{listname}</p>
+                           <p>Budget:{userBudget}</p>
                            <p></p>
                            <p>Total price of the concerts:{concertSum[key]} CAD</p>
                            <p>Total concerts:{concertCount[key]}</p>
-                           <Link to={`/viewOnlyList/:${list.shareKey}`}>
+                           {/* <p>Tickets under $500: {priceUnder500.map(concert => `${concert.name.substr(0, 10)}... ($${concert.maxPrice})`).join(', ')}</p>
+                           <p>Tickets $300-$1000 : {priceUnder1000.map(concert => `${concert.name.substr(0, 10)}... ($${concert.maxPrice})`).join(', ')}</p> */}
+                           <p>created on {formattedDateTime}</p>
+                           <Link to={`/viewOnlyList/:${shareKey}`}>
                               <button>View the List</button>
                            </Link>
 
-                           <Link to={`/listWithKeys/:${list.editKey}`}>
+                           <Link to={`/listWithKeys/:${editKey}`}>
                               <button>Edit the List(with ID)</button>
                            </Link>
                         </li>
                      )
                   })
-                  }
-
-                  
+                  }               
                </ul>
                   
             </div>
-            <Link to={`/`}>
+            <Link to={`/searchPage`}>
             <button id="LOLButton">back</button>
             </Link>
             </>
