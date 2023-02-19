@@ -14,8 +14,8 @@ import Swal from 'sweetalert2';
 const SearchPage = (props) => {
   // const [passShareId, setPassShareId] = useState("");
   // States for User Budget Information
-  const [userListName, setUserListName] = useState('');
-  const [userBudget, setBudgetInput] = useState('');
+  const [userListName, setUserListName] = useState('NoName');
+  const [userBudget, setBudgetInput] = useState('unset');
   // State for Concert Search
   const [artist, setArtist] = useState(null);
   const [city, setCity] = useState(null);
@@ -35,7 +35,7 @@ const SearchPage = (props) => {
 
     setUserListName(event.target.form[0].value);
     setBudgetInput(event.target.form[1].value);
-
+    
   }
 
   // Api submit button
@@ -107,26 +107,37 @@ const SearchPage = (props) => {
       key: key
     }
     setAddedList([...addedList, concertData]);
+    setLink(`/listOfLists`);
   }
 
-  
+
   //When pressed Submit - the information gets sent to Firebase
   const handleFirebaseConnection = () => {
-    if (userBudget === "" && userListName === "") {
+    if(userBudget === "" && userListName === "" && addedList.length === true) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>'
+        title: 'Empty Named List Sumbited',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, Im aware of this , thank you'
       })
     } else if (addedList.length === 0) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>'
+        text: 'Please add items to your list',
       })
-    } else {
+    }
+    else if (userBudget === "" && userListName === "") {
+      Swal.fire({
+        title: 'Empty Named List Sumbited',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, Im aware of this , thank you'
+      })
+    } 
+    else {
       // Generate a random key for shearable and editable views
       const shareKey = uuidv4("budget");
       const editKey = uuidv4("edit");
@@ -153,7 +164,6 @@ const SearchPage = (props) => {
       setLink(`/listOfLists`)
     }
   };
-
     return(
       <>
       {/* Conditionally rendering the page based on loading or error state */}
