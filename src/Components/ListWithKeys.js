@@ -3,30 +3,7 @@ import firebase from "../firebase";
 import { getDatabase, ref, onValue, get } from "firebase/database";
 import { useEffect, useState } from "react";
 
-const ListWithKeys = (props) => {
-
-    // console.log(props.passEditId);
-    // console.log(props.passShareId);
-    //
-//editKey must be send as a props from the List of the lists
-    //connecting to the firebase data
-    //pulling the information about the list 
-        //h2 => changing the h2 to the Budget List
-        //span.budgetValue => renders the budget list value 
-     //displaying the budgetConcertContent list:
-        //name, date, city, location, price, 
-        //additionally number of tickets
-    //event handler on the Remove Tickets button 
-    //useState = to use in the span.totalTicketPrice? to check
-   
-    //adding the CAD to the price 
-
-//to check: can I download only one item from val (does .val accepts any query)
-    //to discuss:
-     //adding the number of tickets to the firebase data structure? -> in the budgetConcertContent
-     //displaying the number of tickets
-      //event handler on a "+" and "-" buttons => the buttons are changing the total price
-        //why console.logs above?
+const ListWithKeys = () => {
 
 const keyToMyList = "-NObYc3j2pihbas9FGh7"
 
@@ -34,14 +11,16 @@ const keyToMyList = "-NObYc3j2pihbas9FGh7"
 const [myEditableList, setMyEditableList] = useState([]);
 const [nameOfTheList, setNameOfTheList] = useState("Your list");
 const [budgetValue, setBudgetValue] = useState("0");
-const [listOfConcerts, setListOfConcerts] = useState([])
+const [listOfConcerts, setListOfConcerts] = useState([]);
+
+
 
 
 //function setting the states for displaying the data from the firebase
 const checkoutTheData = (name, budget, concerts)=> {
     setNameOfTheList(name);
     setBudgetValue(budget);
-    setListOfConcerts(concerts)
+    setListOfConcerts(concerts);
 }
 
 
@@ -62,14 +41,8 @@ useEffect( () => {
         const budget = allTheLists[keyToMyList].userBudget;
         const allChosenConcerts = allTheLists[keyToMyList].budgetConcertContent;
         checkoutTheData(nameFromList, budget, allChosenConcerts);
-        
-    // }
 
-        //   for (let key in allTheLists) {
-        //     myListToDisplay.push(allTheLists[key]);
-        //     console.log(myListToDisplay)
-        //   }
-        }else{
+        } else {
         console.log("No data available")
         }
     }).catch((error) => {
@@ -78,10 +51,7 @@ useEffect( () => {
             
 
         
-}, [])
-
-        
-        
+}, [])  
            
     return(
         <>
@@ -112,10 +82,10 @@ useEffect( () => {
                                 </div>         
                             </li>
                             {
-                                listOfConcerts.map( (oneConcert) => {
+                                listOfConcerts.map( (oneConcert, key) => {
                                     return (
                                    
-                                        <li className="one">
+                                        <li className="one" key={oneConcert.key}>
                                             <p>{oneConcert.name}</p>
                                             <p>{oneConcert.eventDate}</p>
                                             <p>{oneConcert.venueCity}</p>
@@ -152,3 +122,26 @@ export default ListWithKeys;
 //            }
 //            setMyEditableList(newListInfo);
 //         })
+
+   // console.log(props.passEditId);
+    // console.log(props.passShareId);
+    //
+//editKey must be send as a props from the List of the lists
+    //connecting to the firebase data
+    //pulling the information about the list 
+        //h2 => changing the h2 to the Budget List
+        //span.budgetValue => renders the budget list value 
+     //displaying the budgetConcertContent list:
+        //name, date, city, location, price, 
+        //additionally number of tickets
+    //event handler on the Remove Tickets button 
+    //useState = to use in the span.totalTicketPrice? to check
+   
+    //adding the CAD to the price 
+
+//to check: can I download only one item from val (does .val accepts any query)
+    //to discuss:
+     //adding the number of tickets to the firebase data structure? -> in the budgetConcertContent
+     //displaying the number of tickets
+      //event handler on a "+" and "-" buttons => the buttons are changing the total price
+        //why console.logs above?
