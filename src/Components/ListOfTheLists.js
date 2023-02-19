@@ -3,6 +3,8 @@ import {ref, getDatabase, onValue} from "firebase/database";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import { AnimatePresence, motion } from "framer-motion";
+
 const ListOfTheLists = (props) => {
 
    const [lists, setLists] = useState([]);
@@ -60,8 +62,15 @@ useEffect( () => {
 
       return (
          <>
-            <div className="wrapper listOfTheListsContainer">
+            <AnimatePresence>
+            <motion.section className="wrapper listOfTheListsContainer"
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               transition={{duration:0.5}}
+               exit={{ opacity: 0 }}
+            >
                <h2> List of created list</h2> 
+               
                <ul> {
                   lists.map((list, key) => {
                      const { listname, userBudget, shareKey, editKey ,ListCreated} = list;
@@ -80,7 +89,16 @@ useEffect( () => {
                         const day = date.getDate();
                         const formattedDateTime = `${year}-${month}-${day}`;
                      return (
-                        <li key={key} className={`listItem${key % 3 + 1}`}>
+                        <motion.li 
+                        key={key}
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 ,
+                                  borderRadius: ["5%", "75%", "10%", "50%", "25px"],
+                        }}
+                        exit={{ opacity: 0, y: -50 }}
+                        transition={{ duration: 0.5, delay: key * 0.1 }}
+                        className={`listItem${key % 3 + 1}`}
+                        >
                            <div className="fairBaseList">
                            <p>List: {listname}</p>
                            <p>Budget: {userBudget}</p>
@@ -102,16 +120,25 @@ useEffect( () => {
                            <p>Tickets $300-$1000 : {priceUnder1000.map(concert => `${concert.name.substr(0, 10)}... ($${concert.maxPrice})`).join(', ')}</p> */}
                            
                            
-                        </li>
+                        </motion.li>
                      )
                   })
                   }               
+               <Link to={`/searchPage`}>
+               <motion.button id="LOLButton"
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               transition={{duration:0.5}}
+               exit={{ opacity: 0 }}
+               >
+                  back
+                  </motion.button>
+               </Link>
                </ul>
-                  
-            </div>
-            <Link to={`/searchPage`}>
-            <button id="LOLButton">back</button>
-            </Link>
+               
+            </motion.section>
+            
+            </AnimatePresence>
          </>
    )
 
