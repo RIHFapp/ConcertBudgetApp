@@ -11,9 +11,7 @@
 
 @use "./partials/components/button";
 
-//layout 
 
-@use "./partials/layout/footer";
 
 //pages 
 @use "./partials/pages/homepage";
@@ -22,6 +20,10 @@
 @use "./partials/pages/listOfTheLists";
 @use "./partials/pages/errorpage";
 @use "./partials/pages/loading";
+
+//layout 
+
+@use "./partials/layout/footer";
 
 //media queries
 @use "./partials/abstracts/mediaQueries"; 
