@@ -1,6 +1,3 @@
-//to do: fixing the styling after the removal of buttons
-// using Link (?) for the "back" button
-//pairing the shareID and the object from firebase-> check const keyToMyList
 
 import firebase from "../firebase";
 import { getDatabase, ref, get } from "firebase/database";
@@ -13,7 +10,6 @@ const ViewOnlyList = () => {
 
 //useParams for the view-only list 
 const { shareID } = useParams();
-
   let ID = shareID;
   ID = ID.replace(':', '');
 
@@ -52,7 +48,7 @@ const sumOfPrices = (arrayOfConcerts) => {
         for (let price of arrayOfConcerts) {
         totalPrice += price.maxPrice
         }
-        return totalPrice
+        return totalPrice.toFixed(2)
 }
 
 //getting the data from Firebase
