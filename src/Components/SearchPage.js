@@ -206,8 +206,8 @@ const SearchPage = (/* {pageLoad} */) => {
       const newItems = [...displayTicket]; // make a copy of the current array state
       newItems.splice(`${index}`, 1, `${addedList[index].numberOfTickets}`)
       
-
-      return setDisplayTicket(newItems), addedList[index].numberOfTickets;
+      setDisplayTicket(newItems)
+      return addedList[index].numberOfTickets;
     }
   }
 
@@ -219,8 +219,8 @@ const SearchPage = (/* {pageLoad} */) => {
     
     const newItems = [...displayTicket]; // make a copy of the current array state
     newItems.splice(`${index}`, 1, `${addedList[index].numberOfTickets}`)
-    
-    return setDisplayTicket(newItems), addedList[index].numberOfTickets;
+    setDisplayTicket(newItems)
+    return addedList[index].numberOfTickets;
   }
   
 
@@ -358,7 +358,7 @@ const SearchPage = (/* {pageLoad} */) => {
                           <p>{eventDate}</p>
                           <p>{venueCity}</p>
                           <p>{venueName}</p>
-                          <span><p>{totalPrice}</p></span>
+                          <span><p>{totalPrice.toFixed(2)}</p></span>
                         </div>
                         <div className="ticketNumber">
 
