@@ -25,7 +25,7 @@ const [budgetValue, setBudgetValue] = useState("0");
 const [listOfConcerts, setListOfConcerts] = useState([]);
 const [totalTicketPrice, setTotalTicketPrice] = useState();
 const [pageLoad, setPageLoad] = useState(true);
-const [sumCostToDisplay, setSumCostToDisplay] = useState("0")
+
 
   useEffect(() => {
     const loadPage = async() => {
@@ -82,23 +82,25 @@ useEffect(() => {
                     return currentShareList;
                 }
             })
-
-            console.log(currentList)
             // setShareList(currentList);
             const myArrayFromFirebase = currentList;
-            console.log(currentList);
-
              //specific data from firebase
 
         const nameFromList = myArrayFromFirebase[0].listname;
         const budget = myArrayFromFirebase[0].userBudget;
         const allChosenConcerts = myArrayFromFirebase[0].budgetConcertContent;
-        console.log(myArrayFromFirebase[0]);
+        const totalCost = allChosenConcerts.reduce((acc, concert) => {
+            const ticketCount = concert.numberOfTickets;
+            const ticketPrice = concert.maxPrice;
+            const costWithCounts = ticketCount * ticketPrice;
+            return acc + costWithCounts;
+          }, 0);
+        console.log(totalCost);
          //taking the data for states
         checkoutTheData(nameFromList, budget, allChosenConcerts);
 
         //taking the data for total price
-        setTotalTicketPrice(sumOfPrices(allChosenConcerts))
+        setTotalTicketPrice(totalCost)
 
         } else {
             console.log("No data available")
@@ -121,9 +123,9 @@ useEffect(() => {
         }));
 
 
-        const sumTotal = amount =>{
-           console.log(amount);
-        }
+        // const sumTotal = amount =>{
+        //    console.log(amount);
+        // }
 
     return(
         <>
@@ -161,10 +163,9 @@ useEffect(() => {
                         </ul>    
                         {filteredConcerts.map(({ label, concerts }) => {
                         if (concerts.length > 0) {
-                            const totalPrice = sumTotal(concerts.reduce((acc, { maxPrice, numberOfTickets }) => {
-                                return acc + (maxPrice * numberOfTickets);
-                              }, 0));
-                            
+                            // const totalPrice = sumTotal(concerts.reduce((acc, { maxPrice, numberOfTickets }) => {
+                            //     return acc + (maxPrice * numberOfTickets);
+                            //   }, 0));
                             return (
                                 <div key={label} className={priceRanges.find(range => range.label === label).className}>
                                 <h3>{label}</h3>
