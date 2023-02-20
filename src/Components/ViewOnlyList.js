@@ -132,7 +132,7 @@ useEffect(() => {
                         <h2>{nameOfTheList}</h2>
                         
                         <div className="listHeading">
-                            <h3>Total Cost ${totalTicketPrice.toFixed(2)} </h3>
+                            {/* <h3>Total Cost ${totalTicketPrice.toFixed(2)} </h3> */}
                             <div className="progressBar">
                                 <h3>vs</h3>
                                 <progress value={totalTicketPrice} max={budgetValue}></progress>

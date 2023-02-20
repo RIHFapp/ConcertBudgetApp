@@ -117,14 +117,14 @@ const Homepage = (props) => {
 
           <div className="editList">
             {/* name of the list input */}
-            <label htmlFor="yourID">Enter Your Key Here:</label>
+            {/* <label htmlFor="yourID">Enter Your Key Here:</label>
             <input
                 type="text"
                 id="yourID"
                 placeholder="UUID" 
                 onChange={handleChangeInputChange}
                 value={userInput}
-            />             
+            />              */}
             {
             userInput===""? null :
             <Link
@@ -137,7 +137,6 @@ const Homepage = (props) => {
             </Link>
             }
             </div>           
-
           </div>
         </motion.form>
       </section>

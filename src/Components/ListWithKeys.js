@@ -35,15 +35,32 @@ const [totalTicketPrice, setTotalTicketPrice] = useState();
   }, []);
 
 
-
-
-
 //function setting the states for displaying the data from the firebase
-const checkoutTheData = (name, budget, concerts)=> {
-    setNameOfTheList(name);
-    setBudgetValue(budget);
-    setListOfConcerts(concerts);
+// const checkoutTheData = (name, budget, concerts, rowID)=> {
+//   setNameOfTheList(name);
+//   setBudgetValue(budget);
+//   const concertsWithKeys = concerts.map((concert) => ({
+//     ...concert,
+//     key: concert.editKey, // add database key as "key" property
+//     rowID: rowID,
+//   }));
+//   console.log(listOfConcerts);
+//   setListOfConcerts(concertsWithKeys);
+// }
+const checkoutTheData = (entry)=> {
+  setNameOfTheList(entry.listname);
+  setBudgetValue(entry.userBudget);
+//   const 
+  const concertsWithKeys = entry.budgetConcertContent.map((concert) => ({
+    ...concert,
+    key: concert.editKey, // add database key as "key" property
+    rowID: entry.rowID,
+  }));
+  console.log(listOfConcerts);
+  setListOfConcerts(concertsWithKeys);
 }
+
+
 
 //function summing up the prices of tickets
 const sumOfPrices = (arrayOfConcerts) => {
@@ -63,44 +80,51 @@ useEffect( () => {
 
 
     onValue(dbRef, (response) => {
-        const allTheLists = response.val();
-   
-        const newState = [];
-        for (let key in allTheLists) {
-            newState.push(allTheLists[key]);
+        const allTheLists = response.val();   
+        // const newState = [];
+        // for (let key in allTheLists) {
+        //     newState.push(allTheLists[key]);
+        // }
+
+        // const currentList = newState.filter((event)=>{
+        //     if (event.editKey !== `${ID}`){
+        //         return null;
+        //     } else {
+        //         const currentEditList = event;
+        //         console.log(`event is ${JSON.stringify(event)}`)
+        //         return currentEditList;
+        //         //check it again!
+        //     }
+        // })
+        const currentList = [];
+        for (let key in allTheLists){
+            let entry = allTheLists[key];
+            if (entry.editKey === `${ID}`){
+                entry["rowID"] = key;
+                currentList.push(entry)
+            }
         }
 
-        const currentList = newState.filter((event)=>{
-            if (event.editKey !== `${ID}`){
-                return null;
-            } else {
-                const currentEditList = event;
-                return currentEditList;
-                //check it again!
-            }
-        })
-
-        console.log(currentList)
-
-        const myArrayFromFirebase = currentList;
-        console.log(currentList);
-
-
-        const nameFromList = myArrayFromFirebase[0].listname;
-        const budget = myArrayFromFirebase[0].userBudget;
-        const allChosenConcerts = myArrayFromFirebase[0].budgetConcertContent;
+        // const myArrayFromFirebase = currentList;
+        // const nameFromList = myArrayFromFirebase[0].listname;
+        // const budget = myArrayFromFirebase[0].userBudget;
+        // const allChosenConcerts = myArrayFromFirebase[0].budgetConcertContent;
+        // const rowID = myArrayFromFirebase[0].rowID;
         
-        checkoutTheData(nameFromList, budget, allChosenConcerts);
+        // checkoutTheData(nameFromList, budget, allChosenConcerts, rowID);
+        checkoutTheData(currentList[0]);
 
-        setTotalTicketPrice(sumOfPrices(allChosenConcerts));
+        // setTotalTicketPrice(sumOfPrices(allChosenConcerts));
+        setTotalTicketPrice(sumOfPrices(currentList[0].budgetConcertContent));
     })  
-}, [])
+}, [ID])
 
-const handleRemoveTicket = (oneConcert) => {
-    console.log(oneConcert[0]);
+const handleRemoveTicket = (oneConcert,index) => {
+    // console.log(`key is ${key}`);
+    // console.log(`ID is ${ID}`);
     const database = getDatabase(firebase);
-    const dbRef = ref(database, `/${oneConcert[0].key}`);
-    console.log(dbRef);
+    const dbRef = ref(database, `${oneConcert.rowID}/budgetConcertContent/${index}`);
+    // console.log(`LOOK HERE!!! ${dbRef}`);
     remove(dbRef);
 }
 
@@ -132,6 +156,9 @@ const handleRemoveTicket = (oneConcert) => {
                                 </li>
                                 {
                                     listOfConcerts.map( (oneConcert, index) => {
+
+                                        console.log(`oneConcert is ${JSON.stringify(oneConcert)}`)
+                                        console.log(index)
                                         // const newArray = [];
                                         return (
                                             <li className="one" key={index}>
@@ -142,7 +169,7 @@ const handleRemoveTicket = (oneConcert) => {
                                                 <p>{`${oneConcert.maxPrice} CAD`}</p>
                                                 <button> + </button>
                                                 <button> - </button>
-                                                {/* <button onClick={()=> {handleRemoveTicket(newArray)}} > Remove Ticket </button> */}
+                                                <button onClick={()=> {handleRemoveTicket(oneConcert,index)}} > Remove Ticket </button>
                                             </li>
                                         )
                                     })    
