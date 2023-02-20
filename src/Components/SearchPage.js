@@ -184,8 +184,6 @@ const SearchPage = (/* {pageLoad} */) => {
     } else if (addedList.length > 0 && userBudget !== "" && userListName !== "" && !link) {
       setEK(uuidv4("edit"));
     }
-
-  }, [addedList, link]);
  
   }, [addedList, userBudget, userListName, link, eK]);
 
