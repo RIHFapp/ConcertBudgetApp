@@ -10,7 +10,7 @@ import Loading from "./Loading";
 // import SearchPage from "./SearchPage";
 // import ListWithKeys from "./ListWithKeys";
 import * as React from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 
 const container = {
@@ -36,11 +36,11 @@ const item = {
   
 
 const Homepage = (props) => {
-  const [userInput, setUserInput] = useState('');
+  // const [userInput, setUserInput] = useState('');
 
-  const handleChangeInputChange = (e) => {
-    setUserInput(e.target.value)
-  }
+  // const handleChangeInputChange = (e) => {
+  //   setUserInput(e.target.value)
+  // }
    const [pageLoad, setPageLoad] = useState(true);
 
   useEffect(() => {
@@ -57,66 +57,71 @@ const Homepage = (props) => {
   }, [])
     return(
       <>
-      {pageLoad ? <Loading /> : (
-    <div
-      className="header"
-      // initial={{ opacity: 0 }}
-      // animate={{ opacity: 1 }}
-      // transition={{duration:2}}
-      >
-      <section className="home">
-        <div className="featured wrapper">
-          <h1> Concert Budget Master</h1>
-          <p>Budget tight? Concerts too much?</p>
-          <p>Let's get planning</p>
-        </div>
-      </section>
-      <motion.ul
-    className="container"
-    variants={container}
-    initial="hidden"
-    animate="visible"
-  >
-    {[0, 1, 2, 3].map((index) => (
-      <motion.li key={index} className="item" variants={item} >
-        {index === 0 && <img src={ticket} alt="ticket"/>}
-    {index === 1 && <img src={music} alt="music"/>}
-    {index === 2 && <img src={piggy} alt="piggy"/>}
-    {index === 3 && <img src={crowd} alt="crowd"/>}
-      </motion.li>
-    ))}
-  </motion.ul>
-  {/* <ul
-    className="container layingShapes"
-    
-  >
-    {[0, 1, 2, 3].map((key) => (
-  <motion.li key={key} className="item" data-index={key}
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1}}
-    transition={{ duration: 0.5, delay: 2 }}
+          {pageLoad ? <Loading /> : (
+        <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 0.9 }}
+          transition={{duration:0.6}}
+          className="header"
+          // initial={{ opacity: 0 }}
+          // animate={{ opacity: 1 }}
+          // transition={{duration:2}}
+          >
+          <section className="home">
+            <div className="featured wrapper">
+              <h1> Concert Budget Master</h1>
+              <p>Budget tight? Concerts too much?</p>
+              <p>Let's get planning</p>
+          </div>
+          </section>
+          <motion.ul
+          className="container"
+          variants={container}
+          initial="hidden"
+          animate="visible"
+          >
+          {[0, 1, 2, 3].map((index) => (
+          <motion.li key={index} className="item" variants={item} >
+          {index === 0 && <img src={ticket} alt="ticket"/>}
+          {index === 1 && <img src={music} alt="music"/>}
+          {index === 2 && <img src={piggy} alt="piggy"/>}
+          {index === 3 && <img src={crowd} alt="crowd"/>}
+          </motion.li>
+          ))}
+          </motion.ul>
+                  {/* <ul
+                    className="container layingShapes"
+                    
+                  >
+                    {[0, 1, 2, 3].map((key) => (
+                  <motion.li key={key} className="item" data-index={key}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1}}
+                    transition={{ duration: 0.5, delay: 2 }}
 
-  >
-    {key === 0 && <img src={ticket} alt="ticket"/>}
-    {key === 1 && <img src={music} alt="music"/>}
-    {key === 2 && <img src={piggy} alt="piggy"/>}
-    {key === 3 && <img src={crowd} alt="crowd"/>}
-  </motion.li>
-))}
-  </ul> */}
-      <section className="enterID">
-        <motion.form action="submit" 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1}}
-        transition={{ duration: 0.5, delay: 2 }}
-        >
+                  >
+                    {key === 0 && <img src={ticket} alt="ticket"/>}
+                    {key === 1 && <img src={music} alt="music"/>}
+                    {key === 2 && <img src={piggy} alt="piggy"/>}
+                    {key === 3 && <img src={crowd} alt="crowd"/>}
+                  </motion.li>
+                ))}
+                  </ul> */}
+          <section className="enterID">
+          <motion.form action="submit" 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1}}
+          transition={{ duration: 0.5, delay: 2 }}
+          >
           <div className="onLogin">
             <Link to={`/searchPage`}>
-              <button>Create new List</button>
+              <button>Create Your Budget List!</button>
             </Link>
-
-          <div className="editList">
-            {/* name of the list input */}
+          {/* commment up to prvent bugs */}
+          {/* <div className="editList">
+            
             <label htmlFor="yourID">Enter Your Key Here:</label>
             <input
                 type="text"
@@ -136,13 +141,14 @@ const Homepage = (props) => {
               </button>
             </Link>
             }
-            </div>           
+            </div>            */}
 
-          </div>
-        </motion.form>
-      </section>
+           </div>
+          </motion.form>
+         </section>
 
-      </div>
+        </motion.div>
+        </AnimatePresence>
     )}
     </>
     )
