@@ -8,7 +8,7 @@ const ListWithKeys = () => {
 
 
 const {editID} = useParams();
-console.log(editID);
+// console.log(editID);
 let ID = editID;
 ID = ID.replace(':', '');
 
@@ -24,7 +24,7 @@ const [totalTicketPrice, setTotalTicketPrice] = useState();
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
-        console.log(event);
+        
         setTimeout(()=> {setPageLoad(false)}, 1500); 
       });
     }
@@ -80,10 +80,10 @@ useEffect( () => {
             }
         })
 
-        console.log(currentList)
+        
 
         const myArrayFromFirebase = currentList;
-        console.log(currentList);
+        
 
 
         const nameFromList = myArrayFromFirebase[0].listname;
@@ -155,19 +155,19 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                                             <p>+ / -</p>
                                         </div>         
                                     </li>
-                                </ul>
-                                {filteredConcerts.map(({ label, concerts },index) => {
+                                
+                                {filteredConcerts.map(({ label, concerts }) => {
                                 if (concerts.length > 0) {
                                 return (
                                     <div key={label} className={priceRanges.find(range => range.label === label).className}>
                                     <h3>{label}</h3>
-                                    {concerts.map(({ index, name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}) => (
+                                    {concerts.map(({ index, name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}, key) => (
                                         <motion.li 
                                         initial={{ opacity: 0, scale: 0.9 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         transition={{ duration: 0.5 }}
                                         className="fBListInView"
-                                        key={index}
+                                        key={key}
                                         >
                                         <p>{name}</p>
                                         <p>{eventDate}</p>
@@ -185,7 +185,8 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                             } else {
                                 return null;
                             }
-                            })}
+                                })}
+                                </ul>
                         <Link to={`/listOfLists`}>
                             <button id="LOLButton">back</button>
                         </Link>
