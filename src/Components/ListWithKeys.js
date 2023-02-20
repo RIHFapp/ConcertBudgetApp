@@ -139,7 +139,7 @@ const handleRemoveTicket = (oneConcert,index) => {
                         <div className="detaliedList">
                             <h2>{nameOfTheList}</h2>
                             <div className="listHeading">
-                                <h3>Concert <span id="budgetValue">{totalTicketPrice}</span> </h3>
+                                <h3>Concert <span id="budgetValue">{totalTicketPrice}</span></h3>
                                 <h3>vs</h3>
                                 <h3>Budget <span id="totalTicketPrice">{budgetValue}</span></h3>
                             </div>
