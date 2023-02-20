@@ -1,9 +1,5 @@
-//to do: fixing the styling after the removal of buttons
-// using Link (?) for the "back" button
-//pairing the shareID and the object from firebase-> check const keyToMyList
-
 import firebase from "../firebase";
-import { getDatabase, ref, get } from "firebase/database";
+import { getDatabase, ref, get} from "firebase/database";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "./Loading";
@@ -12,10 +8,8 @@ const ViewOnlyList = () => {
 
 //useParams for the view-only list 
 const { shareID } = useParams();
-console.log(shareID);
-
-//temporary key to the firebase
-const keyToMyList = "-NOeqhYOho6hRXNgky2j"
+let ID = shareID;
+ID = ID.replace(':', '');
 
 //states
 const [nameOfTheList, setNameOfTheList] = useState("Your list");
@@ -37,7 +31,6 @@ const [pageLoad, setPageLoad] = useState(true);
     }, 2000);
   }, []);
 
-
 //function setting the states for displaying the data from the firebase
 const checkoutTheData = (name, budget, concerts)=> {
     setNameOfTheList(name);
@@ -50,13 +43,14 @@ const sumOfPrices = (arrayOfConcerts) => {
     let totalPrice = 0
         for (let price of arrayOfConcerts) {
         totalPrice += price.maxPrice
-        console.log(totalPrice)
+
         }
-        return totalPrice
+        return totalPrice.toFixed(2)
 }
 
-//getting the data from Firebase
-useEffect( () => {
+
+
+useEffect(() => {
 
     const database = getDatabase(firebase);
     const dbRef = ref(database);
@@ -64,22 +58,39 @@ useEffect( () => {
 
     get(dbRef).then((snapshot) => {
 
-        if(snapshot.exists()){
-        // We call `.val()` on our snapshot to get the contents of our data. The returned data will be an object that we can  iterate through later
-        // console.log(snapshot.val())
-        
-        //whole object from Firebase
-        const allTheLists = snapshot.val();
+        if (snapshot.exists()) {
 
-        //specific data from firebase
+            const allTheLists = snapshot.val();
+            const newState = [];
 
-        const nameFromList = allTheLists[keyToMyList].listname;
-        const budget = allTheLists[keyToMyList].userBudget;
-        const allChosenConcerts = allTheLists[keyToMyList].budgetConcertContent;
-        
-        //taking the data for states
+            for (let key in allTheLists) {
+                newState.push(allTheLists[key]);
+            }
+
+
+            const currentList = newState.filter((event)=>{
+                if (event.shareKey !== `${ID}`){
+                    return null;
+                } else {
+                    const currentShareList = event;
+                    return currentShareList;
+                }
+            })
+
+            console.log(currentList)
+            // setShareList(currentList);
+            const myArrayFromFirebase = currentList;
+            console.log(currentList);
+
+             //specific data from firebase
+
+        const nameFromList = myArrayFromFirebase[0].listname;
+        const budget = myArrayFromFirebase[0].userBudget;
+        const allChosenConcerts = myArrayFromFirebase[0].budgetConcertContent;
+
+         //taking the data for states
         checkoutTheData(nameFromList, budget, allChosenConcerts);
-        
+
         //taking the data for total price
         setTotalTicketPrice(sumOfPrices(allChosenConcerts))
 
@@ -88,8 +99,8 @@ useEffect( () => {
         }
     }).catch((error) => {
         console.log(error)
-    }) 
-}, [])  
+    })
+}, [ID]) 
 
 
 
@@ -102,9 +113,9 @@ useEffect( () => {
                     <div className="detaliedList">
                         <h2>{nameOfTheList}</h2>
                         <div className="listHeading">
-                            <h3>Concert <span id="budgetValue">{totalTicketPrice}</span> </h3>
+                            <h3>Concert <span id="budgetValue">{`${totalTicketPrice} CAD`}</span> </h3>
                             <h3>vs</h3>
-                            <h3>Budget <span id="totalTicketPrice">{budgetValue}</span></h3>
+                            <h3>Budget <span id="totalTicketPrice">{`${budgetValue} CAD`}</span></h3>
                         </div>
                         
                         <ul> 
@@ -118,15 +129,15 @@ useEffect( () => {
                                 </div>        
                             </li>
                             {
-                                listOfConcerts.map( (oneConcert) => {
+                                listOfConcerts.map( (oneConcert, index) => {
                                     return (
                                    
-                                        <li className="one" key={oneConcert.key}>
+                                        <li className="one" key={index}>
                                             <p>{oneConcert.name}</p>
                                             <p>{oneConcert.eventDate}</p>
                                             <p>{oneConcert.venueCity}</p>
                                             <p>{oneConcert.venueName}</p>
-                                            <p>{oneConcert.maxPrice}</p>
+                                            <p>{`${oneConcert.maxPrice} CAD`}</p>
                                         </li>
                                     )
                                 })    
