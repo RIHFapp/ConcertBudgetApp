@@ -28,7 +28,10 @@ const SearchPage = (/* {pageLoad} */) => {
   const [error, setError] = useState (false);
 
   const [keyRef , setKeyRef] = useState({})
-  // const [ticketNumber, setTicketNumber] = useState(0);
+  const [displayTicket, setDisplayTicket] = useState([]);
+  const [eK, setEK] = useState('');
+  const [link, setLink] = useState('');
+
 
   useEffect(() => {
     const loadPage = async() => {
@@ -43,11 +46,10 @@ const SearchPage = (/* {pageLoad} */) => {
     }, 500);
   }, [])
 
-  const [link, setLink] = useState('');
+  
 
 
-  const [displayTicket, setDisplayTicket] = useState([]);
-  const [eK, setEK] = useState('');
+
 
 
 
