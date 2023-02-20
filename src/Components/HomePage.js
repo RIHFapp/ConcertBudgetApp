@@ -4,9 +4,14 @@ import music from "../partials/asset/music.JPG";
 import piggy from "../partials/asset/piggy.jpg";
 import ticket from "../partials/asset/ticket.JPG"; 
 import { Link} from "react-router-dom";
-import { useState } from "react";
+
+import { useState , useEffect} from "react";
+import Loading from "./Loading";
+// import SearchPage from "./SearchPage";
+// import ListWithKeys from "./ListWithKeys";
 import * as React from "react";
 import { motion } from "framer-motion";
+
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -30,27 +35,40 @@ const item = {
 
   
 
-const Homepage = () => {
-
+const Homepage = (props) => {
   const [userInput, setUserInput] = useState('');
-
 
   const handleChangeInputChange = (e) => {
     setUserInput(e.target.value)
   }
+   const [pageLoad, setPageLoad] = useState(true);
 
+  useEffect(() => {
+    const loadPage = async() => {
+      await new Promise ((event) => {
+        console.log(event);
+        setTimeout(()=> {setPageLoad(false)}, 2000); 
+      });
+    }
+    setTimeout(()=> {
+      loadPage();
+      setPageLoad(true);
+    }, 0);
+  }, [])
     return(
+      <>
+      {pageLoad ? <Loading /> : (
     <div
       className="header"
       // initial={{ opacity: 0 }}
       // animate={{ opacity: 1 }}
       // transition={{duration:2}}
       >
-      <section>
+      <section className="home">
         <div className="featured wrapper">
           <h1> Concert Budget Master</h1>
-          <p>Too much concert ! Tight on budget</p>
-          <p>lets start planning!</p>
+          <p>Budget tight? Concerts too much?</p>
+          <p>Let's get planning</p>
         </div>
       </section>
       <motion.ul
@@ -96,26 +114,37 @@ const Homepage = () => {
             <Link to={`/searchPage`}>
               <button>Create new List</button>
             </Link>
-            <div className='editList'>
-      <label htmlFor="yourID">Enter Your Key Here:</label>
-      <input
-        type="text"
-        id="yourID"
-        placeholder="UUID"
-        onChange={handleChangeInputChange}
-        value={userInput}
-      />
-      {userInput ? (
-        <Link to={`/listWithKeys/:${userInput}`}>
-          <button>Edit your list</button>
-        </Link>
-      ) : null}
-    </div>   
+
+          <div className="editList">
+            {/* name of the list input */}
+            <label htmlFor="yourID">Enter Your Key Here:</label>
+            <input
+                type="text"
+                id="yourID"
+                placeholder="UUID" 
+                onChange={handleChangeInputChange}
+                value={userInput}
+            />             
+            {
+            userInput===""? null :
+            <Link
+               to={`/listWithKeys/:${userInput}`}
+               onClick={()=> {pageLoad && <Loading />}}
+            >
+              <button>
+                Edit your list
+              </button>
+            </Link>
+            }
+            </div>           
+
           </div>
         </motion.form>
       </section>
 
       </div>
+    )}
+    </>
     )
     
 }

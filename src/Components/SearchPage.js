@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 
 
 
-const SearchPage = () => {
+const SearchPage = (/* {pageLoad} */) => {
   // States for User Budget Information
   const [userListName, setUserListName] = useState('');
   const [userBudget, setBudgetInput] = useState('');
@@ -23,12 +23,30 @@ const SearchPage = () => {
   const [apiRes, setApiRes] = useState([]);
 
   const [addedList, setAddedList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [pageLoad, setPageLoad] = useState(true);
+  const [apiLoading, setApiLoading] = useState(false);
   const [error, setError] = useState (false);
+
+  // const [ticketNumber, setTicketNumber] = useState(0);
+
+  useEffect(() => {
+    const loadPage = async() => {
+      await new Promise ((event) => {
+        console.log(event);
+        setTimeout(()=> {setPageLoad(false)}, 2000); 
+      });
+    }
+    setTimeout(()=> {
+      loadPage();
+      setPageLoad(true);
+    }, 500);
+  }, [])
+
   const [link, setLink] = useState('');
 
-  const [displayTicket, setDisplayTicket] = useState([]);
 
+  const [displayTicket, setDisplayTicket] = useState([]);
+  const [eK, setEK] = useState('');
 
 
 
@@ -56,7 +74,7 @@ const SearchPage = () => {
       setError(true);
     }
     else {
-    setLoading(true);
+    setApiLoading(true);
     setError(false);
       axios({
         url: "https://app.ticketmaster.com/discovery/v2/events",
@@ -79,21 +97,21 @@ const SearchPage = () => {
         });
         setApiRes(list); 
         setTimeout(() => {
-          setLoading(false);
+          setApiLoading(false);
           new Promise ((newRes) => {
               return newRes;
               })
               .then(() => {
-                setLoading(true);
+                setApiLoading(true);
               })
               .then(() => {
                 setTimeout(() => {
-                  setLoading(false)
+                  setApiLoading(false)
                 }, 3000);
               });
         }, 1000)
       }).catch((err)=> {
-          setLoading(false);
+          setApiLoading(false);
           setError(true);
           setTimeout(() => {
             setError(false);
@@ -128,18 +146,18 @@ const SearchPage = () => {
         title: 'Oops...',
         text: 'Please add items to your list',
       })
-    } else if (userBudget === "" || userListName === "") {
+    } else if (userBudget === "" && userListName === "" && addedList.length > 0) {
       Swal.fire({
-        title: 'Empty Named List ',
-        text: "please name your List",
-        icon: 'warning',
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, Im aware of this , thank you'
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please give you list a name',
       })
     } else {
       // Generate a random key for shearable and editable views
       const shareKey = uuidv4("budget");
       const editKey = uuidv4("edit");
+      setEK(editKey);
+
       const timestamp = new Date().getTime();
       // Connect to Firebase
       const currentTime = timestamp;
@@ -154,22 +172,22 @@ const SearchPage = () => {
         ListCreated: currentTime,
       };
       push(dbRef, keyRef);
-    
-      setLink(`/listOfLists`)
+      setLink(`/listWithKeys/:${eK}`)
     }
     
   };
 
+
   useEffect(() => {
-    // update link state when addedList is updated
-    if (addedList.length > 0 && !link) {
-      setLink(`/listOfLists`);
+    if (eK) {
+      setLink(`/listWithKeys/:${eK}`);
+    } else if (addedList.length > 0 && userBudget !== "" && userListName !== "" && !link) {
+      setEK(uuidv4("edit"));
     }
+
   }, [addedList, link]);
-
-
-
-
+ 
+  }, [addedList, userBudget, userListName, link, eK]);
 
 
   const handleClickMinus = (index) => {
@@ -200,14 +218,13 @@ const SearchPage = () => {
     
     return setDisplayTicket(newItems), addedList[index].numberOfTickets;
   }
+  
 
 
-  
-  
     return(
       <>
       {/* Conditionally rendering the page based on loading or error state */}
-      {error ? <ErrorPage /> : loading ? <Loading/> : (
+      {error ? <ErrorPage /> : apiLoading ? <Loading/> : pageLoad ? <Loading /> : (
       // Your component code here
         <>
         <section >
@@ -276,7 +293,7 @@ const SearchPage = () => {
               
               <ul className="searchResultList wrapper">
               <h3>Up coming concerts...</h3>
-              {!loading && (
+              {!apiLoading && (
                     apiRes.map((concertInfo)=>{
                       const name = concertInfo.name; 
                       const eventDate = concertInfo.dates.start.localDate;
@@ -342,11 +359,13 @@ const SearchPage = () => {
                         <div className="ticketNumber">
 
 
+
                           <button onClick={() => { handleClickPlus(index) }}>+</button>
                           <p>{displayTicket[index]}</p>
                           <button onClick={() => { handleClickMinus(index)}}>-</button>
                           
                           
+
                         </div>
                         <div className="concertListImage">
                           <img src={image} alt={`Poster of ${name}`} />

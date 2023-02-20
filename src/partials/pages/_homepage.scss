@@ -1,5 +1,8 @@
 @use "../abstracts/variables" as*;
 
+.home{
+    margin: 0 10%;
+}
 .featured{
     margin: 0 auto;
     p{
@@ -92,6 +95,7 @@
 }
 
 .container {
+    margin-top: 2%;
     width: 800px;
     height: 800px;
     display: grid;
@@ -112,7 +116,7 @@
         width: 90%;
         border-radius: 50%;
     }
-  }
- .layingShapes{
-    position: absolute;   
- }
+    }
+    // .layingShapes{
+    // position: absolute;   
+    // }
