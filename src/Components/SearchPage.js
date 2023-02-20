@@ -27,7 +27,7 @@ const SearchPage = (/* {pageLoad} */) => {
   const [apiLoading, setApiLoading] = useState(false);
   const [error, setError] = useState (false);
 
-  const [ticketNumber, setTicketNumber] = useState(0);
+  // const [ticketNumber, setTicketNumber] = useState(0);
 
   useEffect(() => {
     const loadPage = async() => {
@@ -320,7 +320,7 @@ const SearchPage = (/* {pageLoad} */) => {
                           <button 
                           // onClick={handleTicketNumIncrease}
                           >+</button>
-                          <p>{ticketNumber}</p>
+                          {/* <p>{ticketNumber}</p> */}
                           <button 
                           // onClick={handleTicketNumDecrease}
                           >-</button>
