@@ -114,9 +114,9 @@ const Homepage = (props) => {
             <Link to={`/searchPage`}>
               <button>Create new List</button>
             </Link>
-
-          <div className="editList">
-            {/* name of the list input */}
+          {/* commment up to prvent bugs */}
+          {/* <div className="editList">
+            
             <label htmlFor="yourID">Enter Your Key Here:</label>
             <input
                 type="text"
@@ -136,7 +136,7 @@ const Homepage = (props) => {
               </button>
             </Link>
             }
-            </div>           
+            </div>            */}
 
           </div>
         </motion.form>

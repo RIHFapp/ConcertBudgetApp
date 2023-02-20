@@ -1,7 +1,7 @@
 @use "../abstracts/variables" as *;
 
 //edit list style
-.detaliedList{
+.editList{
     margin-top: 4rem;
     background: rgba(255, 255, 255, 0.342);
     border-radius: 25px;
@@ -78,12 +78,13 @@
     .listConcertTags{
         display: flex;
         justify-content: space-between;
-        width: 65%;
+        width: 95%;
     }
     .listButtonTags{
-        width: 35%;
+        width: 5%;
         p{
             width: 100%;
+            text-align: start;
         }
     }
 

@@ -89,10 +89,15 @@ useEffect( () => {
         const nameFromList = myArrayFromFirebase[0].listname;
         const budget = myArrayFromFirebase[0].userBudget;
         const allChosenConcerts = myArrayFromFirebase[0].budgetConcertContent;
-        
+        const totalCost = allChosenConcerts.reduce((acc, concert) => {
+            const ticketCount = concert.numberOfTickets;
+            const ticketPrice = concert.maxPrice;
+            const costWithCounts = ticketCount * ticketPrice;
+            return acc + costWithCounts;
+          }, 0);
         checkoutTheData(nameFromList, budget, allChosenConcerts);
 
-        setTotalTicketPrice(sumOfPrices(allChosenConcerts));
+        setTotalTicketPrice(totalCost);
     })  
 }, [])
 
@@ -108,38 +113,44 @@ const handleRemoveTicket = (oneConcert) => {
         <>  
             {pageLoad ? <Loading /> : ( 
             <>
-                <section>
-                    <div className="wrapper">
-                        <div className="detaliedList">
-                            <h2>{nameOfTheList}</h2>
+                <section className="wrapper viewDetaliedList">
+                    <h2>{nameOfTheList}</h2>
+                        
+                            
                             <div className="listHeading">
-                                <h3>Concert <span id="budgetValue">{totalTicketPrice}</span> </h3>
+                                <h3>Concert ${totalTicketPrice} </h3>
+                                <div className="progressBar">
                                 <h3>vs</h3>
-                                <h3>Budget <span id="totalTicketPrice">{budgetValue}</span></h3>
+                                <progress value={totalTicketPrice} max={budgetValue}></progress>
+                            </div>
+                                <h3>Budget ${budgetValue}</h3>
                             </div>
                             <ul> 
-                                <li className="listTags inKeys">
+                                <li className="listTags inView">
                                     <div className="listConcertTags">
                                         <p>Name</p>
                                         <p>Date</p>
                                         <p>City</p>
                                         <p>Location</p>
                                         <p>Price</p>
+                                        <p>Total Price</p>
                                     </div>
                                     <div className="listButtonTags">
-                                        <p>adjusting concerts</p>
+                                        <p>+ / -</p>
                                     </div>         
                                 </li>
                                 {
                                     listOfConcerts.map( (oneConcert, index) => {
                                         // const newArray = [];
+                                        const {name, eventDate, venueCity, venueName, maxPrice, numberOfTickets} = oneConcert
                                         return (
                                             <li className="one" key={index}>
-                                                <p>{oneConcert.name}</p>
-                                                <p>{oneConcert.eventDate}</p>
-                                                <p>{oneConcert.venueCity}</p>
-                                                <p>{oneConcert.venueName}</p>
-                                                <p>{`${oneConcert.maxPrice} CAD`}</p>
+                                                <p>{name}</p>
+                                                <p>{eventDate}</p>
+                                                <p>{venueCity}</p>
+                                                <p>{venueName}</p>
+                                                <p>{`${maxPrice} CAD`} x {numberOfTickets}</p>
+                                                <p>${maxPrice * numberOfTickets}</p>
                                                 <button> + </button>
                                                 <button> - </button>
                                                 {/* <button onClick={()=> {handleRemoveTicket(newArray)}} > Remove Ticket </button> */}
@@ -148,9 +159,9 @@ const handleRemoveTicket = (oneConcert) => {
                                     })    
                                 } 
                             </ul>
-                        </div>
+                       
 
-                    </div>
+                    
                     <Link to={`/listOfLists`}>
                         <button id="LOLButton">back</button>
                     </Link>
