@@ -7,7 +7,6 @@ const ViewOnlyList = () => {
 
 //useParams for the view-only list 
 const { shareID } = useParams();
-
 let ID = shareID;
 ID = ID.replace(':', '');
 
@@ -16,7 +15,6 @@ const [nameOfTheList, setNameOfTheList] = useState("Your list");
 const [budgetValue, setBudgetValue] = useState("0");
 const [listOfConcerts, setListOfConcerts] = useState([]);
 const [totalTicketPrice, setTotalTicketPrice] = useState();
- 
 
 //function setting the states for displaying the data from the firebase
 const checkoutTheData = (name, budget, concerts)=> {
@@ -114,10 +112,10 @@ useEffect(() => {
                                 </div>        
                             </li>
                             {
-                                listOfConcerts.map( (oneConcert) => {
+                                listOfConcerts.map( (oneConcert, index) => {
                                     return (
                                    
-                                        <li className="one" key={oneConcert.key}>
+                                        <li className="one" key={index}>
                                             <p>{oneConcert.name}</p>
                                             <p>{oneConcert.eventDate}</p>
                                             <p>{oneConcert.venueCity}</p>
