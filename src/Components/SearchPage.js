@@ -27,6 +27,7 @@ const SearchPage = (/* {pageLoad} */) => {
   const [apiLoading, setApiLoading] = useState(false);
   const [error, setError] = useState (false);
 
+  const [keyRef , setKeyRef] = useState({})
   // const [ticketNumber, setTicketNumber] = useState(0);
 
   useEffect(() => {
@@ -163,14 +164,14 @@ const SearchPage = (/* {pageLoad} */) => {
       const currentTime = timestamp;
       const database = getDatabase(firebase);
       const dbRef = ref(database);
-      const keyRef = {
+      setKeyRef({
         shareKey,
         editKey,
         listname: userListName,
         userBudget: userBudget,
         budgetConcertContent: addedList,
         ListCreated: currentTime,
-      };
+      })
       push(dbRef, keyRef);
       setLink(`/listWithKeys/:${eK}`)
     }
@@ -182,7 +183,12 @@ const SearchPage = (/* {pageLoad} */) => {
     if (eK) {
       setLink(`/listWithKeys/:${eK}`);
     } else if (addedList.length > 0 && userBudget !== "" && userListName !== "" && !link) {
-      setEK(uuidv4("edit"));
+
+
+
+
+
+      setEK(keyRef.shareKey);
     }
  
   }, [addedList, userBudget, userListName, link, eK]);
