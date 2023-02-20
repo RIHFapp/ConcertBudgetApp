@@ -67,7 +67,11 @@ useEffect( () => {
             newState.push(allTheLists[key]);
         }
 
+  
+
         const currentList = newState.filter((event)=>{
+
+            
             if (event.editKey !== `${ID}`){
                 return null;
             } else {
@@ -77,9 +81,10 @@ useEffect( () => {
             }
         })
 
+        console.log(currentList);
         const myArrayFromFirebase = currentList;
 
-        console.log(myArrayFromFirebase)
+        
 
         const nameFromList = myArrayFromFirebase[0].listname;
         const budget = myArrayFromFirebase[0].userBudget;
@@ -111,7 +116,7 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => (
     concerts: listOfConcerts.filter(concert => concert.maxPrice >= minPrice && concert.maxPrice <= maxPrice)
     }
 ));
-console.log(filteredConcerts)
+
 
     return(
         <>  
