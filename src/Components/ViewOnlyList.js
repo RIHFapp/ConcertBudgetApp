@@ -15,7 +15,7 @@ const { shareID } = useParams();
 console.log(shareID);
 
 //temporary key to the firebase
-const keyToMyList = "-NOeqhYOho6hRXNgky2j"
+const keyToMyList = "-NOgEcpl8A3fEFJz_TyS"
 
 //states
 const [nameOfTheList, setNameOfTheList] = useState("Your list");
@@ -97,9 +97,7 @@ useEffect( () => {
         <>
         {pageLoad ? <Loading /> : (
             <>
-            <section>
-                <div className="wrapper">
-                    <div className="detaliedList">
+                    <section className="wrapper viewDetaliedList">     
                         <h2>{nameOfTheList}</h2>
                         <div className="listHeading">
                             <h3>Concert <span id="budgetValue">{totalTicketPrice}</span> </h3>
@@ -117,27 +115,24 @@ useEffect( () => {
                                     <p>Price</p>
                                 </div>        
                             </li>
-                            {
-                                listOfConcerts.map( (oneConcert) => {
+                            {listOfConcerts.map( (oneConcert) => {
+                                    const {name, eventDate, venueCity, venueName, maxPrice, key}=oneConcert
                                     return (
-                                   
-                                        <li className="one" key={oneConcert.key}>
-                                            <p>{oneConcert.name}</p>
-                                            <p>{oneConcert.eventDate}</p>
-                                            <p>{oneConcert.venueCity}</p>
-                                            <p>{oneConcert.venueName}</p>
-                                            <p>{oneConcert.maxPrice}</p>
+                                        <li className="fBListInView" key={key}>
+                                            <p>{name}</p>
+                                            <p>{eventDate}</p>
+                                            <p>{venueCity}</p>
+                                            <p>{venueName}</p>
+                                            <p>{maxPrice}</p>
                                         </li>
                                     )
                                 })    
                             } 
                         </ul>
-                    </div>
-                </div>
-                <Link to={`/listOfLists`}>
-                    <button id="LOLButton">back</button>
-                </Link>
-            </section>
+                    <Link to={`/listOfLists`}>
+                        <button id="LOLButton">back</button>
+                    </Link>
+                </section>        
             </>
             )}
         </>
