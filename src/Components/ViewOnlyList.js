@@ -12,10 +12,10 @@ const ViewOnlyList = () => {
 
 //useParams for the view-only list 
 const { shareID } = useParams();
-console.log(shareID);
+// console.log(shareID);
 
 //temporary key to the firebase
-const keyToMyList = "-NOgEcpl8A3fEFJz_TyS"
+const keyToMyList = "-NOgSUGan-4Oi1XOfoRr"
 
 //states
 const [nameOfTheList, setNameOfTheList] = useState("Your list");
@@ -27,14 +27,13 @@ const [pageLoad, setPageLoad] = useState(true);
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
-        console.log(event);
         setTimeout(()=> {setPageLoad(false)}, 2000); 
       });
     }
     setTimeout(()=> {
       loadPage();
       setPageLoad(true);
-    }, 2000);
+    }, 500);
   }, []);
 
 
@@ -50,7 +49,6 @@ const sumOfPrices = (arrayOfConcerts) => {
     let totalPrice = 0
         for (let price of arrayOfConcerts) {
         totalPrice += price.maxPrice
-        console.log(totalPrice)
         }
         return totalPrice
 }
@@ -91,6 +89,19 @@ useEffect( () => {
     }) 
 }, [])  
 
+        const priceRanges = [250, 500, 750, 1000];
+        const priceArrays = priceRanges.map((priceRange) => {
+            return listOfConcerts.filter((concert) => concert.maxPrice < priceRange).map((concert) => {
+                return {
+                    name: concert.name,
+                    eventDate: concert.eventDate,
+                    venueCity: concert.venueCity,
+                    venueName: concert.venueName,
+                    maxPrice: concert.maxPrice,
+                    key: concert.key,
+                };
+            });
+        });
 
 
     return(
@@ -115,8 +126,33 @@ useEffect( () => {
                                     <p>Price</p>
                                 </div>        
                             </li>
-                            {listOfConcerts.map( (oneConcert) => {
+                            {priceArrays.map((priceArray, index) => {
+                                const maxPrice = priceRanges[index];
+                                return (
+                                    <div key={maxPrice}>
+                                        <h2>Concerts under ${maxPrice}</h2>
+                                        <ul>
+                                            {priceArray.map((concert) => (
+                                                <li key={concert.key}>
+                                                    <p>{concert.name}</p>
+                                                    <p>{concert.eventDate}</p>
+                                                    <p>{concert.venueCity}</p>
+                                                    <p>{concert.venueName}</p>
+                                                    <p>{concert.maxPrice}</p>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                );
+                            })}
+
+                            {/* {listOfConcerts.map( (oneConcert) => {
                                     const {name, eventDate, venueCity, venueName, maxPrice, key}=oneConcert
+                                    
+                                    console.log(priceUnder300);
+                                    // const priceUnder500 = maxPrice.filter(concert => concert.maxPrice < 500)
+                                    // .map(concert => ({ name: concert.name, maxPrice: concert.maxPrice }));
+                                    
                                     return (
                                         <li className="fBListInView" key={key}>
                                             <p>{name}</p>
@@ -127,7 +163,7 @@ useEffect( () => {
                                         </li>
                                     )
                                 })    
-                            } 
+                            }  */}
                         </ul>
                     <Link to={`/listOfLists`}>
                         <button id="LOLButton">back</button>
