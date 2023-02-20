@@ -329,7 +329,7 @@ const SearchPage = (/* {pageLoad} */) => {
                             <span><p>{maxPrice}</p></span>
                           </div>
                           <div className="concertListImage">
-                            <img src ={concertImg} alt="concert poster information"></img>
+                            <img src ={concertImg} alt={`${name} concert poster`}></img>
                           </div>
                         </li>
                       )
