@@ -68,6 +68,9 @@
 
   .listButtons {
     width: 28%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   a {

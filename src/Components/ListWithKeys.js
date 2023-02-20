@@ -3,7 +3,7 @@ import { getDatabase, ref, onValue, remove } from "firebase/database";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "./Loading";
-
+import { AnimatePresence, motion } from "framer-motion";
 const ListWithKeys = () => {
 
 
@@ -108,6 +108,17 @@ const handleRemoveTicket = (oneConcert) => {
     console.log(dbRef);
     remove(dbRef);
 }
+const priceRanges = [
+    { label: 'Concert cost $1000+', minPrice: 1001, maxPrice: Infinity, className: 'listItem3'},
+    { label: 'Concert cost below $1000', minPrice: 751, maxPrice: 1000 , className: 'listItem3' },
+    { label: 'Concert cost below $750', minPrice: 501, maxPrice: 750, className: 'listItem2' },
+    { label: 'Concert cost below $500', minPrice: 251, maxPrice: 500, className: 'listItem1' },
+    { label: 'Concert cost below $250', minPrice: 0, maxPrice: 250, className: 'listItem0' },
+];
+const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
+    label,
+    concerts: listOfConcerts.filter(concert => concert.maxPrice >= minPrice && concert.maxPrice <= maxPrice)
+}));
 
     return(
         <>  
@@ -139,25 +150,38 @@ const handleRemoveTicket = (oneConcert) => {
                                         <p>+ / -</p>
                                     </div>         
                                 </li>
-                                {
-                                    listOfConcerts.map( (oneConcert, index) => {
-                                        // const newArray = [];
-                                        const {name, eventDate, venueCity, venueName, maxPrice, numberOfTickets} = oneConcert
-                                        return (
-                                            <li className="one" key={index}>
-                                                <p>{name}</p>
-                                                <p>{eventDate}</p>
-                                                <p>{venueCity}</p>
-                                                <p>{venueName}</p>
-                                                <p>{`${maxPrice} CAD`} x {numberOfTickets}</p>
-                                                <p>${maxPrice * numberOfTickets}</p>
-                                                <button> + </button>
-                                                <button> - </button>
-                                                {/* <button onClick={()=> {handleRemoveTicket(newArray)}} > Remove Ticket </button> */}
-                                            </li>
-                                        )
-                                    })    
-                                } 
+                                {filteredConcerts.map(({ label, concerts }) => {
+                            if (concerts.length > 0) {
+                            return (
+                                <div key={label} className={priceRanges.find(range => range.label === label).className}>
+                                <h3>{label}</h3>
+                                <ul>
+                                  {concerts.map(({ index, name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}) => (
+                                    <motion.li 
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.5 }}
+                                    className="fBListInView"
+                                    key={index}
+                                    >
+                                      <p>{name}</p>
+                                      <p>{eventDate}</p>
+                                      <p>{venueCity}</p>
+                                      <p>{venueName}</p>
+                                      <p>{maxPrice} x {numberOfTickets}</p>
+                                      <p>${maxPrice * numberOfTickets}</p>
+                                      <button> + </button>
+                                      <button> - </button>
+                                     {/* <button onClick={()=> {handleRemoveTicket(newArray)}} > Remove Ticket </button> */}
+                                    </motion.li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )
+                        } else {
+                            return null;
+                        }
+                        })}
                             </ul>
                        
 

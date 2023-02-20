@@ -159,9 +159,7 @@ useEffect(() => {
                         </ul>    
                         {filteredConcerts.map(({ label, concerts }) => {
                         if (concerts.length > 0) {
-                            // const totalPrice = sumTotal(concerts.reduce((acc, { maxPrice, numberOfTickets }) => {
-                            //     return acc + (maxPrice * numberOfTickets);
-                            //   }, 0));
+                            
                             return (
                                 <div key={label} className={priceRanges.find(range => range.label === label).className}>
                                 <h3>{label}</h3>

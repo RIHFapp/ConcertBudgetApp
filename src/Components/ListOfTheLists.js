@@ -92,15 +92,7 @@ useEffect( () => {
                      <ul> {
                         lists.map((list, key) => {
                            const { listname, userBudget, shareKey, editKey ,ListCreated} = list;
-                           //budgetConcertContent
-                           //filter price under 300
-                           // function filterConcertsByPrice(concerts, minPrice, maxPrice) {
-                           //    return concerts.filter(concert => concert.maxPrice >= minPrice && concert.maxPrice <= maxPrice)
-                           //                   .map(concert => ({ name: concert.name, maxPrice: concert.maxPrice }));
-                           //  }
                            
-                           //  const priceUnder500 = filterConcertsByPrice(budgetConcertContent, 0, 500);
-                           //  const priceUnder1000 = filterConcertsByPrice(budgetConcertContent, 300, 1000);
                            const date = new Date(ListCreated)
                            const year = date.getFullYear();
                               const month = date.getMonth() + 1;
@@ -131,7 +123,9 @@ useEffect( () => {
                                  </Link>
 
                                  <Link to={`/listWithKeys/:${editKey}`}>
-                                    <button>Edit List<span>(with ID)</span></button>
+                                    <button>Edit List
+                                       {/* <span>(with ID)</span> */}
+                                       </button>
                                  </Link>
                                  </div>
                                  {/* <p>Tickets under $500: {priceUnder500.map(concert => `${concert.name.substr(0, 10)}... ($${concert.maxPrice})`).join(', ')}</p>
