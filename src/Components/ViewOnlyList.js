@@ -7,6 +7,7 @@ import { getDatabase, ref, get } from "firebase/database";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "./Loading";
+import { AnimatePresence, motion } from "framer-motion";
 
 const ViewOnlyList = () => {
 
@@ -89,48 +90,39 @@ useEffect( () => {
     }) 
 }, [])  
 
-const priceRanges = [
-    { label: 'Concert cost $1000+', minPrice: 1001, maxPrice: Infinity, className: 'listItem3'},
-    { label: 'Concert cost below $1000', minPrice: 751, maxPrice: 1000 , className: 'listItem3' },
-    { label: 'Concert cost below $750', minPrice: 501, maxPrice: 750, className: 'listItem2' },
-    { label: 'Concert cost below $500', minPrice: 251, maxPrice: 500, className: 'listItem1' },
-    { label: 'Concert cost below $250', minPrice: 0, maxPrice: 250, className: 'listItem0' },
-  ];
-  const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
-    label,
-    concerts: listOfConcerts.filter(concert => concert.maxPrice >= minPrice && concert.maxPrice <= maxPrice)
-  }));
-  
-
-
-
-
-
-
-// const priceRanges = [250, 500, 750, 1000];
-        // const priceArrays = priceRanges.map((priceRange) => {
-        //     return listOfConcerts.filter((concert) => concert.maxPrice < priceRange).map((concert) => {
-        //         return {
-        //             name: concert.name,
-        //             eventDate: concert.eventDate,
-        //             venueCity: concert.venueCity,
-        //             venueName: concert.venueName,
-        //             maxPrice: concert.maxPrice,
-        //             key: concert.key,
-        //         };
-        //     });
-        // });
+        const priceRanges = [
+            { label: 'Concert cost $1000+', minPrice: 1001, maxPrice: Infinity, className: 'listItem3'},
+            { label: 'Concert cost below $1000', minPrice: 751, maxPrice: 1000 , className: 'listItem3' },
+            { label: 'Concert cost below $750', minPrice: 501, maxPrice: 750, className: 'listItem2' },
+            { label: 'Concert cost below $500', minPrice: 251, maxPrice: 500, className: 'listItem1' },
+            { label: 'Concert cost below $250', minPrice: 0, maxPrice: 250, className: 'listItem0' },
+        ];
+        const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
+            label,
+            concerts: listOfConcerts.filter(concert => concert.maxPrice >= minPrice && concert.maxPrice <= maxPrice)
+        }));
 
 
     return(
         <>
         {pageLoad ? <Loading /> : (
             <>
-                    <section className="wrapper viewDetaliedList">     
+                <AnimatePresence>
+                    <motion.section 
+                    className="wrapper viewDetaliedList"
+                    initial={{ opacity: 0 }}
+                     animate={{ opacity: 1 }}
+                     transition={{duration:0.5}}
+                     exit={{ opacity: 0 }}
+                    >     
                         <h2>{nameOfTheList}</h2>
+                        
                         <div className="listHeading">
                             <h3>Concert <span id="budgetValue">{totalTicketPrice.toFixed(2)}</span> </h3>
-                            <h3>vs</h3>
+                            <div className="progressBar">
+                                <h3>vs</h3>
+                                <progress value={totalTicketPrice} max={budgetValue}></progress>
+                            </div>
                             <h3>Budget <span id="totalTicketPrice">{budgetValue}</span></h3>
                         </div>
                         
@@ -140,7 +132,7 @@ const priceRanges = [
                                     <p>Name</p>
                                     <p>Date</p>
                                     <p>City</p>
-                                    <p>Location</p>
+                                    <p>Location <span>(Canada)</span></p>
                                     <p>Price</p>
                                 </div>        
                             </li>   
@@ -152,13 +144,22 @@ const priceRanges = [
                                 <h3>{label}</h3>
                                 <ul>
                                   {concerts.map(({key, name, eventDate, venueCity, venueName, maxPrice}) => (
-                                    <li className="fBListInView" key={key}>
+                                    <motion.li 
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 ,
+                                            borderRadius: ["5%", "75%", "10%", "50%", "25px"],
+                                    }}
+                                    exit={{ opacity: 0, y: -50 }}
+                                    transition={{ duration: 0.5, delay: key * 0.1 }}
+                                    className={`listItem${key % 3 + 1} fBListInView`}
+                                    key={key}
+                                    >
                                       <p>{name}</p>
                                       <p>{eventDate}</p>
                                       <p>{venueCity}</p>
                                       <p>{venueName}</p>
                                       <p>{maxPrice}</p>
-                                    </li>
+                                    </motion.li >
                                   ))}
                                 </ul>
                               </div>
@@ -170,7 +171,8 @@ const priceRanges = [
                     <Link to={`/listOfLists`}>
                         <button id="LOLButton">back</button>
                     </Link>
-                </section>        
+                </motion.section> 
+            </AnimatePresence>           
             </>
             )}
         </>
