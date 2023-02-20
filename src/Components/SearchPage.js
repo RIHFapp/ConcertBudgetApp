@@ -45,7 +45,9 @@ const SearchPage = (/* {pageLoad} */) => {
   const [link, setLink] = useState('');
 
 
+  const [displayTicket, setDisplayTicket] = useState([]);
   const [eK, setEK] = useState('');
+
 
 
   // Renders user budget information when user clicks 
@@ -119,7 +121,7 @@ const SearchPage = (/* {pageLoad} */) => {
   },[artist, city, checked])
 
   // user adds concert to their dynamic list 
-  const handleAddConcert = (name, eventDate, venueCity, venueName, maxPrice, concertImg, key) => {
+  const handleAddConcert = (name, eventDate, venueCity, venueName, maxPrice, concertImg, key, numberOfTickets) => {
     const concertData = {
       name: name,
       eventDate: eventDate,
@@ -127,9 +129,12 @@ const SearchPage = (/* {pageLoad} */) => {
       venueName: venueName,
       maxPrice: maxPrice,
       image: concertImg,
-      key: key
+      key: key,
+      numberOfTickets: numberOfTickets
     }
     setAddedList([...addedList, concertData]);
+    setDisplayTicket(Array.from({ length: (addedList.length + 1) }, () => 1))
+    console.log(displayTicket)
     // setLink(`/listOfLists`);
   }
 
@@ -179,7 +184,40 @@ const SearchPage = (/* {pageLoad} */) => {
     } else if (addedList.length > 0 && userBudget !== "" && userListName !== "" && !link) {
       setEK(uuidv4("edit"));
     }
+
+  }, [addedList, link]);
+ 
   }, [addedList, userBudget, userListName, link, eK]);
+
+
+  const handleClickMinus = (index) => {
+    if (addedList[index].numberOfTickets === 0) {
+      return;
+    } else {
+
+      const minusTicket = addedList[index].numberOfTickets;
+      const currentTicket = minusTicket - 1;
+      addedList[index].numberOfTickets = currentTicket;
+
+      const newItems = [...displayTicket]; // make a copy of the current array state
+      newItems.splice(`${index}`, 1, `${addedList[index].numberOfTickets}`)
+      
+
+      return setDisplayTicket(newItems), addedList[index].numberOfTickets;
+    }
+  }
+
+  const handleClickPlus = (index) => {
+
+    const plusTicket = addedList[index].numberOfTickets;
+    const currentTicket = plusTicket + 1;
+    addedList[index].numberOfTickets = currentTicket;
+    
+    const newItems = [...displayTicket]; // make a copy of the current array state
+    newItems.splice(`${index}`, 1, `${addedList[index].numberOfTickets}`)
+    
+    return setDisplayTicket(newItems), addedList[index].numberOfTickets;
+  }
   
 
 
@@ -261,6 +299,7 @@ const SearchPage = (/* {pageLoad} */) => {
                       const eventDate = concertInfo.dates.start.localDate;
                       const venueCity = concertInfo._embedded.venues[0].city.name;
                       const venueName = concertInfo._embedded.venues[0].name;
+                      let numberOfTickets = 1;
                       const maxPrice = concertInfo.priceRanges !== undefined
                         ? concertInfo.priceRanges[0].max
                         : 'To be announced';
@@ -275,7 +314,7 @@ const SearchPage = (/* {pageLoad} */) => {
                           { 
                             concertInfo.priceRanges !== undefined ? ( 
                               <button
-                              onClick = {() => {handleAddConcert(name, eventDate, venueCity, venueName, maxPrice, concertImg, key)}}> + </button>
+                                onClick={() => { handleAddConcert(name, eventDate, venueCity, venueName, maxPrice, concertImg, key, numberOfTickets)}}> + </button>
                              ) : null
                           }
                           <div className="concertListInfo">
@@ -306,7 +345,8 @@ const SearchPage = (/* {pageLoad} */) => {
                 <ul className="myConcert wrapper">
                 <h3>Selected Concerts</h3>
                   {addedList.map( (list, index) =>{
-                    const { name, eventDate, venueCity, venueName, maxPrice, image} = list;
+                    const { name, eventDate, venueCity, venueName, maxPrice, image, numberOfTickets } = list;
+                    const totalPrice = maxPrice * displayTicket[index];
                     return(
                       <li key={index}>
                         <div className="concertListInfo">
@@ -314,16 +354,18 @@ const SearchPage = (/* {pageLoad} */) => {
                           <p>{eventDate}</p>
                           <p>{venueCity}</p>
                           <p>{venueName}</p>
-                          <span><p>{maxPrice}</p></span>
+                          <span><p>{totalPrice}</p></span>
                         </div>
                         <div className="ticketNumber">
-                          <button 
-                          // onClick={handleTicketNumIncrease}
-                          >+</button>
-                          {/* <p>{ticketNumber}</p> */}
-                          <button 
-                          // onClick={handleTicketNumDecrease}
-                          >-</button>
+
+
+
+                          <button onClick={() => { handleClickPlus(index) }}>+</button>
+                          <p>{displayTicket[index]}</p>
+                          <button onClick={() => { handleClickMinus(index)}}>-</button>
+                          
+                          
+
                         </div>
                         <div className="concertListImage">
                           <img src={image} alt={`Poster of ${name}`} />
@@ -347,4 +389,3 @@ const SearchPage = (/* {pageLoad} */) => {
 }
 
 export default SearchPage;
-
