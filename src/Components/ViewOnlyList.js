@@ -1,5 +1,9 @@
+//to do: fixing the styling after the removal of buttons
+// using Link (?) for the "back" button
+//pairing the shareID and the object from firebase-> check const keyToMyList
+
 import firebase from "../firebase";
-import { getDatabase, ref, get} from "firebase/database";
+import { getDatabase, ref, get } from "firebase/database";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "./Loading";
@@ -10,8 +14,10 @@ const ViewOnlyList = () => {
 //useParams for the view-only list 
 const { shareID } = useParams();
 
-let ID = shareID;
-ID = ID.replace(':', '');
+  let ID = shareID;
+  ID = ID.replace(':', '');
+
+
 
 //states
 const [nameOfTheList, setNameOfTheList] = useState("Your list");
@@ -32,6 +38,7 @@ const [pageLoad, setPageLoad] = useState(true);
     }, 500);
   }, []);
 
+
 //function setting the states for displaying the data from the firebase
 const checkoutTheData = (name, budget, concerts)=> {
     setNameOfTheList(name);
@@ -44,16 +51,11 @@ const sumOfPrices = (arrayOfConcerts) => {
     let totalPrice = 0
         for (let price of arrayOfConcerts) {
         totalPrice += price.maxPrice
-
-
-
-
         }
-        return totalPrice.toFixed(2)
+        return totalPrice
 }
 
-
-
+//getting the data from Firebase
 useEffect(() => {
 
     const database = getDatabase(firebase);
@@ -134,14 +136,12 @@ useEffect(() => {
                         <h2>{nameOfTheList}</h2>
                         
                         <div className="listHeading">
-
                             <h3>Total Cost ${totalTicketPrice.toFixed(2)} </h3>
                             <div className="progressBar">
                                 <h3>vs</h3>
                                 <progress value={totalTicketPrice} max={budgetValue}></progress>
                             </div>
                             <h3>Budget$ {budgetValue}</h3>
-
                         </div>
                         
                         <ul> 
@@ -153,7 +153,6 @@ useEffect(() => {
                                     <p>Location <span>(Canada)</span></p>
                                     <p>Price</p>
                                 </div>        
-
                             </li>   
                         </ul>    
                         {filteredConcerts.map(({ label, concerts }) => {
@@ -189,7 +188,6 @@ useEffect(() => {
                     </Link>
                 </motion.section> 
             </AnimatePresence>           
-
             </>
             )}
         </>
