@@ -8,7 +8,6 @@ const ListWithKeys = () => {
 
 
 const {editID} = useParams();
-console.log(editID);
 let ID = editID;
 ID = ID.replace(':', '');
 
@@ -24,7 +23,6 @@ const [totalTicketPrice, setTotalTicketPrice] = useState();
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
-        console.log(event);
         setTimeout(()=> {setPageLoad(false)}, 1500); 
       });
     }
@@ -50,7 +48,6 @@ const sumOfPrices = (arrayOfConcerts) => {
 let totalPrice = 0
     for (let price of arrayOfConcerts) {
         totalPrice += price.maxPrice
-        console.log(totalPrice)
         }
         return totalPrice.toFixed(2)
 }
@@ -80,10 +77,7 @@ useEffect( () => {
             }
         })
 
-        console.log(currentList)
-
         const myArrayFromFirebase = currentList;
-        console.log(currentList);
 
 
         const nameFromList = myArrayFromFirebase[0].listname;
@@ -101,13 +95,7 @@ useEffect( () => {
     })  
 }, [])
 
-const handleRemoveTicket = (oneConcert) => {
-    console.log(oneConcert[0]);
-    const database = getDatabase(firebase);
-    const dbRef = ref(database, `/${oneConcert[0].key}`);
-    console.log(dbRef);
-    remove(dbRef);
-}
+
 const priceRanges = [
     { label: 'Concert cost $1000+', minPrice: 1001, maxPrice: Infinity, className: 'listItem3'},
     { label: 'Concert cost below $1000', minPrice: 751, maxPrice: 1000 , className: 'listItem3' },
@@ -115,10 +103,14 @@ const priceRanges = [
     { label: 'Concert cost below $500', minPrice: 251, maxPrice: 500, className: 'listItem1' },
     { label: 'Concert cost below $250', minPrice: 0, maxPrice: 250, className: 'listItem0' },
 ];
-const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
+
+const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => (
+    {
     label,
     concerts: listOfConcerts.filter(concert => concert.maxPrice >= minPrice && concert.maxPrice <= maxPrice)
-}));
+    }
+));
+console.log(filteredConcerts)
 
     return(
         <>  
@@ -157,7 +149,13 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                                             <p>+ / -</p>
                                         </div>         
                                     </li>
-                                    {filteredConcerts.map(({ label, concerts }) => {
+                                {
+                                filteredConcerts.map(({ label, concerts}, index) => {
+
+                                    console.log (label)
+                                    console.log(concerts)
+                                    console.log(index)
+                                
                                 if (concerts.length > 0) {
                                 return (
                                     <div key={label} className={priceRanges.find(range => range.label === label).className}>
@@ -184,11 +182,10 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                                     ))}
                                     </ul>
                                 </div>
-                                )
-                            } else {
-                                return null;
-                            }
-                            })}
+                                )} else {
+                                    return null;
+                                }})
+                                }
                                 </ul>
                         
 
