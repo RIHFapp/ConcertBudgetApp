@@ -76,7 +76,7 @@ useEffect( () => {
    }, [])
 
       return (
-         <>
+         <div className="all">
             {pageLoad ? <Loading /> : 
                (
                   <>
@@ -92,14 +92,16 @@ useEffect( () => {
                      <ul> {
                         lists.map((list, key) => {
                            const { listname, userBudget, shareKey, editKey ,ListCreated} = list;
-                           
+
                            const date = new Date(ListCreated)
                            const year = date.getFullYear();
                               const month = date.getMonth() + 1;
                               const day = date.getDate();
                               const formattedDateTime = `${year}-${month}-${day}`;
-                           return (
+                           
+                              return (
                               <motion.li 
+
                               key={key}
                               initial={{ opacity: 0, y: 50 }}
                               animate={{ opacity: 1, y: 0 ,
@@ -132,20 +134,22 @@ useEffect( () => {
                                  <p>Tickets $300-$1000 : {priceUnder1000.map(concert => `${concert.name.substr(0, 10)}... ($${concert.maxPrice})`).join(', ')}</p> */}
                                  
                                  
+
+                              
                               </motion.li>
-                           )
-                        })
-                        }               
-                     <Link to={`/searchPage`}>
-                     <motion.button id="LOLButton"
-                     initial={{ opacity: 0 }}
-                     animate={{ opacity: 1 }}
-                     transition={{duration:0.5}}
-                     exit={{ opacity: 0 }}
-                     >
-                        back
-                        </motion.button>
-                     </Link>
+                              )
+                           })
+                           }               
+                        <Link to={`/searchPage`}>
+                        <motion.button id="LOLButton"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{duration:0.5}}
+                        exit={{ opacity: 0 }}
+                        >
+                           back
+                           </motion.button>
+                        </Link>
                      </ul>
                      
                   </motion.section>
@@ -154,7 +158,7 @@ useEffect( () => {
                   </>
                )
             }
-         </>
+         </div>
       )
 }
 export default ListOfTheLists;
