@@ -342,8 +342,8 @@ const SearchPage = (/* {pageLoad} */) => {
         <section>
           <div className="myList wrapper">
             <div className="userBudgetInfo">
-              <h2 className="userInput"> List:{userListName} </h2>
-              <h2 className="userInput"> Budget:{userBudget} </h2>
+              <h2 className="userInput"> List: {userListName} </h2>
+              <h2 className="userInput"> Budget: {userBudget} CAD</h2>
             </div>
 
                 <ul className="myConcert wrapper">
