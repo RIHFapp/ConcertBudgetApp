@@ -16,9 +16,9 @@ const [nameOfTheList, setNameOfTheList] = useState("Your list");
 const [budgetValue, setBudgetValue] = useState("0");
 const [listOfConcerts, setListOfConcerts] = useState([]);
 const [totalTicketPrice, setTotalTicketPrice] = useState();
+const [pageLoad, setPageLoad] = useState(true);
 
-
- const [pageLoad, setPageLoad] = useState(true);
+const [displayTicket, setDisplayTicket] = useState([]);
 
   useEffect(() => {
     const loadPage = async() => {
@@ -43,14 +43,14 @@ const checkoutTheData = (name, budget, concerts)=> {
     setListOfConcerts(concerts);
 }
 
-//function summing up the prices of tickets
-const sumOfPrices = (arrayOfConcerts) => {
-let totalPrice = 0
-    for (let price of arrayOfConcerts) {
-        totalPrice += price.maxPrice
-        }
-        return totalPrice.toFixed(2)
-}
+// //function summing up the prices of tickets
+// const sumOfPrices = (arrayOfConcerts) => {
+// let totalPrice = 0
+//     for (let price of arrayOfConcerts) {
+//         totalPrice += price.maxPrice
+//         }
+//         return totalPrice.toFixed(2)
+// }
 
 
 useEffect( () => {
@@ -79,6 +79,7 @@ useEffect( () => {
 
         const myArrayFromFirebase = currentList;
 
+        console.log(my)
 
         const nameFromList = myArrayFromFirebase[0].listname;
         const budget = myArrayFromFirebase[0].userBudget;
@@ -152,15 +153,12 @@ console.log(filteredConcerts)
                                 {
                                 filteredConcerts.map(({ label, concerts}, index) => {
 
-                                    console.log (label)
-                                    console.log(concerts)
-                                    console.log(index)
                                 
                                 if (concerts.length > 0) {
                                 return (
                                     <div key={label} className={priceRanges.find(range => range.label === label).className}>
                                     <h3>{label}</h3>
-                                    <ul>
+                                    <li key={index}>
                                     {concerts.map(({ index, name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}) => (
                                         <motion.li 
                                         initial={{ opacity: 0, scale: 0.9 }}
@@ -180,11 +178,12 @@ console.log(filteredConcerts)
                                         {/* <button onClick={()=> {handleRemoveTicket(newArray)}} > Remove Ticket </button> */}
                                         </motion.li>
                                     ))}
-                                    </ul>
+                                    </li>
                                 </div>
                                 )} else {
                                     return null;
                                 }})
+                                
                                 }
                                 </ul>
                         
