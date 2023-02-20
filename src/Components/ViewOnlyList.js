@@ -89,7 +89,43 @@ useEffect( () => {
     }) 
 }, [])  
 
-            const priceBetween200and500 = listOfConcerts.filter(concert => concert.maxPrice >= 200 && concert.maxPrice < 500)
+            const price0to250 = listOfConcerts.filter(concert => concert.maxPrice >= 0 && concert.maxPrice < 250)
+            .map(concert => ({ 
+                name: concert.name, 
+                eventDate: concert.eventDate,
+                venueCity: concert.venueCity,
+                venueName: concert.venueName,
+                maxPrice: concert.maxPrice,
+                key: concert.key
+            }));
+            const price251to500 = listOfConcerts.filter(concert => concert.maxPrice >= 251 && concert.maxPrice < 500)
+            .map(concert => ({ 
+                name: concert.name, 
+                eventDate: concert.eventDate,
+                venueCity: concert.venueCity,
+                venueName: concert.venueName,
+                maxPrice: concert.maxPrice,
+                key: concert.key
+            }));
+            const price501to750 = listOfConcerts.filter(concert => concert.maxPrice >= 501 && concert.maxPrice < 750)
+            .map(concert => ({ 
+                name: concert.name, 
+                eventDate: concert.eventDate,
+                venueCity: concert.venueCity,
+                venueName: concert.venueName,
+                maxPrice: concert.maxPrice,
+                key: concert.key
+            }));
+            const price751to1000 = listOfConcerts.filter(concert => concert.maxPrice >= 751 && concert.maxPrice < 100)
+            .map(concert => ({ 
+                name: concert.name, 
+                eventDate: concert.eventDate,
+                venueCity: concert.venueCity,
+                venueName: concert.venueName,
+                maxPrice: concert.maxPrice,
+                key: concert.key
+            }));
+            const price1000 = listOfConcerts.filter(concert => concert.maxPrice >= 1001)
             .map(concert => ({ 
                 name: concert.name, 
                 eventDate: concert.eventDate,
@@ -143,8 +179,8 @@ useEffect( () => {
                                 </div>        
                             </li>
                             <ul>
-                                <h2>Concert range from 200-500</h2>
-                            {priceBetween200and500.map((concert) => (
+                                <h2>Concert cost $1000+</h2>
+                            {price1000.map((concert) => (
                                 <li className="fBListInView" key={concert.key}>
                                     <p>{concert.name}</p>
                                     <p>{concert.eventDate}</p>
@@ -153,8 +189,55 @@ useEffect( () => {
                                     <p>{concert.maxPrice}</p>
                                 </li>
                             ))}
-                        </ul>
-                            
+                            </ul>
+                            <ul>
+                                <h2>Concert cost below $1000</h2>
+                            {price751to1000.map((concert) => (
+                                <li className="fBListInView" key={concert.key}>
+                                    <p>{concert.name}</p>
+                                    <p>{concert.eventDate}</p>
+                                    <p>{concert.venueCity}</p>
+                                    <p>{concert.venueName}</p>
+                                    <p>{concert.maxPrice}</p>
+                                </li>
+                            ))}
+                            </ul>
+                            <ul>
+                                <h2>Concert cost below $750</h2>
+                            {price501to750.map((concert) => (
+                                <li className="fBListInView" key={concert.key}>
+                                    <p>{concert.name}</p>
+                                    <p>{concert.eventDate}</p>
+                                    <p>{concert.venueCity}</p>
+                                    <p>{concert.venueName}</p>
+                                    <p>{concert.maxPrice}</p>
+                                </li>
+                            ))}
+                            </ul>
+                            <ul>
+                                <h2>Concert cost below $500</h2>
+                            {price251to500.map((concert) => (
+                                <li className="fBListInView" key={concert.key}>
+                                    <p>{concert.name}</p>
+                                    <p>{concert.eventDate}</p>
+                                    <p>{concert.venueCity}</p>
+                                    <p>{concert.venueName}</p>
+                                    <p>{concert.maxPrice}</p>
+                                </li>
+                            ))}
+                            </ul>
+                            <ul>
+                                <h2>Concert cost below 250</h2>
+                            {price0to250.map((concert) => (
+                                <li className="fBListInView" key={concert.key}>
+                                    <p>{concert.name}</p>
+                                    <p>{concert.eventDate}</p>
+                                    <p>{concert.venueCity}</p>
+                                    <p>{concert.venueName}</p>
+                                    <p>{concert.maxPrice}</p>
+                                </li>
+                            ))}
+                            </ul>
 
                             {/* {listOfConcerts.map( (oneConcert) => {
                                     const {name, eventDate, venueCity, venueName, maxPrice, key}=oneConcert
