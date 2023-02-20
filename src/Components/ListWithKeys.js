@@ -50,11 +50,11 @@ const [totalTicketPrice, setTotalTicketPrice] = useState();
 const checkoutTheData = (entry)=> {
   setNameOfTheList(entry.listname);
   setBudgetValue(entry.userBudget);
-//   const 
-  const concertsWithKeys = entry.budgetConcertContent.map((concert) => ({
-    ...concert,
-    key: concert.editKey, // add database key as "key" property
+  const concertsWithKeys = Object.entries(entry.budgetConcertContent).map((concert) => ({
+    ...concert[1],
+    key: concert[1].editKey, // add database key as "key" property
     rowID: entry.rowID,
+    backendIndex: concert[0]
   }));
   console.log(listOfConcerts);
   setListOfConcerts(concertsWithKeys);
@@ -104,6 +104,7 @@ useEffect( () => {
                 currentList.push(entry)
             }
         }
+        console.log(`HERE ${JSON.stringify(currentList[0])}`)
 
         // const myArrayFromFirebase = currentList;
         // const nameFromList = myArrayFromFirebase[0].listname;
@@ -115,7 +116,8 @@ useEffect( () => {
         checkoutTheData(currentList[0]);
 
         // setTotalTicketPrice(sumOfPrices(allChosenConcerts));
-        setTotalTicketPrice(sumOfPrices(currentList[0].budgetConcertContent));
+        setTotalTicketPrice(sumOfPrices(Object.values(currentList[0].budgetConcertContent)));
+        console.log(`AAAAA ${JSON.stringify(listOfConcerts)}`)
     })  
 }, [ID])
 
@@ -169,7 +171,7 @@ const handleRemoveTicket = (oneConcert,index) => {
                                                 <p>{`${oneConcert.maxPrice} CAD`}</p>
                                                 <button> + </button>
                                                 <button> - </button>
-                                                <button onClick={()=> {handleRemoveTicket(oneConcert,index)}} > Remove Ticket </button>
+                                                <button onClick={()=> {handleRemoveTicket(oneConcert,oneConcert.backendIndex)}} > Remove Ticket </button>
                                             </li>
                                         )
                                     })    
