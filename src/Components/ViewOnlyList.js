@@ -25,7 +25,7 @@ const [budgetValue, setBudgetValue] = useState("0");
 const [listOfConcerts, setListOfConcerts] = useState([]);
 const [totalTicketPrice, setTotalTicketPrice] = useState();
 const [pageLoad, setPageLoad] = useState(true);
-const [sumCostToDisplay, setSumCostToDisplay] = useState(0)
+const [sumCostToDisplay, setSumCostToDisplay] = useState("0")
 
   useEffect(() => {
     const loadPage = async() => {
@@ -122,7 +122,7 @@ useEffect(() => {
 
 
         const sumTotal = amount =>{
-            setSumCostToDisplay(amount);
+           console.log(amount);
         }
 
     return(
@@ -140,7 +140,7 @@ useEffect(() => {
                         <h2>{nameOfTheList}</h2>
                         
                         <div className="listHeading">
-                            <h3>Total Cost ${sumCostToDisplay} </h3>
+                            <h3>Total Cost ${totalTicketPrice} </h3>
                             <div className="progressBar">
                                 <h3>vs</h3>
                                 <progress value={totalTicketPrice} max={budgetValue}></progress>
@@ -178,7 +178,6 @@ useEffect(() => {
                                     key={index}
                                     >
                                       <p>{name}</p>
-                                      <p>{numberOfTickets}</p>
                                       <p>{eventDate}</p>
                                       <p>{venueCity}</p>
                                       <p>{venueName}</p>
