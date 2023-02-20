@@ -191,7 +191,7 @@ const SearchPage = (/* {pageLoad} */) => {
       setEK(keyRef.shareKey);
     }
  
-  }, [addedList, userBudget, userListName, link, eK]);
+  }, [keyRef.shareKey, addedList, userBudget, userListName, link, eK]);
 
 
   const handleClickMinus = (index) => {
@@ -349,7 +349,7 @@ const SearchPage = (/* {pageLoad} */) => {
                 <ul className="myConcert wrapper">
                 <h3>Selected Concerts</h3>
                   {addedList.map( (list, index) =>{
-                    const { name, eventDate, venueCity, venueName, maxPrice, image, numberOfTickets } = list;
+                    const { name, eventDate, venueCity, venueName, maxPrice, image, /* numberOfTickets */ } = list;
                     const totalPrice = maxPrice * displayTicket[index];
                     return(
                       <li key={index}>
