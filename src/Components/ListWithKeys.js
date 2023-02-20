@@ -7,13 +7,13 @@
 
 import { Link } from "react-router-dom";
 import firebase from "../firebase";
-import { getDatabase, ref, onValue, get } from "firebase/database";
+import { getDatabase, ref, onValue, remove } from "firebase/database";
 import { useEffect, useState } from "react";
 
 const ListWithKeys = () => {
 
 //hardcoded key to the firebase, to be resolved with the paramId
-const keyToMyList = "-NOeqhYOho6hRXNgky2j"
+const keyToMyList = "-NOgSu7982Ww_APiUgew"
 
 //states 
 const [nameOfTheList, setNameOfTheList] = useState("Your list");
@@ -47,37 +47,36 @@ useEffect( () => {
 
     //Please keep in mind that it's going to be rather onValue!
     // onValue(dbRef, (response) => {
-//         const listContent = response.val();
-//         console.log(listContent)
-//         const newListInfo = [];
+    //     const listContent = response.val();
+    //     console.log(listContent)
+    //     const newListInfo = [];
         
-//         for (let key in listContent) {
-//             newListInfo.push(listContent[key]);
-//             console.log(newListInfo)
-//            }
-//            setMyEditableList(newListInfo);
-//         })
+    //     for (let key in listContent) {
+    //         newListInfo.push(listContent[key]);
+    //         console.log(newListInfo)
+    //        }
+    //        setMyEditableList(newListInfo);
+    //     })
 
-    get(dbRef).then((snapshot) => {
-        // One of the returned values is a method called ".exists()", which will return a boolean value for whether there is a returned value from our "get" function 
-        if(snapshot.exists()){
-        // We call `.val()` on our snapshot to get the contents of our data. The returned data will be an object that we can  iterate through later
-        console.log(snapshot.val())
-        const allTheLists = snapshot.val();
+    // get(dbRef).then((snapshot) => {
+    onValue(dbRef, (response) => {
+        const allTheLists = response.val();
         const nameFromList = allTheLists[keyToMyList].listname;
         const budget = allTheLists[keyToMyList].userBudget;
         const allChosenConcerts = allTheLists[keyToMyList].budgetConcertContent;
         checkoutTheData(nameFromList, budget, allChosenConcerts);
         
-        setTotalTicketPrice(sumOfPrices(allChosenConcerts))
+        setTotalTicketPrice(sumOfPrices(allChosenConcerts));
+    })  
+}, [])
 
-        } else {
-        console.log("No data available")
-        }
-    }).catch((error) => {
-        console.log(error)
-    }) 
-}, [])  
+const handleRemoveTicket = (oneConcert) => {
+    console.log(oneConcert[0]);
+    const database = getDatabase(firebase);
+    const dbRef = ref(database, `/${oneConcert[0].key}`);
+    console.log(dbRef);
+    remove(dbRef);
+}
 
     return(
         <>
@@ -105,16 +104,20 @@ useEffect( () => {
                             </li>
                             {
                                 listOfConcerts.map( (oneConcert) => {
+                                    const newArray = [];
+                                    newArray.push(oneConcert);
+                                    // console.log(newArray);
+                                    // const { key, name, eventDate, venueCity, venueName, maxprice } = oneConcert;
                                     return (
-                                        <li className="one" key={oneConcert.key}>
-                                            <p>{oneConcert.name}</p>
-                                            <p>{oneConcert.eventDate}</p>
-                                            <p>{oneConcert.venueCity}</p>
-                                            <p>{oneConcert.venueName}</p>
-                                            <p>{oneConcert.maxPrice}</p>
+                                        <li className="one" key={newArray[0].key}>
+                                            <p>{newArray[0].name}</p>
+                                            <p>{newArray[0].eventDate}</p>
+                                            <p>{newArray[0].venueCity}</p>
+                                            <p>{newArray[0].venueName}</p>
+                                            <p>{newArray[0].maxPrice}</p>
                                             <button> + </button>
                                             <button> - </button>
-                                            <button> Remove Ticket </button>
+                                            <button onClick={()=> {handleRemoveTicket(newArray)}} > Remove Ticket </button>
                                         </li>
                                     )
                                 })    
