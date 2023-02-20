@@ -27,7 +27,10 @@ const SearchPage = () => {
   const [error, setError] = useState (false);
   const [link, setLink] = useState('');
 
-  // const [ticket, setTicket] = useState(1);
+  const [displayTicket, setDisplayTicket] = useState([]);
+
+
+
 
   // Renders user budget information when user clicks 
   const handleListConfig = (event) => {
@@ -112,6 +115,8 @@ const SearchPage = () => {
       numberOfTickets: numberOfTickets
     }
     setAddedList([...addedList, concertData]);
+    setDisplayTicket(Array.from({ length: (addedList.length + 1) }, () => 1))
+    console.log(displayTicket)
     // setLink(`/listOfLists`);
   }
 
@@ -163,23 +168,40 @@ const SearchPage = () => {
   }, [addedList, link]);
 
 
-  const handleClickMinus = (numberOfTickets, index) => {
-    if (addedList[index].numberOfTickets === 0){
+
+
+
+
+  const handleClickMinus = (index) => {
+    if (addedList[index].numberOfTickets === 0) {
       return;
     } else {
-      const xticket = addedList[index].numberOfTickets;
-      const currentTicket = xticket - numberOfTickets;
-      return addedList[index].numberOfTickets = currentTicket;
+
+      const minusTicket = addedList[index].numberOfTickets;
+      const currentTicket = minusTicket - 1;
+      addedList[index].numberOfTickets = currentTicket;
+
+      const newItems = [...displayTicket]; // make a copy of the current array state
+      newItems.splice(`${index}`, 1, `${addedList[index].numberOfTickets}`)
+      
+
+      return setDisplayTicket(newItems), addedList[index].numberOfTickets;
     }
   }
 
-  const handleClickPlus = (numberOfTickets, index) => {
+  const handleClickPlus = (index) => {
 
-    const xticket = addedList[index].numberOfTickets;
-    const currentTicket = xticket + numberOfTickets;
-    return addedList[index].numberOfTickets = currentTicket;
-  
+    const plusTicket = addedList[index].numberOfTickets;
+    const currentTicket = plusTicket + 1;
+    addedList[index].numberOfTickets = currentTicket;
+    
+    const newItems = [...displayTicket]; // make a copy of the current array state
+    newItems.splice(`${index}`, 1, `${addedList[index].numberOfTickets}`)
+    
+    return setDisplayTicket(newItems), addedList[index].numberOfTickets;
   }
+
+
   
   
     return(
@@ -307,6 +329,7 @@ const SearchPage = () => {
                 <h3>Selected Concerts</h3>
                   {addedList.map( (list, index) =>{
                     const { name, eventDate, venueCity, venueName, maxPrice, image, numberOfTickets } = list;
+                    const totalPrice = maxPrice * displayTicket[index];
                     return(
                       <li key={index}>
                         <div className="concertListInfo">
@@ -314,14 +337,16 @@ const SearchPage = () => {
                           <p>{eventDate}</p>
                           <p>{venueCity}</p>
                           <p>{venueName}</p>
-                          <span><p>{maxPrice}</p></span>
+                          <span><p>{totalPrice}</p></span>
                         </div>
                         <div className="ticketNumber">
-                          <button onClick={() => { handleClickMinus(numberOfTickets, index)}}>-</button>
-                          <button onClick={() => { handleClickPlus(numberOfTickets, index) }}>+</button>
-                          {
-                            (numberOfTickets === 1) ? <p>{numberOfTickets}</p>:<p>{numberOfTickets}</p>
-                          }
+
+
+                          <button onClick={() => { handleClickPlus(index) }}>+</button>
+                          <p>{displayTicket[index]}</p>
+                          <button onClick={() => { handleClickMinus(index)}}>-</button>
+                          
+                          
                         </div>
                         <div className="concertListImage">
                           <img src={image} alt={`Poster of ${name}`} />
@@ -345,4 +370,3 @@ const SearchPage = () => {
 }
 
 export default SearchPage;
-
