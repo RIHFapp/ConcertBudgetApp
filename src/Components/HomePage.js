@@ -58,7 +58,12 @@ const Homepage = (props) => {
     return(
       <>
           {pageLoad ? <Loading /> : (
-        <div
+        <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 0.9 }}
+          transition={{duration:0.6}}
           className="header"
           // initial={{ opacity: 0 }}
           // animate={{ opacity: 1 }}
@@ -142,7 +147,8 @@ const Homepage = (props) => {
           </motion.form>
          </section>
 
-        </div>
+        </motion.div>
+        </AnimatePresence>
     )}
     </>
     )

@@ -124,72 +124,80 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
         <>  
             {pageLoad ? <Loading /> : ( 
             <>
-                <section className="wrapper viewDetaliedList">
-                    <h2>{nameOfTheList}</h2>
-                        
+                <AnimatePresence>
+                    <motion.section 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{duration:0.5}}
+                    exit={{ opacity: 0 }}
+                    className="wrapper viewDetaliedList"
+                    >
+                        <h2>{nameOfTheList}</h2>
                             
-                            <div className="listHeading">
-                                <h3>Concert ${totalTicketPrice} </h3>
-                                <div className="progressBar">
-                                <h3>vs</h3>
-                                <progress value={totalTicketPrice} max={budgetValue}></progress>
-                            </div>
-                                <h3>Budget ${budgetValue}</h3>
-                            </div>
-                            <ul> 
-                                <li className="listTags inView">
-                                    <div className="listConcertTags">
-                                        <p>Name</p>
-                                        <p>Date</p>
-                                        <p>City</p>
-                                        <p>Location</p>
-                                        <p>Price</p>
-                                        <p>Total Price</p>
-                                    </div>
-                                    <div className="listButtonTags">
-                                        <p>+ / -</p>
-                                    </div>         
-                                </li>
-                                {filteredConcerts.map(({ label, concerts }) => {
-                            if (concerts.length > 0) {
-                            return (
-                                <div key={label} className={priceRanges.find(range => range.label === label).className}>
-                                <h3>{label}</h3>
-                                <ul>
-                                  {concerts.map(({ index, name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}) => (
-                                    <motion.li 
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ duration: 0.5 }}
-                                    className="fBListInView"
-                                    key={index}
-                                    >
-                                      <p>{name}</p>
-                                      <p>{eventDate}</p>
-                                      <p>{venueCity}</p>
-                                      <p>{venueName}</p>
-                                      <p>{maxPrice} x {numberOfTickets}</p>
-                                      <p>${maxPrice * numberOfTickets}</p>
-                                      <button> + </button>
-                                      <button> - </button>
-                                     {/* <button onClick={()=> {handleRemoveTicket(newArray)}} > Remove Ticket </button> */}
-                                    </motion.li>
-                                  ))}
+                                
+                                <div className="listHeading">
+                                    <h3>Concert ${totalTicketPrice} </h3>
+                                    <div className="progressBar">
+                                    <h3>vs</h3>
+                                    <progress value={totalTicketPrice} max={budgetValue}></progress>
+                                </div>
+                                    <h3>Budget ${budgetValue}</h3>
+                                </div>
+                                <ul> 
+                                    <li className="listTags inView">
+                                        <div className="listConcertTags">
+                                            <p>Name</p>
+                                            <p>Date</p>
+                                            <p>City</p>
+                                            <p>Location</p>
+                                            <p>Price</p>
+                                            <p>Total Price</p>
+                                        </div>
+                                        <div className="listButtonTags">
+                                            <p>+ / -</p>
+                                        </div>         
+                                    </li>
+                                    {filteredConcerts.map(({ label, concerts }) => {
+                                if (concerts.length > 0) {
+                                return (
+                                    <div key={label} className={priceRanges.find(range => range.label === label).className}>
+                                    <h3>{label}</h3>
+                                    <ul>
+                                    {concerts.map(({ index, name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}) => (
+                                        <motion.li 
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ duration: 0.5 }}
+                                        className="fBListInView"
+                                        key={index}
+                                        >
+                                        <p>{name}</p>
+                                        <p>{eventDate}</p>
+                                        <p>{venueCity}</p>
+                                        <p>{venueName}</p>
+                                        <p>{maxPrice} x {numberOfTickets}</p>
+                                        <p>${maxPrice * numberOfTickets}</p>
+                                        <button> + </button>
+                                        <button> - </button>
+                                        {/* <button onClick={()=> {handleRemoveTicket(newArray)}} > Remove Ticket </button> */}
+                                        </motion.li>
+                                    ))}
+                                    </ul>
+                                </div>
+                                )
+                            } else {
+                                return null;
+                            }
+                            })}
                                 </ul>
-                              </div>
-                            )
-                        } else {
-                            return null;
-                        }
-                        })}
-                            </ul>
-                       
+                        
 
-                    
-                    <Link to={`/listOfLists`}>
-                        <button id="LOLButton">back</button>
-                    </Link>
-                </section>
+                        
+                        <Link to={`/listOfLists`}>
+                            <button id="LOLButton">back</button>
+                        </Link>
+                    </motion.section>
+                </AnimatePresence>
             </> 
             )}
         </>
