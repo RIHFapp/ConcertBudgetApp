@@ -250,7 +250,7 @@ const SearchPage = (/* {pageLoad} */) => {
                 placeholder="Your Budget" />
               <div>
                 <button onClick={handleListConfig}>
-                  Add List
+                  Add List Name and Budget
                 </button>
               </div>
             </form>
