@@ -1,5 +1,5 @@
 import firebase from "../firebase";
-import { getDatabase, ref, onValue, remove } from "firebase/database";
+import { getDatabase, ref, onValue, /* remove */ } from "firebase/database";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "./Loading";
@@ -46,14 +46,14 @@ const checkoutTheData = (name, budget, concerts)=> {
 }
 
 //function summing up the prices of tickets
-const sumOfPrices = (arrayOfConcerts) => {
-let totalPrice = 0
-    for (let price of arrayOfConcerts) {
-        totalPrice += price.maxPrice
-        console.log(totalPrice)
-        }
-        return totalPrice.toFixed(2)
-}
+// const sumOfPrices = (arrayOfConcerts) => {
+// let totalPrice = 0
+//     for (let price of arrayOfConcerts) {
+//         totalPrice += price.maxPrice
+//         console.log(totalPrice)
+//         }
+//         return totalPrice.toFixed(2)
+// }
 
 
 useEffect( () => {
@@ -99,15 +99,15 @@ useEffect( () => {
 
         setTotalTicketPrice(totalCost);
     })  
-}, [])
+}, [ID])
 
-const handleRemoveTicket = (oneConcert) => {
-    console.log(oneConcert[0]);
-    const database = getDatabase(firebase);
-    const dbRef = ref(database, `/${oneConcert[0].key}`);
-    console.log(dbRef);
-    remove(dbRef);
-}
+// const handleRemoveTicket = (oneConcert) => {
+//     console.log(oneConcert[0]);
+//     const database = getDatabase(firebase);
+//     const dbRef = ref(database, `/${oneConcert[0].key}`);
+//     console.log(dbRef);
+//     remove(dbRef);
+// }
 const priceRanges = [
     { label: 'Concert cost $1000+', minPrice: 1001, maxPrice: Infinity, className: 'listItem3'},
     { label: 'Concert cost below $1000', minPrice: 751, maxPrice: 1000 , className: 'listItem3' },
