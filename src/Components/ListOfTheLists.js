@@ -76,7 +76,7 @@ useEffect( () => {
    }, [])
 
       return (
-         <>
+         <div className="all">
             {pageLoad ? <Loading /> : 
                (
                   <>
@@ -92,66 +92,53 @@ useEffect( () => {
                      <ul> {
                         lists.map((list, key) => {
                            const { listname, userBudget, shareKey, editKey ,ListCreated} = list;
-                           //budgetConcertContent
-                           //filter price under 300
-                           // function filterConcertsByPrice(concerts, minPrice, maxPrice) {
-                           //    return concerts.filter(concert => concert.maxPrice >= minPrice && concert.maxPrice <= maxPrice)
-                           //                   .map(concert => ({ name: concert.name, maxPrice: concert.maxPrice }));
-                           //  }
-                           
-                           //  const priceUnder500 = filterConcertsByPrice(budgetConcertContent, 0, 500);
-                           //  const priceUnder1000 = filterConcertsByPrice(budgetConcertContent, 300, 1000);
                            const date = new Date(ListCreated)
                            const year = date.getFullYear();
                               const month = date.getMonth() + 1;
                               const day = date.getDate();
                               const formattedDateTime = `${year}-${month}-${day}`;
-                           return (
+                           
+                              return (
                               <motion.li 
-                              key={key}
-                              initial={{ opacity: 0, y: 50 }}
-                              animate={{ opacity: 1, y: 0 ,
-                                       borderRadius: ["5%", "75%", "10%", "50%", "25px"],
-                              }}
-                              exit={{ opacity: 0, y: -50 }}
-                              transition={{ duration: 0.5, delay: key * 0.1 }}
-                              className={`listItem${key % 3 + 1}`}
-                              >
-                                 <div className="fairBaseList">
-                                 <p>List: {listname}</p>
-                                 <p>Budget: {userBudget}</p>
-                                 <p></p>
-                                 <p>Total Cost: {concertSum[key]} CAD</p>
-                                 <p>Total concerts: {concertCount[key]}</p>
-                                 <p>Created on: {formattedDateTime}</p>
-                                 </div>
-                                 <div className="listButtons">
-                                 <Link to={`/viewOnlyList/:${shareKey}`}>
-                                    <button>View List</button>
-                                 </Link>
+                                 key={key}
+                                 initial={{ opacity: 0, y: 50 }}
+                                 animate={{ opacity: 1, y: 0 ,
+                                          borderRadius: ["5%", "75%", "10%", "50%", "25px"],
+                                 }}
+                                 exit={{ opacity: 0, y: -50 }}
+                                 transition={{ duration: 0.5, delay: key * 0.1 }}
+                                 className={`listItem${key % 3 + 1}`}>
+                                    <div className="fairBaseList">
+                                       <p>List: {listname}</p>
+                                       <p>Budget: {userBudget}</p>
+                                       <p></p>
+                                       <p>Total Cost: {concertSum[key]} CAD</p>
+                                       <p>Total concerts: {concertCount[key]}</p>
+                                       <p>Created on: {formattedDateTime}</p>
+                                    </div>
+                                    <div className="listButtons">
+                                       <Link to={`/viewOnlyList/:${shareKey}`}>
+                                          <button>View List</button>
+                                       </Link>
 
-                                 <Link to={`/listWithKeys/:${editKey}`}>
-                                    <button>Edit List<span>(with ID)</span></button>
-                                 </Link>
-                                 </div>
-                                 {/* <p>Tickets under $500: {priceUnder500.map(concert => `${concert.name.substr(0, 10)}... ($${concert.maxPrice})`).join(', ')}</p>
-                                 <p>Tickets $300-$1000 : {priceUnder1000.map(concert => `${concert.name.substr(0, 10)}... ($${concert.maxPrice})`).join(', ')}</p> */}
-                                 
-                                 
+                                       <Link to={`/listWithKeys/:${editKey}`}>
+                                          <button>Edit List<span>(with ID)</span></button>
+                                       </Link>
+                                    </div>
                               </motion.li>
-                           )
-                        })
-                        }               
-                     <Link to={`/searchPage`}>
-                     <motion.button id="LOLButton"
-                     initial={{ opacity: 0 }}
-                     animate={{ opacity: 1 }}
-                     transition={{duration:0.5}}
-                     exit={{ opacity: 0 }}
-                     >
-                        back
-                        </motion.button>
-                     </Link>
+                              )
+                           })
+                           }               
+                        <Link to={`/searchPage`}>
+                        <motion.button id="LOLButton"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{duration:0.5}}
+                        exit={{ opacity: 0 }}
+                        >
+                           back
+                           </motion.button>
+                        </Link>
                      </ul>
                      
                   </motion.section>
@@ -160,7 +147,7 @@ useEffect( () => {
                   </>
                )
             }
-         </>
+         </div>
       )
 }
 export default ListOfTheLists;
