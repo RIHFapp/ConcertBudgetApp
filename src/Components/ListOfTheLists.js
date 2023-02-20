@@ -23,7 +23,7 @@ const ListOfTheLists = (props) => {
     setTimeout(()=> {
       loadPage();
       setPageLoad(true);
-    }, 2000);
+    }, 500);
   }, []);
 
 

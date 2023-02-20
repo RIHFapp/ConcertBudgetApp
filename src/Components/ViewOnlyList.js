@@ -3,11 +3,13 @@ import { getDatabase, ref, get} from "firebase/database";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "./Loading";
+import { AnimatePresence, motion } from "framer-motion";
 
 const ViewOnlyList = () => {
 
 //useParams for the view-only list 
 const { shareID } = useParams();
+
 let ID = shareID;
 ID = ID.replace(':', '');
 
@@ -21,14 +23,13 @@ const [pageLoad, setPageLoad] = useState(true);
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
-        console.log(event);
         setTimeout(()=> {setPageLoad(false)}, 2000); 
       });
     }
     setTimeout(()=> {
       loadPage();
       setPageLoad(true);
-    }, 2000);
+    }, 500);
   }, []);
 
 //function setting the states for displaying the data from the firebase
@@ -43,6 +44,9 @@ const sumOfPrices = (arrayOfConcerts) => {
     let totalPrice = 0
         for (let price of arrayOfConcerts) {
         totalPrice += price.maxPrice
+
+
+
 
         }
         return totalPrice.toFixed(2)
@@ -102,20 +106,42 @@ useEffect(() => {
     })
 }, [ID]) 
 
+        const priceRanges = [
+            { label: 'Concert cost $1000+', minPrice: 1001, maxPrice: Infinity, className: 'listItem3'},
+            { label: 'Concert cost below $1000', minPrice: 751, maxPrice: 1000 , className: 'listItem3' },
+            { label: 'Concert cost below $750', minPrice: 501, maxPrice: 750, className: 'listItem2' },
+            { label: 'Concert cost below $500', minPrice: 251, maxPrice: 500, className: 'listItem1' },
+            { label: 'Concert cost below $250', minPrice: 0, maxPrice: 250, className: 'listItem0' },
+        ];
+        const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
+            label,
+            concerts: listOfConcerts.filter(concert => concert.maxPrice >= minPrice && concert.maxPrice <= maxPrice)
+        }));
 
 
     return(
         <>
         {pageLoad ? <Loading /> : (
             <>
-            <section>
-                <div className="wrapper">
-                    <div className="detaliedList">
+                <AnimatePresence>
+                    <motion.section 
+                    className="wrapper viewDetaliedList"
+                    initial={{ opacity: 0 }}
+                     animate={{ opacity: 1 }}
+                     transition={{duration:0.5}}
+                     exit={{ opacity: 0 }}
+                    >     
                         <h2>{nameOfTheList}</h2>
+                        
                         <div className="listHeading">
-                            <h3>Concert <span id="budgetValue">{`${totalTicketPrice} CAD`}</span> </h3>
-                            <h3>vs</h3>
-                            <h3>Budget <span id="totalTicketPrice">{`${budgetValue} CAD`}</span></h3>
+
+                            <h3>Total Cost ${totalTicketPrice.toFixed(2)} </h3>
+                            <div className="progressBar">
+                                <h3>vs</h3>
+                                <progress value={totalTicketPrice} max={budgetValue}></progress>
+                            </div>
+                            <h3>Budget$ {budgetValue}</h3>
+
                         </div>
                         
                         <ul> 
@@ -124,31 +150,46 @@ useEffect(() => {
                                     <p>Name</p>
                                     <p>Date</p>
                                     <p>City</p>
-                                    <p>Location</p>
+                                    <p>Location <span>(Canada)</span></p>
                                     <p>Price</p>
                                 </div>        
-                            </li>
-                            {
-                                listOfConcerts.map( (oneConcert, index) => {
-                                    return (
-                                   
-                                        <li className="one" key={index}>
-                                            <p>{oneConcert.name}</p>
-                                            <p>{oneConcert.eventDate}</p>
-                                            <p>{oneConcert.venueCity}</p>
-                                            <p>{oneConcert.venueName}</p>
-                                            <p>{`${oneConcert.maxPrice} CAD`}</p>
-                                        </li>
-                                    )
-                                })    
-                            } 
-                        </ul>
-                    </div>
-                </div>
-                <Link to={`/listOfLists`}>
-                    <button id="LOLButton">back</button>
-                </Link>
-            </section>
+
+                            </li>   
+                        </ul>    
+                        {filteredConcerts.map(({ label, concerts }) => {
+                        if (concerts.length > 0) {
+                            return (
+                                <div key={label} className={priceRanges.find(range => range.label === label).className}>
+                                <h3>{label}</h3>
+                                <ul>
+                                  {concerts.map(({key, name, eventDate, venueCity, venueName, maxPrice}) => (
+                                    <motion.li 
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.5 }}
+                                    className="fBListInView"
+                                    key={key}
+                                    >
+                                      <p>{name}</p>
+                                      <p>{eventDate}</p>
+                                      <p>{venueCity}</p>
+                                      <p>{venueName}</p>
+                                      <p>{maxPrice}</p>
+                                    </motion.li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )
+                        } else {
+                            return null;
+                        }
+                        })}
+                    <Link to={`/listOfLists`}>
+                        <button id="LOLButton">back</button>
+                    </Link>
+                </motion.section> 
+            </AnimatePresence>           
+
             </>
             )}
         </>
