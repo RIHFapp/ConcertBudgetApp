@@ -1,9 +1,5 @@
-//to do: fixing the styling after the removal of buttons
-// using Link (?) for the "back" button
-//pairing the shareID and the object from firebase-> check const keyToMyList
-
 import firebase from "../firebase";
-import { getDatabase, ref, get, onValue } from "firebase/database";
+import { getDatabase, ref, get} from "firebase/database";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
@@ -11,24 +7,15 @@ const ViewOnlyList = () => {
 
 //useParams for the view-only list 
 const { shareID } = useParams();
-console.log(shareID);
 
 let ID = shareID;
 ID = ID.replace(':', '');
-
-console.log(ID)
-
-//temporary key to the firebase
-// const keyToMyList = "-NOeqhYOho6hRXNgky2j"
 
 //states
 const [nameOfTheList, setNameOfTheList] = useState("Your list");
 const [budgetValue, setBudgetValue] = useState("0");
 const [listOfConcerts, setListOfConcerts] = useState([]);
 const [totalTicketPrice, setTotalTicketPrice] = useState();
-
-
-const [shareList, setShareList] = useState([])
  
 
 //function setting the states for displaying the data from the firebase
@@ -48,37 +35,7 @@ const sumOfPrices = (arrayOfConcerts) => {
         return totalPrice
 }
 
-//getting the data from Firebase
-// useEffect( () => {
 
-//     const database = getDatabase(firebase);
-//     const dbRef = ref(database);
-
-//     onValue(dbRef, (response)=>{
-
-//             const allTheLists = response.val();
-//             const newState = [];
-
-//             for (let key in allTheLists) {
-//                 newState.push(allTheLists[key]);
-//             }
-
-
-//             const currentList = newState.filter((event)=>{
-//                 if (event.shareKey !== `${ID}`){
-//                     return null;
-//                 } else {
-//                     const currentShareList = event;
-//                     return currentShareList;
-//                 }
-//             })
-
-//             console.log(currentList)
-//             setShareList(currentList);
-//             // console.log(shareList);
-//     })
-        
-// }, [])  
 
 useEffect(() => {
 
@@ -108,8 +65,21 @@ useEffect(() => {
             })
 
             console.log(currentList)
-            setShareList(currentList);
-            // console.log(shareList);
+            // setShareList(currentList);
+            const myArrayFromFirebase = currentList;
+            console.log(currentList);
+
+             //specific data from firebase
+
+        const nameFromList = myArrayFromFirebase[0].listname;
+        const budget = myArrayFromFirebase[0].userBudget;
+        const allChosenConcerts = myArrayFromFirebase[0].budgetConcertContent;
+
+         //taking the data for states
+        checkoutTheData(nameFromList, budget, allChosenConcerts);
+
+        //taking the data for total price
+        setTotalTicketPrice(sumOfPrices(allChosenConcerts))
 
         } else {
             console.log("No data available")
@@ -117,7 +87,7 @@ useEffect(() => {
     }).catch((error) => {
         console.log(error)
     })
-}, []) 
+}, [ID]) 
 
 
 
