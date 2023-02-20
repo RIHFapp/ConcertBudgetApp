@@ -2,7 +2,8 @@
 
 /* Portrait tablet and small desktops */
 @media (max-width: 940px) {
-    .concertImage{
+    
+    .concertImage {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -12,12 +13,34 @@
             margin: 1%;
         }
     }
+
+    //styling for the List of the Lists:
+
+
+    .listOfTheListsContainer {
+ 
+      ul {
+        .fairBaseList {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+      }
+    }
 }
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 768px) {
+    .listOfTheListsContainer {
+        ul {
+          .listButton {
+            margin-right: 10px;
+          }
+        }
+      }
 }
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
 }
+
+//@Media 
