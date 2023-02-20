@@ -64,7 +64,7 @@ const Homepage = (props) => {
       // animate={{ opacity: 1 }}
       // transition={{duration:2}}
       >
-      <section>
+      <section className="home">
         <div className="featured wrapper">
           <h1> Concert Budget Master</h1>
           <p>Too much concert ! Tight on budget</p>

@@ -12,7 +12,7 @@
 @use "./partials/components/button";
 
 //layout 
-
+@use "./partials/layout/nav";
 @use "./partials/layout/footer";
 @use "./partials/base/overlay";
 
@@ -21,6 +21,7 @@
 @use "./partials/pages/searchPage";
 @use "./partials/pages/publishList";
 @use "./partials/pages/listOfTheLists";
+@use "./partials/pages/credit";
 @use "./partials/pages/errorpage";
 @use "./partials/pages/loading";
 
