@@ -133,8 +133,6 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                     className="wrapper viewDetaliedList"
                     >
                         <h2>{nameOfTheList}</h2>
-                            
-                                
                                 <div className="listHeading">
                                     <h3>Concert ${totalTicketPrice} </h3>
                                     <div className="progressBar">
@@ -157,12 +155,12 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                                             <p>+ / -</p>
                                         </div>         
                                     </li>
-                                    {filteredConcerts.map(({ label, concerts }) => {
+                                </ul>
+                                {filteredConcerts.map(({ label, concerts },index) => {
                                 if (concerts.length > 0) {
                                 return (
                                     <div key={label} className={priceRanges.find(range => range.label === label).className}>
                                     <h3>{label}</h3>
-                                    <ul>
                                     {concerts.map(({ index, name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}) => (
                                         <motion.li 
                                         initial={{ opacity: 0, scale: 0.9 }}
@@ -181,18 +179,13 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                                         <button> - </button>
                                         {/* <button onClick={()=> {handleRemoveTicket(newArray)}} > Remove Ticket </button> */}
                                         </motion.li>
-                                    ))}
-                                    </ul>
+                                    ))}   
                                 </div>
                                 )
                             } else {
                                 return null;
                             }
                             })}
-                                </ul>
-                        
-
-                        
                         <Link to={`/listOfLists`}>
                             <button id="LOLButton">back</button>
                         </Link>

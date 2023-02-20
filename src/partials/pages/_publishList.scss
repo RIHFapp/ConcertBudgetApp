@@ -132,20 +132,18 @@
     .wrapper {
       margin-bottom: 2rem;
     }
-
-    li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem;
-      border: 3px solid rgba(255, 255, 255, 0.815);
-      border-radius: 25px;
-      list-style-type: none;
-      margin-bottom: 2%;
-      
-    }
   }
-
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border: 3px solid rgba(255, 255, 255, 0.815);
+    border-radius: 25px;
+    list-style-type: none;
+    margin-bottom: 2%;
+    
+  }
   .fBListInView {
     display: flex;
     justify-content: space-between;

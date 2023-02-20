@@ -91,7 +91,7 @@ useEffect(() => {
             const costWithCounts = ticketCount * ticketPrice;
             return acc + costWithCounts;
           }, 0);
-        console.log(totalCost);
+        // console.log(totalCost);
          //taking the data for states
         checkoutTheData(nameFromList, budget, allChosenConcerts);
 
@@ -156,15 +156,14 @@ useEffect(() => {
                                     <p>Price</p>
                                 </div>        
                             </li>   
-                        </ul>    
-                        {filteredConcerts.map(({ label, concerts }) => {
+                            {filteredConcerts.map(({ label, concerts }) => {
                         if (concerts.length > 0) {
                             
                             return (
                                 <div key={label} className={priceRanges.find(range => range.label === label).className}>
                                 <h3>{label}</h3>
-                                <ul>
-                                  {concerts.map(({ index, name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}) => (
+                                
+                                  {concerts.map(({ name, eventDate, venueCity, venueName, maxPrice, numberOfTickets},index) => (
                                     <motion.li 
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     animate={{ opacity: 1, scale: 1 }}
@@ -180,13 +179,14 @@ useEffect(() => {
                                       <p>${maxPrice * numberOfTickets}</p>
                                     </motion.li>
                                   ))}
-                                </ul>
+                                
                               </div>
                             )
                         } else {
                             return null;
                         }
-                        })}
+                            })}
+                        </ul>    
                     <Link to={`/listOfLists`}>
                         <button id="LOLButton">back</button>
                     </Link>
