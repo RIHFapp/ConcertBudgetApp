@@ -39,7 +39,7 @@ const SearchPage = (/* {pageLoad} */) => {
     setTimeout(()=> {
       loadPage();
       setPageLoad(true);
-    }, 2000);
+    }, 500);
   }, [])
 
   const [link, setLink] = useState('');

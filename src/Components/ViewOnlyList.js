@@ -29,7 +29,7 @@ const [pageLoad, setPageLoad] = useState(true);
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
-        setTimeout(()=> {setPageLoad(false)}, 2000); 
+        setTimeout(()=> {setPageLoad(false)}, 1500); 
       });
     }
     setTimeout(()=> {
@@ -149,8 +149,8 @@ useEffect(() => {
                                 <div className="tagsInView">
                                     <p>Name</p>
                                     <p>Date</p>
-                                    <p>City</p>
-                                    <p>Location <span>(Canada)</span></p>
+                                    <p>City <span>(Canada)</span></p>
+                                    <p>Location </p>
                                     <p>Price</p>
                                 </div>        
                             </li>   

@@ -9,13 +9,13 @@ const ListWithKeys = (props) => {
     const loadPage = async() => {
       await new Promise ((event) => {
         console.log(event);
-        setTimeout(()=> {setPageLoad(false)}, 2000); 
+        setTimeout(()=> {setPageLoad(false)}, 1500); 
       });
     }
     setTimeout(()=> {
       loadPage();
       setPageLoad(true);
-    }, 2000);
+    }, 500);
   }, []);
    
     const {editID} = useParams();

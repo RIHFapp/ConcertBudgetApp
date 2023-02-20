@@ -53,7 +53,7 @@ const Homepage = (props) => {
     setTimeout(()=> {
       loadPage();
       setPageLoad(true);
-    }, 2000);
+    }, 1000);
   }, [])
     return(
       <>
