@@ -34,7 +34,6 @@ const [totalTicketPrice, setTotalTicketPrice] = useState();
     }, 500);
   }, []);
 
-
 //function setting the states for displaying the data from the firebase
 // const checkoutTheData = (name, budget, concerts, rowID)=> {
 //   setNameOfTheList(name);
@@ -47,6 +46,7 @@ const [totalTicketPrice, setTotalTicketPrice] = useState();
 //   console.log(listOfConcerts);
 //   setListOfConcerts(concertsWithKeys);
 // }
+
 const checkoutTheData = (entry)=> {
   setNameOfTheList(entry.listname);
   setBudgetValue(entry.userBudget);
@@ -80,7 +80,8 @@ useEffect( () => {
 
 
     onValue(dbRef, (response) => {
-        const allTheLists = response.val();   
+        const allTheLists = response.val();
+        console.log(`LIST ${JSON.stringify(allTheLists)}`)
         // const newState = [];
         // for (let key in allTheLists) {
         //     newState.push(allTheLists[key]);
@@ -104,8 +105,7 @@ useEffect( () => {
                 currentList.push(entry)
             }
         }
-        console.log(`HERE ${JSON.stringify(currentList[0])}`)
-
+        console.log(`HERE ${ID}`)
         // const myArrayFromFirebase = currentList;
         // const nameFromList = myArrayFromFirebase[0].listname;
         // const budget = myArrayFromFirebase[0].userBudget;
@@ -117,7 +117,6 @@ useEffect( () => {
 
         // setTotalTicketPrice(sumOfPrices(allChosenConcerts));
         setTotalTicketPrice(sumOfPrices(Object.values(currentList[0].budgetConcertContent)));
-        console.log(`AAAAA ${JSON.stringify(listOfConcerts)}`)
     })  
 }, [ID])
 
@@ -157,8 +156,10 @@ const handleRemoveTicket = (oneConcert,index) => {
                                     </div>         
                                 </li>
                                 {
-                                    listOfConcerts.map( (oneConcert, index) => {
-
+                                    
+                                     Object.entries(listOfConcerts).map( (entry) => {
+                                        let index = entry[0]
+                                        let oneConcert = entry[1]
                                         console.log(`oneConcert is ${JSON.stringify(oneConcert)}`)
                                         console.log(index)
                                         // const newArray = [];

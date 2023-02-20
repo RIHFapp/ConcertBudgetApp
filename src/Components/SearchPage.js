@@ -157,7 +157,7 @@ const SearchPage = (/* {pageLoad} */) => {
       const shareKey = uuidv4("budget");
       const editKey = uuidv4("edit");
       setEK(editKey);
-
+      console.log(`LOOK AT ME2 ${editKey}`)
       const timestamp = new Date().getTime();
       // Connect to Firebase
       const currentTime = timestamp;
@@ -174,15 +174,15 @@ const SearchPage = (/* {pageLoad} */) => {
       push(dbRef, keyRef);
       setLink(`/listWithKeys/:${eK}`)
     }
-    
   };
 
 
   useEffect(() => {
+    console.log(`LOOK AT ME1 ${eK}`)
     if (eK) {
       setLink(`/listWithKeys/:${eK}`);
     } else if (addedList.length > 0 && userBudget !== "" && userListName !== "" && !link) {
-      setEK(uuidv4("edit"));
+      setEK('');
     }
  
   }, [addedList, userBudget, userListName, link, eK]);
