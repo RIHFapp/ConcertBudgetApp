@@ -22,6 +22,7 @@ const [listOfConcerts, setListOfConcerts] = useState([]);
 const [totalTicketPrice, setTotalTicketPrice] = useState();
 const [pageLoad, setPageLoad] = useState(true);
 
+
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
@@ -50,7 +51,6 @@ const sumOfPrices = (arrayOfConcerts) => {
         }
         return totalPrice.toFixed(2)
 }
-
 //getting the data from Firebase
 useEffect(() => {
 
@@ -78,23 +78,25 @@ useEffect(() => {
                     return currentShareList;
                 }
             })
-
-            console.log(currentList)
             // setShareList(currentList);
             const myArrayFromFirebase = currentList;
-            console.log(currentList);
-
              //specific data from firebase
 
         const nameFromList = myArrayFromFirebase[0].listname;
         const budget = myArrayFromFirebase[0].userBudget;
         const allChosenConcerts = myArrayFromFirebase[0].budgetConcertContent;
-
+        const totalCost = allChosenConcerts.reduce((acc, concert) => {
+            const ticketCount = concert.numberOfTickets;
+            const ticketPrice = concert.maxPrice;
+            const costWithCounts = ticketCount * ticketPrice;
+            return acc + costWithCounts;
+          }, 0);
+        console.log(totalCost);
          //taking the data for states
         checkoutTheData(nameFromList, budget, allChosenConcerts);
 
         //taking the data for total price
-        setTotalTicketPrice(sumOfPrices(allChosenConcerts))
+        setTotalTicketPrice(totalCost)
 
         } else {
             console.log("No data available")
@@ -117,6 +119,10 @@ useEffect(() => {
         }));
 
 
+        // const sumTotal = amount =>{
+        //    console.log(amount);
+        // }
+
     return(
         <>
         {pageLoad ? <Loading /> : (
@@ -132,7 +138,7 @@ useEffect(() => {
                         <h2>{nameOfTheList}</h2>
                         
                         <div className="listHeading">
-                            <h3>Total Cost ${totalTicketPrice.toFixed(2)} </h3>
+                            <h3>Total Cost ${totalTicketPrice} </h3>
                             <div className="progressBar">
                                 <h3>vs</h3>
                                 <progress value={totalTicketPrice} max={budgetValue}></progress>
@@ -153,23 +159,27 @@ useEffect(() => {
                         </ul>    
                         {filteredConcerts.map(({ label, concerts }) => {
                         if (concerts.length > 0) {
+                            // const totalPrice = sumTotal(concerts.reduce((acc, { maxPrice, numberOfTickets }) => {
+                            //     return acc + (maxPrice * numberOfTickets);
+                            //   }, 0));
                             return (
                                 <div key={label} className={priceRanges.find(range => range.label === label).className}>
                                 <h3>{label}</h3>
                                 <ul>
-                                  {concerts.map(({key, name, eventDate, venueCity, venueName, maxPrice}) => (
+                                  {concerts.map(({ index, name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}) => (
                                     <motion.li 
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{ duration: 0.5 }}
                                     className="fBListInView"
-                                    key={key}
+                                    key={index}
                                     >
                                       <p>{name}</p>
                                       <p>{eventDate}</p>
                                       <p>{venueCity}</p>
                                       <p>{venueName}</p>
-                                      <p>{maxPrice}</p>
+                                      <p>{maxPrice} x {numberOfTickets}</p>
+                                      <p>${maxPrice * numberOfTickets}</p>
                                     </motion.li>
                                   ))}
                                 </ul>
