@@ -79,7 +79,7 @@ useEffect( () => {
 
         const myArrayFromFirebase = currentList;
 
-        console.log(my)
+        console.log(myArrayFromFirebase)
 
         const nameFromList = myArrayFromFirebase[0].listname;
         const budget = myArrayFromFirebase[0].userBudget;
@@ -183,7 +183,7 @@ console.log(filteredConcerts)
                                 )} else {
                                     return null;
                                 }})
-                                
+
                                 }
                                 </ul>
                         
