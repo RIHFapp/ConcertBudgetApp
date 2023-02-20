@@ -25,6 +25,7 @@ const [budgetValue, setBudgetValue] = useState("0");
 const [listOfConcerts, setListOfConcerts] = useState([]);
 const [totalTicketPrice, setTotalTicketPrice] = useState();
 const [pageLoad, setPageLoad] = useState(true);
+const [sumCostToDisplay, setSumCostToDisplay] = useState(0)
 
   useEffect(() => {
     const loadPage = async() => {
@@ -54,7 +55,6 @@ const sumOfPrices = (arrayOfConcerts) => {
         }
         return totalPrice
 }
-
 //getting the data from Firebase
 useEffect(() => {
 
@@ -93,7 +93,7 @@ useEffect(() => {
         const nameFromList = myArrayFromFirebase[0].listname;
         const budget = myArrayFromFirebase[0].userBudget;
         const allChosenConcerts = myArrayFromFirebase[0].budgetConcertContent;
-
+        console.log(myArrayFromFirebase[0]);
          //taking the data for states
         checkoutTheData(nameFromList, budget, allChosenConcerts);
 
@@ -121,6 +121,10 @@ useEffect(() => {
         }));
 
 
+        const sumTotal = amount =>{
+            setSumCostToDisplay(amount);
+        }
+
     return(
         <>
         {pageLoad ? <Loading /> : (
@@ -136,7 +140,7 @@ useEffect(() => {
                         <h2>{nameOfTheList}</h2>
                         
                         <div className="listHeading">
-                            <h3>Total Cost ${totalTicketPrice.toFixed(2)} </h3>
+                            <h3>Total Cost ${sumCostToDisplay} </h3>
                             <div className="progressBar">
                                 <h3>vs</h3>
                                 <progress value={totalTicketPrice} max={budgetValue}></progress>
@@ -157,23 +161,29 @@ useEffect(() => {
                         </ul>    
                         {filteredConcerts.map(({ label, concerts }) => {
                         if (concerts.length > 0) {
+                            const totalPrice = sumTotal(concerts.reduce((acc, { maxPrice, numberOfTickets }) => {
+                                return acc + (maxPrice * numberOfTickets);
+                              }, 0));
+                            
                             return (
                                 <div key={label} className={priceRanges.find(range => range.label === label).className}>
                                 <h3>{label}</h3>
                                 <ul>
-                                  {concerts.map(({key, name, eventDate, venueCity, venueName, maxPrice}) => (
+                                  {concerts.map(({ index, name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}) => (
                                     <motion.li 
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{ duration: 0.5 }}
                                     className="fBListInView"
-                                    key={key}
+                                    key={index}
                                     >
                                       <p>{name}</p>
+                                      <p>{numberOfTickets}</p>
                                       <p>{eventDate}</p>
                                       <p>{venueCity}</p>
                                       <p>{venueName}</p>
-                                      <p>{maxPrice}</p>
+                                      <p>{maxPrice} x {numberOfTickets}</p>
+                                      <p>${maxPrice * numberOfTickets}</p>
                                     </motion.li>
                                   ))}
                                 </ul>
