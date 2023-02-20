@@ -53,7 +53,7 @@ const Homepage = (props) => {
     setTimeout(()=> {
       loadPage();
       setPageLoad(true);
-    }, 1000);
+    }, 0);
   }, [])
     return(
       <>
@@ -67,8 +67,8 @@ const Homepage = (props) => {
       <section className="home">
         <div className="featured wrapper">
           <h1> Concert Budget Master</h1>
-          <p>Too much concert ! Tight on budget</p>
-          <p>lets start planning!</p>
+          <p>Budget tight? Concerts too much?</p>
+          <p>Let's get planning</p>
         </div>
       </section>
       <motion.ul
