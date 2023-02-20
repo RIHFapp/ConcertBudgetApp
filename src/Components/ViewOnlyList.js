@@ -118,12 +118,12 @@ useEffect( () => {
                         <h2>{nameOfTheList}</h2>
                         
                         <div className="listHeading">
-                            <h3>Concert <span id="budgetValue">{totalTicketPrice.toFixed(2)}</span> </h3>
+                            <h3>Total Cost ${totalTicketPrice.toFixed(2)} </h3>
                             <div className="progressBar">
                                 <h3>vs</h3>
                                 <progress value={totalTicketPrice} max={budgetValue}></progress>
                             </div>
-                            <h3>Budget <span id="totalTicketPrice">{budgetValue}</span></h3>
+                            <h3>Budget$ {budgetValue}</h3>
                         </div>
                         
                         <ul> 
@@ -145,13 +145,10 @@ useEffect( () => {
                                 <ul>
                                   {concerts.map(({key, name, eventDate, venueCity, venueName, maxPrice}) => (
                                     <motion.li 
-                                    initial={{ opacity: 0, y: 50 }}
-                                    animate={{ opacity: 1, y: 0 ,
-                                            borderRadius: ["5%", "75%", "10%", "50%", "25px"],
-                                    }}
-                                    exit={{ opacity: 0, y: -50 }}
-                                    transition={{ duration: 0.5, delay: key * 0.1 }}
-                                    className={`listItem${key % 3 + 1} fBListInView`}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.5 }}
+                                    className="fBListInView"
                                     key={key}
                                     >
                                       <p>{name}</p>
@@ -159,7 +156,7 @@ useEffect( () => {
                                       <p>{venueCity}</p>
                                       <p>{venueName}</p>
                                       <p>{maxPrice}</p>
-                                    </motion.li >
+                                    </motion.li>
                                   ))}
                                 </ul>
                               </div>
