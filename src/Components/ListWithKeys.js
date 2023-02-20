@@ -5,16 +5,22 @@
 //pairing the paramId and the object from Firebase (right now the objectkey is hardcoded, check const keyToMyList)
 //responsive design
 
-import { Link } from "react-router-dom";
 import firebase from "../firebase";
 import { getDatabase, ref, onValue, remove } from "firebase/database";
 import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 const ListWithKeys = () => {
 
-//hardcoded key to the firebase, to be resolved with the paramId
-const keyToMyList = "-NOgSu7982Ww_APiUgew"
 
+const {editID} = useParams();
+console.log(editID);
+let ID = editID;
+ID = ID.replace(':', '');
+
+
+//hardcoded key to the firebase, to be resolved with the paramId
+// const keyToMyList = "-NOhCEQtNO5dBENOxkn9"
 //states 
 const [nameOfTheList, setNameOfTheList] = useState("Your list");
 const [budgetValue, setBudgetValue] = useState("0");
@@ -36,7 +42,7 @@ let totalPrice = 0
         totalPrice += price.maxPrice
         console.log(totalPrice)
         }
-        return totalPrice
+        return totalPrice.toFixed(2)
 }
 
 
@@ -61,11 +67,34 @@ useEffect( () => {
     // get(dbRef).then((snapshot) => {
     onValue(dbRef, (response) => {
         const allTheLists = response.val();
-        const nameFromList = allTheLists[keyToMyList].listname;
-        const budget = allTheLists[keyToMyList].userBudget;
-        const allChosenConcerts = allTheLists[keyToMyList].budgetConcertContent;
-        checkoutTheData(nameFromList, budget, allChosenConcerts);
+   
+        const newState = [];
+        for (let key in allTheLists) {
+            newState.push(allTheLists[key]);
+        }
+
+        const currentList = newState.filter((event)=>{
+            if (event.editKey !== `${ID}`){
+                return null;
+            } else {
+                const currentEditList = event;
+                return currentEditList;
+                //check it again!
+            }
+        })
+
+        console.log(currentList)
+        // setShareList(currentList);
+        const myArrayFromFirebase = currentList;
+        console.log(currentList);
+
+
+        const nameFromList = myArrayFromFirebase[0].listname;
+        const budget = myArrayFromFirebase[0].userBudget;
+        const allChosenConcerts = myArrayFromFirebase[0].budgetConcertContent;
         
+        checkoutTheData(nameFromList, budget, allChosenConcerts);
+
         setTotalTicketPrice(sumOfPrices(allChosenConcerts));
     })  
 }, [])
@@ -103,21 +132,18 @@ const handleRemoveTicket = (oneConcert) => {
                                 </div>         
                             </li>
                             {
-                                listOfConcerts.map( (oneConcert) => {
-                                    const newArray = [];
-                                    newArray.push(oneConcert);
-                                    // console.log(newArray);
-                                    // const { key, name, eventDate, venueCity, venueName, maxprice } = oneConcert;
+                                listOfConcerts.map( (oneConcert, index) => {
+                                    // const newArray = [];
                                     return (
-                                        <li className="one" key={newArray[0].key}>
-                                            <p>{newArray[0].name}</p>
-                                            <p>{newArray[0].eventDate}</p>
-                                            <p>{newArray[0].venueCity}</p>
-                                            <p>{newArray[0].venueName}</p>
-                                            <p>{newArray[0].maxPrice}</p>
+                                        <li className="one" key={index}>
+                                            <p>{oneConcert.name}</p>
+                                            <p>{oneConcert.eventDate}</p>
+                                            <p>{oneConcert.venueCity}</p>
+                                            <p>{oneConcert.venueName}</p>
+                                            <p>{`${oneConcert.maxPrice} CAD`}</p>
                                             <button> + </button>
                                             <button> - </button>
-                                            <button onClick={()=> {handleRemoveTicket(newArray)}} > Remove Ticket </button>
+                                            {/* <button onClick={()=> {handleRemoveTicket(newArray)}} > Remove Ticket </button> */}
                                         </li>
                                     )
                                 })    
@@ -126,7 +152,7 @@ const handleRemoveTicket = (oneConcert) => {
                     </div>
 
                 </div>
-                <Link to={`/`}>
+                <Link to={`/listOfLists`}>
                     <button id="LOLButton">back</button>
                 </Link>
             </section>
