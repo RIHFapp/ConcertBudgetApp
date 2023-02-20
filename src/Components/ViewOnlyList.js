@@ -30,9 +30,9 @@ const sumOfPrices = (arrayOfConcerts) => {
     let totalPrice = 0
         for (let price of arrayOfConcerts) {
         totalPrice += price.maxPrice
-        console.log(totalPrice)
+
         }
-        return totalPrice
+        return totalPrice.toFixed(2)
 }
 
 
@@ -98,9 +98,9 @@ useEffect(() => {
                     <div className="detaliedList">
                         <h2>{nameOfTheList}</h2>
                         <div className="listHeading">
-                            <h3>Concert <span id="budgetValue">{totalTicketPrice}</span> </h3>
+                            <h3>Concert <span id="budgetValue">{`${totalTicketPrice} CAD`}</span> </h3>
                             <h3>vs</h3>
-                            <h3>Budget <span id="totalTicketPrice">{budgetValue}</span></h3>
+                            <h3>Budget <span id="totalTicketPrice">{`${budgetValue} CAD`}</span></h3>
                         </div>
                         
                         <ul> 
@@ -122,7 +122,7 @@ useEffect(() => {
                                             <p>{oneConcert.eventDate}</p>
                                             <p>{oneConcert.venueCity}</p>
                                             <p>{oneConcert.venueName}</p>
-                                            <p>{oneConcert.maxPrice}</p>
+                                            <p>{`${oneConcert.maxPrice} CAD`}</p>
                                         </li>
                                     )
                                 })    
