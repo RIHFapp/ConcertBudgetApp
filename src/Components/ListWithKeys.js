@@ -68,7 +68,7 @@ useEffect( () => {
         }
 
         const currentList = newState.filter((event)=>{   
-            if (event.editKey !== `${ID}`){
+            if (event.editKey !== ID){
                 return null;
             } else {
                 const currentEditList = event;
@@ -116,7 +116,7 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => (
 
 // Setting the total cost when user using the + / - buttons
 useEffect( () => { 
-    console.log(displayTicket)
+    
     if(displayTicket === undefined){
         return undefined;
     } else if (renderData === [] ){
@@ -124,7 +124,7 @@ useEffect( () => {
     } else if (renderData[0] === undefined){
         return undefined;
     } else {
-        console.log(renderData);
+        
         const totalCost = renderData[0].reduce((acc, concert) => {
             const ticketCount = displayTicket[renderData[0].indexOf(concert)];
             const ticketPrice = concert.maxPrice;
