@@ -130,10 +130,10 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                     >
                         <h2>{nameOfTheList}</h2>
                                 <div className="listHeading">
-                                    <h3>Concert ${totalTicketPrice} </h3>
+                                    <h3>Concert ${totalTicketPrice.toFixed(2)} </h3>
                                     <div className="progressBar">
                                     <h3>vs</h3>
-                                    <progress value={totalTicketPrice} max={budgetValue}></progress>
+                                    <progress value={totalTicketPrice.toFixed(2)} max={budgetValue}></progress>
                                 </div>
                                     <h3>Budget ${budgetValue}</h3>
                                 </div>
@@ -169,8 +169,8 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                                         <p>{eventDate}</p>
                                         <p>{venueCity}</p>
                                         <p>{venueName}</p>
-                                        <p>{maxPrice} x {numberOfTickets}</p>
-                                        <p>${maxPrice * numberOfTickets}</p>
+                                        <p>{`$${maxPrice}`} x {numberOfTickets}</p>
+                                        <p>${(maxPrice * numberOfTickets).toFixed(2)}</p>
                                         <button> + </button>
                                         <button> - </button>
                                         {/* <button onClick={()=> {handleRemoveTicket(newArray)}} > Remove Ticket </button> */}

@@ -376,18 +376,12 @@ const SearchPage = (/* {pageLoad} */) => {
                           <p>{eventDate}</p>
                           <p>{venueCity}</p>
                           <p>{venueName}</p>
-                          <span><p>{totalPrice.toFixed(2)}</p></span>
+                          <span><p>{`$${totalPrice.toFixed(2)}`}</p></span>
                         </div>
                         <div className="ticketNumber">
-
-
-
                           <button onClick={() => { handleClickPlus(index) }}>+</button>
                           <p>{displayTicket[index]}</p>
                           <button onClick={() => { handleClickMinus(index)}}>-</button>
-                          
-                          
-
                         </div>
                         <div className="concertListImage">
                           <img src={image} alt={`Poster of ${name}`} />

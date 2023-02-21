@@ -114,7 +114,7 @@ useEffect( () => {
                                  <p>List: {listname}</p>
                                  <p>Budget: {userBudget}</p>
                                  <p></p>
-                                 <p>Total Cost: {concertSum[key]} CAD</p>
+                                 <p>Total Cost: ${concertSum[key]}</p>
                                  <p>Total concerts: {concertCount[key]}</p>
                                  <p>Created on: {formattedDateTime}</p>
                                  </div>
