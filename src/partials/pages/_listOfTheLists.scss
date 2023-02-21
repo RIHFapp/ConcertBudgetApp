@@ -1,11 +1,13 @@
 @use "../abstracts/variables" as *;
 
 .listOfTheListsContainer {
-  margin-top: 4rem;
+  margin-top: 5%;
   background: rgba(255, 255, 255, 0.342);
   border-radius: 25px;
-  padding: 1%;
-
+  padding: 1.5%;
+  h2{
+    margin: 1%;
+  }
   .listItem1 {
     background-color: $firstColor;
     box-shadow: 8px 11px 5px 1px rgba(219, 240, 239, 0.66);
@@ -37,6 +39,8 @@
     background-color: #ffffff00;
     border-radius: 25px;
     padding: 2rem;
+    flex-direction: column;
+    display: flex;
 
     .wrapper {
       margin-bottom: 2rem;
@@ -76,10 +80,18 @@
   a {
     width: 14%;
     margin: 0 auto;
+    &:focus {
+      outline: none;
+    }
+
+
 
     button {
       font-size: 1.5rem;
       margin-left: 5%;
+      &:focus {
+        box-shadow: 8px 4px 4px rgb(48, 43, 43);
+      }
     }
 
     span {

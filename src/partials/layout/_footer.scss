@@ -7,10 +7,19 @@
     width: 100%;
     text-align: center;
     padding: 1rem;
-    p{
+    p {
         font-size: 1.4rem;
         font-family: 'Mynerve', cursive;
+   a {
+    &:hover {
+        font-weight: bold; 
+     }
+     &:focus {
+         font-weight: bold;
+     }
+   }
     }
+
     .Iza{
         color: #20aa04;
     }

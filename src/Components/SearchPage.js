@@ -193,7 +193,7 @@ const SearchPage = (/* {pageLoad} */) => {
       setEK(keyRef.shareKey);
     }
  
-  }, [addedList, userBudget, userListName, link, eK]);
+  }, [keyRef.shareKey, addedList, userBudget, userListName, link, eK]);
 
 
   const handleClickMinus = (index) => {
@@ -208,8 +208,8 @@ const SearchPage = (/* {pageLoad} */) => {
       const newItems = [...displayTicket]; // make a copy of the current array state
       newItems.splice(`${index}`, 1, `${addedList[index].numberOfTickets}`)
       
-
-      return setDisplayTicket(newItems), addedList[index].numberOfTickets;
+      setDisplayTicket(newItems)
+      return addedList[index].numberOfTickets;
     }
   }
 
@@ -221,8 +221,8 @@ const SearchPage = (/* {pageLoad} */) => {
     
     const newItems = [...displayTicket]; // make a copy of the current array state
     newItems.splice(`${index}`, 1, `${addedList[index].numberOfTickets}`)
-    
-    return setDisplayTicket(newItems), addedList[index].numberOfTickets;
+    setDisplayTicket(newItems)
+    return addedList[index].numberOfTickets;
   }
   
 
@@ -242,17 +242,21 @@ const SearchPage = (/* {pageLoad} */) => {
               <input
                 type="text"
                 id="newName"
-                placeholder="Name Of Your List" />
+                placeholder="Name Of Your List" 
+                maxlength="16"
+                />
               
               {/* user's budget input */}
               <label htmlFor="newBudget"></label>
               <input
                 type="text"
                 id="newBudget"
-                placeholder="Your Budget" />
+                placeholder="Your Budget" 
+                maxlength="7"
+                />
               <div>
                 <button onClick={handleListConfig}>
-                  Add List
+                  Add List Name and Budget
                 </button>
               </div>
             </form>
@@ -298,7 +302,7 @@ const SearchPage = (/* {pageLoad} */) => {
           <div className="searchResultContainer">
               
               <ul className="searchResultList wrapper">
-              <h3>Up coming concerts...</h3>
+              <h3>Upcoming concerts...</h3>
               {!apiLoading && (
                     apiRes.map((concertInfo)=>{
                       const name = concertInfo.name; 
@@ -331,7 +335,7 @@ const SearchPage = (/* {pageLoad} */) => {
                             <span><p>{maxPrice}</p></span>
                           </div>
                           <div className="concertListImage">
-                            <img src ={concertImg} alt="concert poster information"></img>
+                            <img src ={concertImg} alt={`${name} concert poster`}></img>
                           </div>
                         </li>
                       )
@@ -344,14 +348,14 @@ const SearchPage = (/* {pageLoad} */) => {
         <section>
           <div className="myList wrapper">
             <div className="userBudgetInfo">
-              <h2 className="userInput"> List:{userListName} </h2>
-              <h2 className="userInput"> Budget:{userBudget} </h2>
+              <h2 className="userInput"> List: {userListName} </h2>
+              <h2 className="userInput"> Budget: {userBudget} CAD</h2>
             </div>
 
                 <ul className="myConcert wrapper">
                 <h3>Selected Concerts</h3>
                   {addedList.map( (list, index) =>{
-                    const { name, eventDate, venueCity, venueName, maxPrice, image, numberOfTickets } = list;
+                    const { name, eventDate, venueCity, venueName, maxPrice, image, /* numberOfTickets */ } = list;
                     const totalPrice = maxPrice * displayTicket[index];
                     return(
                       <li key={index}>
@@ -360,7 +364,7 @@ const SearchPage = (/* {pageLoad} */) => {
                           <p>{eventDate}</p>
                           <p>{venueCity}</p>
                           <p>{venueName}</p>
-                          <span><p>{totalPrice}</p></span>
+                          <span><p>{totalPrice.toFixed(2)}</p></span>
                         </div>
                         <div className="ticketNumber">
 

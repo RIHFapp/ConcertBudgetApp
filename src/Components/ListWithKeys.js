@@ -45,6 +45,7 @@ const checkoutTheData = (name, budget, concerts)=> {
     setListOfConcerts(concerts);
 }
 
+
 // //function summing up the prices of tickets
 // const sumOfPrices = (arrayOfConcerts) => {
 // let totalPrice = 0
@@ -88,9 +89,11 @@ useEffect( () => {
             }
         })
 
+
         const myArrayFromFirebase = currentList;
         arrayValue(currentList);
         
+
         const nameFromList = myArrayFromFirebase[0].listname;
         const budget = myArrayFromFirebase[0].userBudget;
         const allChosenConcerts = myArrayFromFirebase[0].budgetConcertContent;
@@ -249,8 +252,6 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => (
                     className="wrapper viewDetaliedList"
                     >
                         <h2>{nameOfTheList}</h2>
-                            
-                                
                                 <div className="listHeading">
                                     <h3>Concert ${totalTicketPrice} </h3>
                                     <div className="progressBar">
@@ -273,6 +274,7 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => (
                                             <p>+ / -</p>
                                         </div>
                                     </li>
+
                                     {filteredConcerts.map(({ label, concerts }) => {
                                         if (concerts.length > 0) {
                                             return (
@@ -305,10 +307,8 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => (
                                             return null;
                                         }
                                     })}
-                                </ul>
-                        
 
-                        
+                                </ul>
                         <Link to={`/listOfLists`}>
                             <button id="LOLButton">back</button>
                         </Link>
