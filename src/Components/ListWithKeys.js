@@ -208,8 +208,6 @@ useEffect(() => {
 
     } else {
 
-        
-
         const database = getDatabase(firebase);
         const dbRef = ref(database);
 
