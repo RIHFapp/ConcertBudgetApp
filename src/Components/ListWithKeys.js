@@ -22,7 +22,6 @@ const {editID} = useParams();
 let ID = editID;
 ID = ID.replace(':', '');
 
-setRenderData([]);
 // Display 'Loading' component on page load 
 useEffect(() => {
 const loadPage = async() => {
