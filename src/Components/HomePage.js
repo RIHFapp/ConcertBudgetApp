@@ -46,7 +46,6 @@ const Homepage = (props) => {
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
-        console.log(event);
         setTimeout(()=> {setPageLoad(false)}, 2000); 
       });
     }
