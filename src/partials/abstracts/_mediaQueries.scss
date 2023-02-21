@@ -40,6 +40,25 @@
         text-align: start;
       }
     }
+    .viewDetaliedList {
+      .listTags{
+          display: none;
+      }
+      .fBListInView{
+        align-items: flex-start;
+        span{
+          display: block;
+        }
+      }
+      .fireBaseList{
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+      p{
+        line-height: 25px;
+        text-align: start;
+      }
+    }
 }
 
 /* Landscape phone to portrait tablet */

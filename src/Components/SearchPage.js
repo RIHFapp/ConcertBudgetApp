@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Loading from "./Loading";
 import Swal from 'sweetalert2';
+import { AnimatePresence, motion } from "framer-motion";
 
 
 
@@ -228,7 +229,14 @@ const SearchPage = (/* {pageLoad} */) => {
       {/* Conditionally rendering the page based on loading or error state */}
       {error ? <ErrorPage /> : apiLoading ? <Loading/> : pageLoad ? <Loading /> : (
       // Your component code here
-        <>
+      <AnimatePresence>
+        <motion.div
+        className="searchPage"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{duration:0.6}}
+        >
         <section >
           <div className="inputSection wrapper">
             <h2>Create Your List!</h2>
@@ -253,7 +261,7 @@ const SearchPage = (/* {pageLoad} */) => {
               ></label>
               <input
                 maxlength="7"
-                type="number"
+                type="text"
                 id="newBudget"
                 placeholder="Your Budget"
                 required 
@@ -344,7 +352,7 @@ const SearchPage = (/* {pageLoad} */) => {
                             <p> {eventDate} </p>
                             <p> {venueCity} </p>
                             <p> {venueName} </p>
-                            <span><p>{maxPrice}</p></span>
+                            <span><p>${maxPrice} CAD</p></span>
                           </div>
                           <div className="concertListImage">
                             <img src ={concertImg} alt={`${name} concert poster`}></img>
@@ -376,7 +384,9 @@ const SearchPage = (/* {pageLoad} */) => {
                           <p>{eventDate}</p>
                           <p>{venueCity}</p>
                           <p>{venueName}</p>
-                          <span><p>{`$${totalPrice.toFixed(2)}`}</p></span>
+
+                          <span><p>${totalPrice.toFixed(2)} CAD</p></span>
+
                         </div>
                         <div className="ticketNumber">
                           <button onClick={() => { handleClickPlus(index) }}>+</button>
@@ -398,7 +408,8 @@ const SearchPage = (/* {pageLoad} */) => {
                 </ul>
             </div>
         </section>
-        </>
+        </motion.div>
+      </AnimatePresence> 
       )}
       </>
     )

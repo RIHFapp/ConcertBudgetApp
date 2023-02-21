@@ -78,7 +78,8 @@ section{
                 width: 35%;
                 p{
                     margin: .4rem;
-                    font-size: 1.2rem;
+                    font-size: 1.4rem;
+                    line-height: 2rem;
                 }
             }
             .concertListImage{
@@ -124,14 +125,15 @@ section{
         border: 3px solid rgba(255, 255, 255, 0.904);
         button{
             height: 50%;
-            margin-left: 1rem;
+            margin: 0 auto;
         }
         .concertListInfo{
             align-self: left;
             width: 35%;
             p{
                 margin: .4rem;
-                font-size: 1.2rem;
+                font-size: 1.4rem;
+                line-height: 2rem;
             }
         }
         .concertListImage{
@@ -208,4 +210,15 @@ section{
             font-size: 3rem;
             text-align: center;
         }
+}
+
+.ticketNumber{
+    button{
+        margin: 0 auto;
+    }
+    p{
+        margin:15px 0;
+        text-align: center;
+        
+    }
 }
