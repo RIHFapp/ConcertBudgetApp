@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Loading from "./Loading";
 import Swal from 'sweetalert2';
+import { AnimatePresence, motion } from "framer-motion";
 
 
 
@@ -33,7 +34,6 @@ const SearchPage = (/* {pageLoad} */) => {
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
-        console.log(event);
         setTimeout(()=> {setPageLoad(false)}, 2000); 
       });
     }
@@ -135,7 +135,6 @@ const SearchPage = (/* {pageLoad} */) => {
     }
     setAddedList([...addedList, concertData]);
     setDisplayTicket(Array.from({ length: (addedList.length + 1) }, () => 1))
-    console.log(displayTicket)
     // setLink(`/listOfLists`);
   }
 
@@ -226,24 +225,52 @@ const SearchPage = (/* {pageLoad} */) => {
       {error ? <ErrorPage /> : apiLoading ? <Loading/> : pageLoad ? <Loading /> : (
         <>
         <section className ="budgetInput">
+      <AnimatePresence>
+        <motion.div
+        className="searchPage"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{duration:0.6}}
+        >
+        <section >
           <div className="inputSection wrapper">
             <h2>Create Your List!</h2>
             <form action="submit">
               <h3>Create Your List!</h3>
               {/* name of the list input */}
-              <div className="budgetCreation">
-                <label htmlFor="newName"></label>
-                <input
-                  type="text"
-                  id="newName"
-                  placeholder="Name Of Your List" />
-                
-                {/* user's budget input */}
-                <label htmlFor="newBudget"></label>
-                <input
-                  type="text"
-                  id="newBudget"
-                  placeholder="Your Budget" />
+
+            <div className="budgetCreation">
+              <label 
+              htmlFor="newName"
+              aria-label="List Title"
+              ></label>
+              <input
+                type="text"
+                maxlength="16"
+                id="newName"
+                placeholder="Name Of Your List"
+                required 
+                minlength="1"/>
+         
+              {/* user's budget input */}
+              <label 
+              htmlFor="newBudget"
+              aria-label="Budget for your list"
+              ></label>
+              <input
+                maxlength="7"
+                type="text"
+                id="newBudget"
+                placeholder="Your Budget"
+                required 
+                minlength="1"/>
+              </div>
+              <div>
+                <button onClick={handleListConfig}>
+                  Add List Name and Budget
+                </button>
+
               </div>
               <button onClick={handleListConfig}>
                 Add List
@@ -256,19 +283,28 @@ const SearchPage = (/* {pageLoad} */) => {
           <form className="searchForm wrapper">
             <h3>Search for concerts by artist and your preferred city</h3>
               <div className="concertSearch">
-              <label htmlFor="artist"></label>
+                <label 
+                htmlFor="artist"
+                aria-label="Artist"></label>
                 <input 
                     className="artistSearch"
                     id="artist"
                     placeholder="Artist..."
+                    type="text"
                 />
-                <label htmlFor="city"></label>
+
+                <label 
+                htmlFor="city"
+                aria-label="City"
+                ></label>
                 <input 
                     className="citySearch"
                     id="city"
                     placeholder="City..."
+                    type="text"
                 />
               </div>
+
               <fieldset>
                 <label htmlFor="displayPricedConcerts">
                   Click to show only priced concerts
@@ -293,7 +329,7 @@ const SearchPage = (/* {pageLoad} */) => {
         <section className="concertSearchResult">
           <div className="searchResultContainer">
               <ul className="searchResultList wrapper">
-              <h3>Up coming concerts...</h3>
+              <h3>Upcoming concerts...</h3>
               {!apiLoading && (
                     apiRes.map((concertInfo)=>{
                       const name = concertInfo.name; 
@@ -323,10 +359,10 @@ const SearchPage = (/* {pageLoad} */) => {
                             <p> {eventDate} </p>
                             <p> {venueCity} </p>
                             <p> {venueName} </p>
-                            <span><p>{maxPrice}</p></span>
+                            <span><p>${maxPrice} CAD</p></span>
                           </div>
                           <div className="concertListImage">
-                            <img src ={concertImg} alt="concert poster information"></img>
+                            <img src ={concertImg} alt={`${name} concert poster`}></img>
                           </div>
                         </li>
                       )
@@ -339,8 +375,8 @@ const SearchPage = (/* {pageLoad} */) => {
         <section className="userChosenConcerts">
           <div className="myList wrapper">
             <div className="userBudgetInfo">
-              <h2 className="userInput"> List:{userListName} </h2>
-              <h2 className="userInput"> Budget:{userBudget} </h2>
+              <h2 className="userInput"> List: {userListName} </h2>
+              <h2 className="userInput"> Budget: {userBudget} CAD</h2>
             </div>
 
                 <ul className="myConcert wrapper">
@@ -355,10 +391,11 @@ const SearchPage = (/* {pageLoad} */) => {
                           <p>{eventDate}</p>
                           <p>{venueCity}</p>
                           <p>{venueName}</p>
-                          <span><p>{totalPrice.toFixed(2)}</p></span>
+
+                          <span><p>${totalPrice.toFixed(2)} CAD</p></span>
+
                         </div>
                         <div className="ticketNumber">
-
                           <button onClick={() => { handleClickPlus(index) }}>+</button>
                           <p>{displayTicket[index]}</p>
                           <button onClick={() => { handleClickMinus(index)}}>-</button>
@@ -379,8 +416,9 @@ const SearchPage = (/* {pageLoad} */) => {
                 </ul>
             </div>
         </section>
-        </>
-        )}
+        </motion.div>
+      </AnimatePresence> 
+      )}
       </>
     )
 }

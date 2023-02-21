@@ -46,7 +46,6 @@ const Homepage = (props) => {
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
-        console.log(event);
         setTimeout(()=> {setPageLoad(false)}, 2000); 
       });
     }
@@ -84,10 +83,10 @@ const Homepage = (props) => {
           >
           {[0, 1, 2, 3].map((index) => (
           <motion.li key={index} className="item" variants={item} >
-          {index === 0 && <img src={ticket} alt="ticket"/>}
-          {index === 1 && <img src={music} alt="music"/>}
-          {index === 2 && <img src={piggy} alt="piggy"/>}
-          {index === 3 && <img src={crowd} alt="crowd"/>}
+          {index === 0 && <img src={ticket} alt="graphic with tickets, comics style"/>}
+          {index === 1 && <img src={music} alt="concert's posters"/>}
+          {index === 2 && <img src={piggy} alt="piggy bank drawing"/>}
+          {index === 3 && <img src={crowd} alt="minimalistic graphics depicting a crowd of people having fun at a concert"/>}
           </motion.li>
           ))}
           </motion.ul>
@@ -111,9 +110,18 @@ const Homepage = (props) => {
                   </ul> */}
           <section className="enterID">
           <motion.form action="submit" 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1}}
-          transition={{ duration: 0.5, delay: 2 }}
+          // initial={{ opacity: 0 }}
+          transition={{ 
+            duration: 0.5, 
+            delay: 2 ,
+            repeat: Infinity,
+            repeatDelay: 2
+          }}
+          animate={{
+            // opacity: 1,
+            scale: [1, 1.05, 1, 1.05, 1],
+            rotate: [0, 0, -5, 5, 0]
+          }}
           >
           <div className="onLogin">
             <Link to={`/searchPage`}>

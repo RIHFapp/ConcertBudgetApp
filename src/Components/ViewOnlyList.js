@@ -91,7 +91,6 @@ useEffect(() => {
             const costWithCounts = ticketCount * ticketPrice;
             return acc + costWithCounts;
           }, 0);
-        console.log(totalCost);
          //taking the data for states
         checkoutTheData(nameFromList, budget, allChosenConcerts);
 
@@ -120,7 +119,6 @@ useEffect(() => {
 
 
         // const sumTotal = amount =>{
-        //    console.log(amount);
         // }
 
     return(
@@ -138,12 +136,16 @@ useEffect(() => {
                         <h2>{nameOfTheList}</h2>
                         
                         <div className="listHeading">
-                            <h3>Total Cost ${totalTicketPrice} </h3>
+
+                            <h3>Total Cost ${totalTicketPrice.toFixed(2)}CAD </h3>
+
                             <div className="progressBar">
                                 <h3>vs</h3>
                                 <progress value={totalTicketPrice} max={budgetValue}></progress>
                             </div>
-                            <h3>Budget$ {budgetValue}</h3>
+
+                            <h3>Budget$ {budgetValue}CAD</h3>
+                            
                         </div>
                         
                         <ul> 
@@ -154,17 +156,17 @@ useEffect(() => {
                                     <p>City <span>(Canada)</span></p>
                                     <p>Location </p>
                                     <p>Price</p>
+                                    <p>Total Price</p>
                                 </div>        
                             </li>   
-                        </ul>    
-                        {filteredConcerts.map(({ label, concerts }) => {
+                            {filteredConcerts.map(({ label, concerts }) => {
                         if (concerts.length > 0) {
                             
                             return (
                                 <div key={label} className={priceRanges.find(range => range.label === label).className}>
                                 <h3>{label}</h3>
-                                <ul>
-                                  {concerts.map(({ index, name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}) => (
+                                
+                                  {concerts.map(({ name, eventDate, venueCity, venueName, maxPrice, numberOfTickets},index) => (
                                     <motion.li 
                                     initial={{ opacity: 0, scale: 0.9 }}
                                     animate={{ opacity: 1, scale: 1 }}
@@ -176,17 +178,19 @@ useEffect(() => {
                                       <p>{eventDate}</p>
                                       <p>{venueCity}</p>
                                       <p>{venueName}</p>
-                                      <p>{maxPrice} x {numberOfTickets}</p>
-                                      <p>${maxPrice * numberOfTickets}</p>
-                                    </motion.li>
+
+                                      <p>${maxPrice}CAD x {numberOfTickets}</p>
+                                      <p>${maxPrice * numberOfTickets.toFixed(2)}CAD</p>
+
                                   ))}
-                                </ul>
+                                
                               </div>
                             )
                         } else {
                             return null;
                         }
-                        })}
+                            })}
+                        </ul>    
                     <Link to={`/listOfLists`}>
                         <button id="LOLButton">back</button>
                     </Link>

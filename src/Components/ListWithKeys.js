@@ -8,7 +8,6 @@ const ListWithKeys = () => {
 
 
 const {editID} = useParams();
-console.log(editID);
 let ID = editID;
 ID = ID.replace(':', '');
 
@@ -24,7 +23,7 @@ const [totalTicketPrice, setTotalTicketPrice] = useState();
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
-        console.log(event);
+        
         setTimeout(()=> {setPageLoad(false)}, 1500); 
       });
     }
@@ -50,7 +49,6 @@ const checkoutTheData = (name, budget, concerts)=> {
 // let totalPrice = 0
 //     for (let price of arrayOfConcerts) {
 //         totalPrice += price.maxPrice
-//         console.log(totalPrice)
 //         }
 //         return totalPrice.toFixed(2)
 // }
@@ -80,10 +78,10 @@ useEffect( () => {
             }
         })
 
-        console.log(currentList)
+        
 
         const myArrayFromFirebase = currentList;
-        console.log(currentList);
+        
 
 
         const nameFromList = myArrayFromFirebase[0].listname;
@@ -102,10 +100,8 @@ useEffect( () => {
 }, [ID])
 
 // const handleRemoveTicket = (oneConcert) => {
-//     console.log(oneConcert[0]);
 //     const database = getDatabase(firebase);
 //     const dbRef = ref(database, `/${oneConcert[0].key}`);
-//     console.log(dbRef);
 //     remove(dbRef);
 // }
 const priceRanges = [
@@ -133,15 +129,16 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                     className="wrapper viewDetaliedList"
                     >
                         <h2>{nameOfTheList}</h2>
-                            
-                                
                                 <div className="listHeading">
-                                    <h3>Concert ${totalTicketPrice} </h3>
+
+                                    <h3>Concert ${totalTicketPrice.toFixed(2)}CAD </h3>
+
+
                                     <div className="progressBar">
                                     <h3>vs</h3>
-                                    <progress value={totalTicketPrice} max={budgetValue}></progress>
+                                    <progress value={totalTicketPrice.toFixed(2)} max={budgetValue}></progress>
                                 </div>
-                                    <h3>Budget ${budgetValue}</h3>
+                                    <h3>Budget ${budgetValue}CAD</h3>
                                 </div>
                                 <ul> 
                                     <li className="listTags inView">
@@ -151,48 +148,48 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                                             <p>City</p>
                                             <p>Location</p>
                                             <p>Price</p>
-                                            <p>Total Price</p>
-                                        </div>
-                                        <div className="listButtonTags">
+                                            <p>Total Price</p>                                        
                                             <p>+ / -</p>
                                         </div>         
                                     </li>
-                                    {filteredConcerts.map(({ label, concerts }) => {
+                                
+                                {filteredConcerts.map(({ label, concerts }) => {
                                 if (concerts.length > 0) {
                                 return (
                                     <div key={label} className={priceRanges.find(range => range.label === label).className}>
                                     <h3>{label}</h3>
-                                    <ul>
-                                    {concerts.map(({ index, name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}) => (
+                                    {concerts.map(({name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}, key) => (
                                         <motion.li 
                                         initial={{ opacity: 0, scale: 0.9 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         transition={{ duration: 0.5 }}
                                         className="fBListInView"
-                                        key={index}
+                                        key={key}
                                         >
-                                        <p>{name}</p>
-                                        <p>{eventDate}</p>
-                                        <p>{venueCity}</p>
-                                        <p>{venueName}</p>
-                                        <p>{maxPrice} x {numberOfTickets}</p>
-                                        <p>${maxPrice * numberOfTickets}</p>
+
+                                        <div className="fireBaseList" >   
+                                        <p><span>Name:</span>{name}</p>
+                                        <p><span>Date:</span>{eventDate}</p>
+                                        <p><span>City:</span>{venueCity}</p>
+                                        <p><span>Venue:</span>{venueName}</p>
+                                        <p><span>Price:</span>{maxPrice} x {numberOfTickets} CAD</p>
+                                        <p><span>Total:</span>${maxPrice * numberOfTickets.toFixed(2)}CAD</p>
+                                        </div>
+                                        <div className="listButtons">
+
                                         <button> + </button>
                                         <button> - </button>
+                                        </div>
                                         {/* <button onClick={()=> {handleRemoveTicket(newArray)}} > Remove Ticket </button> */}
                                         </motion.li>
-                                    ))}
-                                    </ul>
+                                    ))}   
                                 </div>
                                 )
                             } else {
                                 return null;
                             }
-                            })}
+                                })}
                                 </ul>
-                        
-
-                        
                         <Link to={`/listOfLists`}>
                             <button id="LOLButton">back</button>
                         </Link>

@@ -48,7 +48,7 @@ form{
        color: rgb(0, 0, 0);
        font-style: italic;
        &:focus{
-         outline: 1px solid white;
+         outline: 2px solid white;
        }
    }
 } 
@@ -60,4 +60,7 @@ a{
 html .swal2-show{
    font-size: 1.4rem;
 }
- 
+
+a:focus {
+   outline: none;
+ }
