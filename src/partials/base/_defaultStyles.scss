@@ -61,4 +61,7 @@ a{
 html .swal2-show{
    font-size: 1.4rem;
 }
- 
+
+a:focus {
+   outline: none;
+ }

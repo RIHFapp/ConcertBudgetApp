@@ -147,7 +147,7 @@ useEffect( () => {
                         transition={{duration:0.5}}
                         exit={{ opacity: 0 }}
                         >
-                           back
+                           Create Another List
                            </motion.button>
                         </Link>
                      </ul>

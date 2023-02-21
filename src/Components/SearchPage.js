@@ -240,14 +240,18 @@ const SearchPage = (/* {pageLoad} */) => {
               <input
                 type="text"
                 id="newName"
-                placeholder="Name Of Your List" />
+                placeholder="Name Of Your List" 
+                maxlength="16"
+                />
               
               {/* user's budget input */}
               <label htmlFor="newBudget"></label>
               <input
                 type="text"
                 id="newBudget"
-                placeholder="Your Budget" />
+                placeholder="Your Budget" 
+                maxlength="7"
+                />
               <div>
                 <button onClick={handleListConfig}>
                   Add List
