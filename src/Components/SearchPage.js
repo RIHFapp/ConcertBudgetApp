@@ -21,12 +21,12 @@ const SearchPage = (/* {pageLoad} */) => {
   const [city, setCity] = useState(null);
   const [checked, setChecked ] = useState(false);
   const [apiRes, setApiRes] = useState([]);
-
+  // State for My List Section 
   const [addedList, setAddedList] = useState([]);
   const [pageLoad, setPageLoad] = useState(true);
   const [apiLoading, setApiLoading] = useState(false);
   const [error, setError] = useState (false);
-
+  // State for Key Reference 
   const [keyRef , setKeyRef] = useState({})
   // const [ticketNumber, setTicketNumber] = useState(0);
 
@@ -183,11 +183,6 @@ const SearchPage = (/* {pageLoad} */) => {
     if (eK) {
       setLink(`/listWithKeys/:${eK}`);
     } else if (addedList.length > 0 && userBudget !== "" && userListName !== "" && !link) {
-
-
-
-
-
       setEK(keyRef.shareKey);
     }
  
@@ -231,48 +226,51 @@ const SearchPage = (/* {pageLoad} */) => {
       {error ? <ErrorPage /> : apiLoading ? <Loading/> : pageLoad ? <Loading /> : (
       // Your component code here
         <>
-        <section >
+        <section className ="budgetInput">
           <div className="inputSection wrapper">
             <h2>Create Your List!</h2>
             <form action="submit">
+              <h3>Create Your List!</h3>
               {/* name of the list input */}
-              <label htmlFor="newName"></label>
-              <input
-                type="text"
-                id="newName"
-                placeholder="Name Of Your List" />
-              
-              {/* user's budget input */}
-              <label htmlFor="newBudget"></label>
-              <input
-                type="text"
-                id="newBudget"
-                placeholder="Your Budget" />
-              <div>
-                <button onClick={handleListConfig}>
-                  Add List
-                </button>
+              <div className="budgetCreation">
+                <label htmlFor="newName"></label>
+                <input
+                  type="text"
+                  id="newName"
+                  placeholder="Name Of Your List" />
+                
+                {/* user's budget input */}
+                <label htmlFor="newBudget"></label>
+                <input
+                  type="text"
+                  id="newBudget"
+                  placeholder="Your Budget" />
               </div>
+              <button onClick={handleListConfig}>
+                Add List
+              </button>
             </form>
           </div>
         </section>
 
-        <section>
+        <section className="concertSearchInput">
           <form className="searchForm wrapper">
-            <p>Search for concerts by artist and your preferred city</p>
+            <h3>Search for concerts by artist and your preferred city</h3>
               <label htmlFor="artist"></label>
-              <input 
-                  className="artistSearch"
-                  id="artist"
-                  placeholder="Artist..."
-              />
+              <div className="concertSearch">
+                <input 
+                    className="artistSearch"
+                    id="artist"
+                    placeholder="Artist..."
+                />
 
-              <label htmlFor="city"></label>
-              <input 
-                  className="citySearch"
-                  id="city"
-                  placeholder="City..."
-              />
+                <label htmlFor="city"></label>
+                <input 
+                    className="citySearch"
+                    id="city"
+                    placeholder="City..."
+                />
+              </div>
 
               <fieldset>
                 <label htmlFor="displayPricedConcerts">
@@ -289,12 +287,14 @@ const SearchPage = (/* {pageLoad} */) => {
 
               </fieldset>
 
-              <button onClick={handleSubmitConcert}>
+              <button 
+                className="apiSearch"
+                onClick={handleSubmitConcert}
+              >
                  Search 
               </button>
           </form>
           <div className="searchResultContainer">
-              
               <ul className="searchResultList wrapper">
               <h3>Up coming concerts...</h3>
               {!apiLoading && (
@@ -339,7 +339,7 @@ const SearchPage = (/* {pageLoad} */) => {
           </div>
         </section>
 
-        <section>
+        <section className="userChosenConcerts">
           <div className="myList wrapper">
             <div className="userBudgetInfo">
               <h2 className="userInput"> List:{userListName} </h2>
@@ -362,13 +362,9 @@ const SearchPage = (/* {pageLoad} */) => {
                         </div>
                         <div className="ticketNumber">
 
-
-
                           <button onClick={() => { handleClickPlus(index) }}>+</button>
                           <p>{displayTicket[index]}</p>
                           <button onClick={() => { handleClickMinus(index)}}>-</button>
-                          
-                          
 
                         </div>
                         <div className="concertListImage">
@@ -387,7 +383,7 @@ const SearchPage = (/* {pageLoad} */) => {
             </div>
         </section>
         </>
-      )}
+        )}
       </>
     )
 }
