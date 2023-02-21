@@ -240,10 +240,10 @@ const SearchPage = (/* {pageLoad} */) => {
               ></label>
               <input
                 type="text"
+                maxlength="16"
                 id="newName"
                 placeholder="Name Of Your List"
                 required 
-                maxlength="20"
                 minlength="1"/>
               
               {/* user's budget input */}
@@ -252,11 +252,11 @@ const SearchPage = (/* {pageLoad} */) => {
               aria-label="Budget for your list"
               ></label>
               <input
+                maxlength="7"
                 type="number"
                 id="newBudget"
                 placeholder="Your Budget"
                 required 
-                maxlength="7"
                 minlength="1"/>
 
               <div>
