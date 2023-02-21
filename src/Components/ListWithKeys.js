@@ -1,5 +1,5 @@
 import firebase from "../firebase";
-import { getDatabase, ref, onValue, set } from "firebase/database";
+import { getDatabase, ref, onValue, set, get } from "firebase/database";
 import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "./Loading";
@@ -196,7 +196,10 @@ const handleClickMinus = (key) => {
 
 // Submit the updated data to Firebase 
 const handleClickSave = () => {
-    setTicker(ticker + 1);
+    const x = 0;
+    const y = 1;
+    const z = x + y;
+    setTicker(z);
 }
 
 // Help submit information based on ticker change
@@ -206,12 +209,15 @@ useEffect(() => {
     if (ticker === 0){
         return undefined;
 
-    } else {
+    } else if (ticker === 1) {
 
         const database = getDatabase(firebase);
         const dbRef = ref(database);
 
-        onValue(dbRef, (response) => {
+        get(dbRef).then((response) => {
+
+            if (response.exists()) {
+
             const allLists = response.val();
             const newArray = Object.keys(allLists); // extract the keys and store them in newArray
             const currentState = [];
@@ -244,10 +250,21 @@ useEffect(() => {
             } else {
                 console.log('recentList is empty or undefined');
             }
+
+            } else {
+                console.log("No data available")
+            }
+        }).catch((error) => {
+            console.log(error)
         })
+
+
+        setTicker(0);
+        console.log(ticker)
     }
 }, [ticker, displayTicket])
 
+console.log(ticker)
 
     return(
         <>  
