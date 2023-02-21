@@ -130,10 +130,13 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                     >
                         <h2>{nameOfTheList}</h2>
                                 <div className="listHeading">
+
                                     <h3>Concert ${totalTicketPrice.toFixed(2)}CAD </h3>
+
+
                                     <div className="progressBar">
                                     <h3>vs</h3>
-                                    <progress value={totalTicketPrice} max={budgetValue}></progress>
+                                    <progress value={totalTicketPrice.toFixed(2)} max={budgetValue}></progress>
                                 </div>
                                     <h3>Budget ${budgetValue}CAD</h3>
                                 </div>
@@ -163,6 +166,7 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                                         className="fBListInView"
                                         key={key}
                                         >
+
                                         <div className="fireBaseList" >   
                                         <p><span>Name:</span>{name}</p>
                                         <p><span>Date:</span>{eventDate}</p>
@@ -172,6 +176,7 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                                         <p><span>Total:</span>${maxPrice * numberOfTickets.toFixed(2)}CAD</p>
                                         </div>
                                         <div className="listButtons">
+
                                         <button> + </button>
                                         <button> - </button>
                                         </div>
