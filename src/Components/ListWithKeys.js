@@ -43,6 +43,7 @@ const checkoutTheData = (name, budget, concerts)=> {
     setNameOfTheList(name);
     setBudgetValue(budget);
     setListOfConcerts(concerts);
+    setRenderData("")
 }
 
 
@@ -114,7 +115,7 @@ useEffect( () => {
 
           
     })  
-}, [])
+}, [ID, renderData])
 
 
 useEffect( () => { 
@@ -135,7 +136,7 @@ useEffect( () => {
 
         setTotalTicketPrice(totalCost);
     }
-}, [displayTicket])
+}, [displayTicket, renderData])
 
 
 const handleClickPlus = (key) => {
@@ -220,7 +221,7 @@ useEffect(() => {
 
         })
     }
-}, [ticker])
+}, [ticker, ID, displayTicket])
 
 
 const priceRanges = [
