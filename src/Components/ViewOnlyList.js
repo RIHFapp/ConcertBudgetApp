@@ -91,7 +91,6 @@ useEffect(() => {
             const costWithCounts = ticketCount * ticketPrice;
             return acc + costWithCounts;
           }, 0);
-        // console.log(totalCost);
          //taking the data for states
         checkoutTheData(nameFromList, budget, allChosenConcerts);
 
@@ -120,7 +119,6 @@ useEffect(() => {
 
 
         // const sumTotal = amount =>{
-        //    console.log(amount);
         // }
 
     return(
@@ -138,12 +136,12 @@ useEffect(() => {
                         <h2>{nameOfTheList}</h2>
                         
                         <div className="listHeading">
-                            <h3>Total Cost ${totalTicketPrice} </h3>
+                            <h3>Total Cost ${totalTicketPrice.toFixed(2)}CAD </h3>
                             <div className="progressBar">
                                 <h3>vs</h3>
                                 <progress value={totalTicketPrice} max={budgetValue}></progress>
                             </div>
-                            <h3>Budget$ {budgetValue}</h3>
+                            <h3>Budget$ {budgetValue}CAD</h3>
                         </div>
                         
                         <ul> 
@@ -154,6 +152,7 @@ useEffect(() => {
                                     <p>City <span>(Canada)</span></p>
                                     <p>Location </p>
                                     <p>Price</p>
+                                    <p>Total Price</p>
                                 </div>        
                             </li>   
                             {filteredConcerts.map(({ label, concerts }) => {
@@ -175,8 +174,8 @@ useEffect(() => {
                                       <p>{eventDate}</p>
                                       <p>{venueCity}</p>
                                       <p>{venueName}</p>
-                                      <p>{maxPrice} x {numberOfTickets}</p>
-                                      <p>${maxPrice * numberOfTickets}</p>
+                                      <p>${maxPrice}CAD x {numberOfTickets}</p>
+                                      <p>${maxPrice * numberOfTickets.toFixed(2)}CAD</p>
                                     </motion.li>
                                   ))}
                                 

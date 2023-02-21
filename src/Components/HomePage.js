@@ -46,7 +46,6 @@ const Homepage = (props) => {
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
-        console.log(event);
         setTimeout(()=> {setPageLoad(false)}, 2000); 
       });
     }
@@ -69,13 +68,18 @@ const Homepage = (props) => {
           // animate={{ opacity: 1 }}
           // transition={{duration:2}}
           >
-          <section className="home">
+          <motion.section 
+          className="home"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1}}
+          transition={{ duration: 0.5, delay: 2 }}
+          >
             <div className="featured wrapper">
               <h1> Concert Budget Master</h1>
               <p>Budget tight? Concerts too much?</p>
               <p>Let's get planning</p>
           </div>
-          </section>
+          </motion.section>
           <motion.ul
           className="container"
           variants={container}
@@ -111,9 +115,18 @@ const Homepage = (props) => {
                   </ul> */}
           <section className="enterID">
           <motion.form action="submit" 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1}}
-          transition={{ duration: 0.5, delay: 2 }}
+          // initial={{ opacity: 0 }}
+          transition={{ 
+            duration: 0.5, 
+            delay: 2 ,
+            repeat: Infinity,
+            repeatDelay: 2
+          }}
+          animate={{
+            // opacity: 1,
+            scale: [1, 1.05, 1, 1.05, 1],
+            rotate: [0, 0, -5, 5, 0]
+          }}
           >
           <div className="onLogin">
             <Link to={`/searchPage`}>
