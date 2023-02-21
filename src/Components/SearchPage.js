@@ -296,7 +296,7 @@ const SearchPage = (/* {pageLoad} */) => {
           <div className="searchResultContainer">
               
               <ul className="searchResultList wrapper">
-              <h3>Up coming concerts...</h3>
+              <h3>Upcoming concerts...</h3>
               {!apiLoading && (
                     apiRes.map((concertInfo)=>{
                       const name = concertInfo.name; 
