@@ -15,14 +15,13 @@ const [listOfConcerts, setListOfConcerts] = useState([]);
 const [totalTicketPrice, setTotalTicketPrice] = useState();
 const [pageLoad, setPageLoad] = useState(true);
 const [renderData, setRenderData] = useState([]);
-const [displayTicket, setDisplayTicket] = useState([]);
+const [displayTicket, setDisplayTicket] = useState();
 const [ticker, setTicker] = useState(0);
 
 const {editID} = useParams();
 let ID = editID;
 ID = ID.replace(':', '');
 
-setRenderData([]);
 // Display 'Loading' component on page load 
 useEffect(() => {
 const loadPage = async() => {
@@ -56,10 +55,12 @@ const arrayValue = (currentList) => {
 
 // Pulling the concert information from Firebase
 useEffect( () => {
+    
     const database = getDatabase(firebase);
     const dbRef = ref(database);
 
     onValue(dbRef, (response) => {
+        
         const allTheLists = response.val();
         const newState = [];
         for (let key in allTheLists) {
@@ -72,7 +73,7 @@ useEffect( () => {
             } else {
                 const currentEditList = event;
                 arrayLength(currentEditList);
-                renderData.splice(0, 1, currentEditList.budgetConcertContent);
+                setRenderData(renderData.splice(0, 1, currentEditList.budgetConcertContent));
                 return currentEditList;
             }
         })
@@ -112,13 +113,18 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => (
     }
 ));
 
+
 // Setting the total cost when user using the + / - buttons
 useEffect( () => { 
-    if(renderData===[]){
+    console.log(displayTicket)
+    if(displayTicket === undefined){
         return undefined;
-    }else if (renderData[0]===undefined){
+    } else if (renderData === [] ){
+        return undefined;
+    } else if (renderData[0] === undefined){
         return undefined;
     } else {
+        console.log(renderData);
         const totalCost = renderData[0].reduce((acc, concert) => {
             const ticketCount = displayTicket[renderData[0].indexOf(concert)];
             const ticketPrice = concert.maxPrice;
@@ -127,7 +133,7 @@ useEffect( () => {
         }, 0);
         setTotalTicketPrice(totalCost);
     }
-}, [displayTicket])
+}, [displayTicket, renderData])
 
 // Increase Ticket Number
 const handleClickPlus = (key) => {
@@ -206,6 +212,7 @@ useEffect(() => {
         })
     }
 }, [ticker])
+
 
     return(
         <>  
