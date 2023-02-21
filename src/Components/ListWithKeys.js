@@ -146,7 +146,7 @@ const handleClickPlus = (key) => {
 
     return setDisplayTicket(newItems);
 }
-
+//
 // Decrease Ticket Number 
 const handleClickMinus = (key) => {
     if (displayTicket[key] === 0) {
