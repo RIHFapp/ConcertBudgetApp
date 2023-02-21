@@ -239,6 +239,7 @@ const SearchPage = (/* {pageLoad} */) => {
               <label htmlFor="newName"></label>
               <input
                 type="text"
+                maxlength="16"
                 id="newName"
                 placeholder="Name Of Your List" />
               
@@ -246,6 +247,7 @@ const SearchPage = (/* {pageLoad} */) => {
               <label htmlFor="newBudget"></label>
               <input
                 type="text"
+                maxlength="7"
                 id="newBudget"
                 placeholder="Your Budget" />
               <div>

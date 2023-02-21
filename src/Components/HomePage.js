@@ -111,9 +111,18 @@ const Homepage = (props) => {
                   </ul> */}
           <section className="enterID">
           <motion.form action="submit" 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1}}
-          transition={{ duration: 0.5, delay: 2 }}
+          // initial={{ opacity: 0 }}
+          transition={{ 
+            duration: 0.5, 
+            delay: 2 ,
+            repeat: Infinity,
+            repeatDelay: 2
+          }}
+          animate={{
+            // opacity: 1,
+            scale: [1, 1.05, 1, 1.05, 1],
+            rotate: [0, 0, -5, 5, 0]
+          }}
           >
           <div className="onLogin">
             <Link to={`/searchPage`}>
