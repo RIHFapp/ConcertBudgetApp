@@ -246,7 +246,7 @@ useEffect(() => {
             }
         })
     }
-}, [ticker])
+}, [ticker, displayTicket])
 
 
     return(
