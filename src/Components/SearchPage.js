@@ -243,7 +243,7 @@ const SearchPage = (/* {pageLoad} */) => {
                 id="newName"
                 placeholder="Name Of Your List"
                 required 
-                maxlength="200"
+                maxlength="20"
                 minlength="1"/>
               
               {/* user's budget input */}
@@ -256,8 +256,9 @@ const SearchPage = (/* {pageLoad} */) => {
                 id="newBudget"
                 placeholder="Your Budget"
                 required 
-                maxlength="15"
+                maxlength="7"
                 minlength="1"/>
+
               <div>
                 <button onClick={handleListConfig}>
                   Add List Name and Budget
