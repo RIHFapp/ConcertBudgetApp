@@ -7,9 +7,28 @@
   .wrapper {
     width: 80%;
   }
-  // Search Page  
-    // Search Form 
-    .searchForm {
+  //home page p1
+  .home{
+    position: absolute;
+    top: 10%;
+    text-align: center;
+    display: flex;
+    border-radius: 25px;
+    background-color:rgba(255, 255, 255, 0.37);
+    backdrop-filter: blur(3px);
+    padding: 2%;
+    flex-direction: row;    
+    // flex-wrap: wrap;   
+    box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.75);    
+    -webkit-box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.75);    
+    -moz-box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.75);
+  }
+  .container{
+    margin-left: 5%;
+    margin-top: 0;
+  }
+//searchForm p2
+  .searchForm {
       h3{
         width: 60%;
       }
@@ -96,6 +115,22 @@
     font-size: 1.9rem;
     width: 100%;
   }
+  //homepage p1
+  .home{
+    h1{
+      margin-top: 10%;
+    }
+    .wrapper{
+      width: auto;
+    }
+  }
+  
+  .container{
+    margin-top: 10vh;
+  }
+  
+  
+  
   // Search Page 
     // Budget Creation 
     .budgetInput{
@@ -167,6 +202,8 @@
 
 }
 
+
+
 /* Landscape phones and down */
 @media (max-width: 480px) {
   .wrapper{
@@ -187,7 +224,12 @@
 //@Media 
 
 @media (max-width: 1200px) {
-    
+  //homepage p1
+  .container{
+    width: 100vw;
+    height: 90vh;
+  }
+ //list of the list p4
   .listOfTheListsContainer {
     a{
       width: auto;
@@ -200,6 +242,7 @@
 }
 
 @media (max-width: 380px) {
+  //list of the list p4
   .listOfTheListsContainer {
     li{
       flex-direction: column;
