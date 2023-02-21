@@ -136,12 +136,12 @@ useEffect(() => {
                         <h2>{nameOfTheList}</h2>
                         
                         <div className="listHeading">
-                            <h3>Total Cost ${totalTicketPrice} </h3>
+                            <h3>Total Cost ${totalTicketPrice.toFixed(2)} </h3>
                             <div className="progressBar">
                                 <h3>vs</h3>
                                 <progress value={totalTicketPrice} max={budgetValue}></progress>
                             </div>
-                            <h3>Budget$ {budgetValue}</h3>
+                            <h3>Budget ${budgetValue}</h3>
                         </div>
                         
                         <ul> 
@@ -173,8 +173,8 @@ useEffect(() => {
                                       <p>{eventDate}</p>
                                       <p>{venueCity}</p>
                                       <p>{venueName}</p>
-                                      <p>{maxPrice} x {numberOfTickets}</p>
-                                      <p>${maxPrice * numberOfTickets}</p>
+                                      <p>{`$${maxPrice.toFixed(2)}`} x {numberOfTickets}</p>
+                                      <p>${maxPrice.toFixed(2) * numberOfTickets}</p>
                                     </motion.li>
                                   ))}
                                 
