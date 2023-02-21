@@ -68,13 +68,18 @@ const Homepage = (props) => {
           // animate={{ opacity: 1 }}
           // transition={{duration:2}}
           >
-          <section className="home">
+          <motion.section 
+          className="home"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1}}
+          transition={{ duration: 0.5, delay: 2 }}
+          >
             <div className="featured wrapper">
               <h1> Concert Budget Master</h1>
               <p>Budget tight? Concerts too much?</p>
               <p>Let's get planning</p>
           </div>
-          </section>
+          </motion.section>
           <motion.ul
           className="container"
           variants={container}
