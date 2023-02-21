@@ -6,26 +6,52 @@ section{
 }
 
 // Budget Creation Input Container
-.inputSection{
+.budgetInput{
+    .inputSection{
+        h2{
+            width: 100%;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            margin-top: 1rem;
+        }
+        form{
+            padding: 3% 1%;
             display: flex;
-            justify-content: center;
             flex-direction: column;
-            align-items: center;
-            form{
-                padding-bottom: 1%;
+            h3{
+                width: 100%;
+                text-align: center;
+                margin-bottom: 1.5rem;
             }
+            .budgetCreation{
+                width: 100%;
+                input{
+                    padding: 1% 3%;
+                }
+            }
+        }
+    }
 }
+
 // Concert Search Form 
 .searchForm{
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    width: 35vw;
     background-color: rgba(255, 255, 255, 0.37);
-    padding-bottom: 1%;
-    input{
-        width: auto;
+    padding: 1.2% 1%;
+    h3{
+        text-align: center;
+        padding: 1rem 2rem;
+    }
+    .concertSearch {
+        display: flex;
+        width: 100%;
+        input{
+            width: 100%;
+            padding: 1% 3%;
+        }
     }
     fieldset{
         border: none;
@@ -33,33 +59,27 @@ section{
         display: flex;
         flex-direction: row-reverse;
         justify-content: flex-end;
-        label{
-            margin-left: 20px;
-        }
         legend{
             justify-self: center;
         }
     }
-
 }
 
-// Concert Results Container 
+// Concert Search Results Container 
 .searchResultContainer{
-        margin: 4rem auto;
-        backdrop-filter: blur(25px);
-    h3{
-        padding-left: 3%;
+    margin: 4rem auto;
+    backdrop-filter: blur(25px);
+    .wrapper{
+        margin-bottom: 2rem;
     }
-        
-
     ul{
         padding-left: 0;
         background-color: $forthColor;
         border-radius: 25px;
         padding: 2rem;
-        .wrapper{
-            margin-bottom: 2rem;
-        }
+        h3{
+            padding-left: 3%;
+        }  
         li{
             display: flex;
             justify-content: space-between;
@@ -75,7 +95,7 @@ section{
             }
             .concertListInfo{
                 align-self: left;
-                width: 35%;
+                width: 100%;
                 p{
                     margin: .4rem;
                     font-size: 1.4rem;
@@ -107,8 +127,13 @@ section{
     padding: 1px;
     background-color: $forthColor;
     border-radius: 25px;
-    margin-bottom: 1%;
+    margin-bottom: 7%;
     backdrop-filter: blur(25px);
+    h3{
+        margin-bottom: 1rem;
+        margin-top: .5rem;
+        text-align: center;
+    }
     ul{
         .wrapper{
             margin-bottom: 2rem;
@@ -123,9 +148,22 @@ section{
         background-color: $firstColor;
         list-style-type: none;
         border: 3px solid rgba(255, 255, 255, 0.904);
-        button{
-            height: 50%;
-            margin: 0 auto;
+
+        .ticketNumber {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            justify-content: center;
+            button{
+                height: 50%;
+                margin: .5rem 1rem;
+            }
+            p{
+            align-self: center;
+            padding-left: 10px;
+            margin-top: .5rem;
+            }
+
         }
         .concertListInfo{
             align-self: left;
@@ -153,7 +191,6 @@ section{
                 }
         }
     }
-
 }
 
 .myConcert{

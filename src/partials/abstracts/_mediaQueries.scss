@@ -2,7 +2,17 @@
 
 /* Portrait tablet and small desktops */
 @media (max-width: 940px) {
-  
+
+  // General 
+  .wrapper {
+    width: 80%;
+  }
+  // Search Page  
+    // Search Form 
+    .searchForm {
+      h3{
+        width: 60%;
+      }
   h1,
   h2,
   h3{
@@ -22,13 +32,22 @@
             flex-basis: 45%;
             margin: 1%;
         }
+
     }
+    // Concert Search Result Section
+      .concertImage {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          width: 80%;
+          .smallImage{
+              flex-basis: 45%;
+              margin: 1%;
+          }
+      }
 
-    //styling for the List of the Lists:
-
-
+    //styling for the List of the Lists Component:
     .listOfTheListsContainer {
- 
       ul {
         .fairBaseList {
             flex-direction: column;
@@ -66,8 +85,97 @@
     
 }
 
+// Style Specific Break Point 
+@media(max-width: 550px) {
+  // General 
+  h2{
+    font-size: 3.5rem
+  }
+  h3{
+    font-size: 1.9rem;
+    width: 100%;
+  }
+  // Search Page 
+    // Budget Creation 
+    .budgetInput{
+      .inputSection{
+          form{
+              padding: 3% 1%;
+              display: flex;
+              flex-direction: column;
+            }
+            .budgetCreation{
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              width: 100%;
+              input::placeholder{
+                text-align: center;
+              }
+              input{
+                width: 90%;
+                padding: 1% 3%;
+              }
+            }
+      }
+    }
+    // Concert Search Form 
+    .searchForm{
+        padding: 3% 1%;
+      .concertSearch{
+        display: flex;
+        flex-direction: column;            
+        align-items: center;
+        input::placeholder{
+          text-align: center;
+        }
+        input{
+          width: 90%;
+          padding: 1% 3%;
+        }
+        fieldset{
+          align-items: center;
+          label{
+            width: 60vw;
+          }
+          input{
+            width: 20%;
+            display: flex;
+            justify-content: flex-end;
+          }
+        }
+      }
+    }
+    .searchResultContainer{
+      li{
+        flex-direction: column-reverse;
+        .concertListInfo{
+            width: 100%;
+            text-align: center;
+        }
+          .concertListImage{
+              width: 22%;
+              height: 13rem;
+              img{
+                max-width: 100%;
+                max-height: 100%;
+              }
+          }
+  }
+    }
+
+}
+
 /* Landscape phones and down */
 @media (max-width: 480px) {
+  .wrapper{
+    width: 78%;
+  }
+}
+
+/*Smallest Phone Screens*/
+@media (max-width: 320px) {
+=======
   .listOfTheListsContainer {
     .listButtons{
       padding-right: 5%;
@@ -96,4 +204,5 @@
       flex-direction: column;
     }
     }
+
 }

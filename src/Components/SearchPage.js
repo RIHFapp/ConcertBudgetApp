@@ -22,12 +22,12 @@ const SearchPage = (/* {pageLoad} */) => {
   const [city, setCity] = useState(null);
   const [checked, setChecked ] = useState(false);
   const [apiRes, setApiRes] = useState([]);
-
+  // State for My List Section 
   const [addedList, setAddedList] = useState([]);
   const [pageLoad, setPageLoad] = useState(true);
   const [apiLoading, setApiLoading] = useState(false);
   const [error, setError] = useState (false);
-
+  // State for Key Reference 
   const [keyRef , setKeyRef] = useState({})
   // const [ticketNumber, setTicketNumber] = useState(0);
 
@@ -182,11 +182,6 @@ const SearchPage = (/* {pageLoad} */) => {
     if (eK) {
       setLink(`/listWithKeys/:${eK}`);
     } else if (addedList.length > 0 && userBudget !== "" && userListName !== "" && !link) {
-
-
-
-
-
       setEK(keyRef.shareKey);
     }
  
@@ -228,7 +223,8 @@ const SearchPage = (/* {pageLoad} */) => {
       <>
       {/* Conditionally rendering the page based on loading or error state */}
       {error ? <ErrorPage /> : apiLoading ? <Loading/> : pageLoad ? <Loading /> : (
-      // Your component code here
+        <>
+        <section className ="budgetInput">
       <AnimatePresence>
         <motion.div
         className="searchPage"
@@ -241,7 +237,10 @@ const SearchPage = (/* {pageLoad} */) => {
           <div className="inputSection wrapper">
             <h2>Create Your List!</h2>
             <form action="submit">
+              <h3>Create Your List!</h3>
               {/* name of the list input */}
+
+            <div className="budgetCreation">
               <label 
               htmlFor="newName"
               aria-label="List Title"
@@ -253,7 +252,7 @@ const SearchPage = (/* {pageLoad} */) => {
                 placeholder="Name Of Your List"
                 required 
                 minlength="1"/>
-              
+         
               {/* user's budget input */}
               <label 
               htmlFor="newBudget"
@@ -266,61 +265,69 @@ const SearchPage = (/* {pageLoad} */) => {
                 placeholder="Your Budget"
                 required 
                 minlength="1"/>
-
+              </div>
               <div>
                 <button onClick={handleListConfig}>
                   Add List Name and Budget
                 </button>
+
               </div>
+              <button onClick={handleListConfig}>
+                Add List
+              </button>
             </form>
           </div>
         </section>
 
-        <section>
+        <section className="concertSearchInput">
           <form className="searchForm wrapper">
-            <p>Search for concerts by artist and your preferred city</p>
-              <label 
-              htmlFor="artist"
-              aria-label="Artist"></label>
-              <input 
-                  className="artistSearch"
-                  id="artist"
-                  placeholder="Artist..."
-                  type="text"
-              />
+            <h3>Search for concerts by artist and your preferred city</h3>
+              <div className="concertSearch">
+                <label 
+                htmlFor="artist"
+                aria-label="Artist"></label>
+                <input 
+                    className="artistSearch"
+                    id="artist"
+                    placeholder="Artist..."
+                    type="text"
+                />
 
-              <label 
-              htmlFor="city"
-              aria-label="City"
-              ></label>
-              <input 
-                  className="citySearch"
-                  id="city"
-                  placeholder="City..."
-                  type="text"
-              />
+                <label 
+                htmlFor="city"
+                aria-label="City"
+                ></label>
+                <input 
+                    className="citySearch"
+                    id="city"
+                    placeholder="City..."
+                    type="text"
+                />
+              </div>
 
               <fieldset>
                 <label htmlFor="displayPricedConcerts">
                   Click to show only priced concerts
-                </label>
-                
+                </label> 
                 <input
                   id="displayPricedConcerts"
                   className="displayPricedConcerts"
                   name="priceChoice"
                   type ="checkbox"
                   value="priced"
-                /> 
-
+                />
               </fieldset>
-
-              <button onClick={handleSubmitConcert}>
-                 Search 
+              <button 
+                className="apiSearch"
+                onClick={handleSubmitConcert}
+              >
+                Search 
               </button>
           </form>
+        </section>
+
+        <section className="concertSearchResult">
           <div className="searchResultContainer">
-              
               <ul className="searchResultList wrapper">
               <h3>Upcoming concerts...</h3>
               {!apiLoading && (
@@ -365,7 +372,7 @@ const SearchPage = (/* {pageLoad} */) => {
           </div>
         </section>
 
-        <section>
+        <section className="userChosenConcerts">
           <div className="myList wrapper">
             <div className="userBudgetInfo">
               <h2 className="userInput"> List: {userListName} </h2>
@@ -392,6 +399,7 @@ const SearchPage = (/* {pageLoad} */) => {
                           <button onClick={() => { handleClickPlus(index) }}>+</button>
                           <p>{displayTicket[index]}</p>
                           <button onClick={() => { handleClickMinus(index)}}>-</button>
+
                         </div>
                         <div className="concertListImage">
                           <img src={image} alt={`Poster of ${name}`} />
