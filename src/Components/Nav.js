@@ -31,10 +31,10 @@ const Nav = () => {
             <li className="menu__item">Home</li>
           </Link>
           <Link to={`/searchPage`}>
-            <li className="menu__item">Creat New list</li>
+            <li className="menu__item">Create New list</li>
           </Link>
           <Link to={`/listOfLists`}>
-            <li className="menu__item">Browser Lists</li>
+            <li className="menu__item">Browse Lists</li>
           </Link>
           <Link to={`/credit`}>
             <li className="menu__item">Credits</li>

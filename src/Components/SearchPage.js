@@ -254,7 +254,7 @@ const SearchPage = (/* {pageLoad} */) => {
                 />
               <div>
                 <button onClick={handleListConfig}>
-                  Add List
+                  Add List Name and Budget
                 </button>
               </div>
             </form>
@@ -300,7 +300,7 @@ const SearchPage = (/* {pageLoad} */) => {
           <div className="searchResultContainer">
               
               <ul className="searchResultList wrapper">
-              <h3>Up coming concerts...</h3>
+              <h3>Upcoming concerts...</h3>
               {!apiLoading && (
                     apiRes.map((concertInfo)=>{
                       const name = concertInfo.name; 
@@ -333,7 +333,7 @@ const SearchPage = (/* {pageLoad} */) => {
                             <span><p>{maxPrice}</p></span>
                           </div>
                           <div className="concertListImage">
-                            <img src ={concertImg} alt="concert poster information"></img>
+                            <img src ={concertImg} alt={`${name} concert poster`}></img>
                           </div>
                         </li>
                       )
@@ -346,8 +346,8 @@ const SearchPage = (/* {pageLoad} */) => {
         <section>
           <div className="myList wrapper">
             <div className="userBudgetInfo">
-              <h2 className="userInput"> List:{userListName} </h2>
-              <h2 className="userInput"> Budget:{userBudget} </h2>
+              <h2 className="userInput"> List: {userListName} </h2>
+              <h2 className="userInput"> Budget: {userBudget} CAD</h2>
             </div>
 
                 <ul className="myConcert wrapper">

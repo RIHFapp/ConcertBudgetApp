@@ -80,10 +80,18 @@
   a {
     width: 14%;
     margin: 0 auto;
+    &:focus {
+      outline: none;
+    }
+
+
 
     button {
       font-size: 1.5rem;
       margin-left: 5%;
+      &:focus {
+        box-shadow: 8px 4px 4px rgb(48, 43, 43);
+      }
     }
 
     span {
