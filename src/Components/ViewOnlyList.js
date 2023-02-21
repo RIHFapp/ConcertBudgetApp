@@ -91,7 +91,6 @@ useEffect(() => {
             const costWithCounts = ticketCount * ticketPrice;
             return acc + costWithCounts;
           }, 0);
-        // console.log(totalCost);
          //taking the data for states
         checkoutTheData(nameFromList, budget, allChosenConcerts);
 
@@ -120,7 +119,6 @@ useEffect(() => {
 
 
         // const sumTotal = amount =>{
-        //    console.log(amount);
         // }
 
     return(

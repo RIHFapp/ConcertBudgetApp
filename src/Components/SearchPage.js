@@ -33,7 +33,6 @@ const SearchPage = (/* {pageLoad} */) => {
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
-        console.log(event);
         setTimeout(()=> {setPageLoad(false)}, 2000); 
       });
     }
@@ -135,7 +134,6 @@ const SearchPage = (/* {pageLoad} */) => {
     }
     setAddedList([...addedList, concertData]);
     setDisplayTicket(Array.from({ length: (addedList.length + 1) }, () => 1))
-    console.log(displayTicket)
     // setLink(`/listOfLists`);
   }
 
@@ -236,18 +234,30 @@ const SearchPage = (/* {pageLoad} */) => {
             <h2>Create Your List!</h2>
             <form action="submit">
               {/* name of the list input */}
-              <label htmlFor="newName"></label>
+              <label 
+              htmlFor="newName"
+              aria-label="List Title"
+              ></label>
               <input
                 type="text"
                 id="newName"
-                placeholder="Name Of Your List" />
+                placeholder="Name Of Your List"
+                required 
+                maxlength="200"
+                minlength="1"/>
               
               {/* user's budget input */}
-              <label htmlFor="newBudget"></label>
+              <label 
+              htmlFor="newBudget"
+              aria-label="Budget for your list"
+              ></label>
               <input
-                type="text"
+                type="number"
                 id="newBudget"
-                placeholder="Your Budget" />
+                placeholder="Your Budget"
+                required 
+                maxlength="15"
+                minlength="1"/>
               <div>
                 <button onClick={handleListConfig}>
                   Add List Name and Budget
@@ -260,18 +270,25 @@ const SearchPage = (/* {pageLoad} */) => {
         <section>
           <form className="searchForm wrapper">
             <p>Search for concerts by artist and your preferred city</p>
-              <label htmlFor="artist"></label>
+              <label 
+              htmlFor="artist"
+              aria-label="Artist"></label>
               <input 
                   className="artistSearch"
                   id="artist"
                   placeholder="Artist..."
+                  type="text"
               />
 
-              <label htmlFor="city"></label>
+              <label 
+              htmlFor="city"
+              aria-label="City"
+              ></label>
               <input 
                   className="citySearch"
                   id="city"
                   placeholder="City..."
+                  type="text"
               />
 
               <fieldset>

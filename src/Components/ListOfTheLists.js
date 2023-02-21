@@ -16,7 +16,6 @@ const ListOfTheLists = (props) => {
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
-        console.log(event);
         setTimeout(()=> {setPageLoad(false)}, 500); 
       });
     }
