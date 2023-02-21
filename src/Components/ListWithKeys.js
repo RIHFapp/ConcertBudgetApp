@@ -259,7 +259,7 @@ useEffect(() => {
                                                 <p>{venueCity}</p>
                                                 <p>{venueName}</p>
                                                 <p>{maxPrice} x {displayTicket[key]}</p>
-                                                <p>${maxPrice * displayTicket[key]}</p>
+                                                <p>${(maxPrice * displayTicket[key]).toFixed(2)}</p>
 
                                                 <div className="listButtons">
                                                     <button onClick={() => handleClickPlus(key)}> + </button>
