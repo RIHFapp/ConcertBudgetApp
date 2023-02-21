@@ -1,6 +1,6 @@
 import firebase from "../firebase";
 import { getDatabase, ref, onValue, set } from "firebase/database";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "./Loading";
 import { AnimatePresence, motion } from "framer-motion";
@@ -14,13 +14,20 @@ const [budgetValue, setBudgetValue] = useState("0");
 const [listOfConcerts, setListOfConcerts] = useState([]);
 const [totalTicketPrice, setTotalTicketPrice] = useState();
 const [pageLoad, setPageLoad] = useState(true);
-const [renderData, setRenderData] = useState([]);
 const [displayTicket, setDisplayTicket] = useState();
 const [ticker, setTicker] = useState(0);
 
-const {editID} = useParams();
-let ID = editID;
-ID = ID.replace(':', '');
+
+
+const { editID } = useParams();
+const ID = editID.replace(':', '');
+
+const IDRef = useRef(ID);
+
+
+
+
+
 
 // Display 'Loading' component on page load 
 useEffect(() => {
@@ -55,46 +62,91 @@ const arrayValue = (currentList) => {
 
 // Pulling the concert information from Firebase
 useEffect( () => {
-    
+
+    if (displayTicket === undefined){
+        const correctID = IDRef.current
+        const database = getDatabase(firebase);
+        const dbRef = ref(database);
+
+        onValue(dbRef, (response) => {
+            
+            const allTheLists = response.val();
+            const newState = [];
+            for (let key in allTheLists) {
+                newState.push(allTheLists[key]);
+            }
+
+            const currentList = newState.filter((event)=>{   
+                if (event.editKey !== `${correctID}`){
+                    return null;
+                } else {
+                    const currentEditList = event;
+                    arrayLength(currentEditList);
+                    // setRenderData(renderData.splice(0, 1, currentEditList.budgetConcertContent));
+                    return currentEditList;
+                }
+            })
+            const myArrayFromFirebase = currentList;
+            arrayValue(currentList);
+
+            const nameFromList = myArrayFromFirebase[0].listname;
+            const budget = myArrayFromFirebase[0].userBudget;
+            const allChosenConcerts = myArrayFromFirebase[0].budgetConcertContent;
+
+            
+            const totalCost = allChosenConcerts.reduce((acc, concert) => {
+                const ticketCount = concert.numberOfTickets;
+                const ticketPrice = concert.maxPrice;
+                const costWithCounts = ticketCount * ticketPrice;
+                return acc + costWithCounts;
+            }, 0);
+
+            checkoutTheData(nameFromList, budget, allChosenConcerts);
+            setTotalTicketPrice(totalCost);
+        })  
+
+    } else if (displayTicket !== undefined){
+
+
+    const correctID = IDRef.current
     const database = getDatabase(firebase);
     const dbRef = ref(database);
 
     onValue(dbRef, (response) => {
-        
+
         const allTheLists = response.val();
         const newState = [];
         for (let key in allTheLists) {
             newState.push(allTheLists[key]);
         }
 
-        const currentList = newState.filter((event)=>{   
-            if (event.editKey !== ID){
+        const currentList = newState.filter((event) => {
+            if (event.editKey !== `${correctID}`) {
                 return null;
             } else {
                 const currentEditList = event;
-                arrayLength(currentEditList);
-                setRenderData(renderData.splice(0, 1, currentEditList.budgetConcertContent));
+                // setRenderData(renderData.splice(0, 1, currentEditList.budgetConcertContent));
                 return currentEditList;
             }
         })
         const myArrayFromFirebase = currentList;
-        arrayValue(currentList);
 
-        const nameFromList = myArrayFromFirebase[0].listname;
-        const budget = myArrayFromFirebase[0].userBudget;
         const allChosenConcerts = myArrayFromFirebase[0].budgetConcertContent;
 
         const totalCost = allChosenConcerts.reduce((acc, concert) => {
-            const ticketCount = concert.numberOfTickets;
+            const ticketCount = displayTicket[allChosenConcerts.indexOf(concert)];
             const ticketPrice = concert.maxPrice;
             const costWithCounts = ticketCount * ticketPrice;
             return acc + costWithCounts;
         }, 0);
 
-        checkoutTheData(nameFromList, budget, allChosenConcerts);
+
         setTotalTicketPrice(totalCost);
-    })  
-}, [])
+    })
+    }
+}, [displayTicket])
+
+
 
 // Price Range Info 
 const priceRanges = [
@@ -113,27 +165,6 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => (
     }
 ));
 
-
-// Setting the total cost when user using the + / - buttons
-useEffect( () => { 
-    
-    if(displayTicket === undefined){
-        return undefined;
-    } else if (renderData === [] ){
-        return undefined;
-    } else if (renderData[0] === undefined){
-        return undefined;
-    } else {
-        
-        const totalCost = renderData[0].reduce((acc, concert) => {
-            const ticketCount = displayTicket[renderData[0].indexOf(concert)];
-            const ticketPrice = concert.maxPrice;
-            const costWithCounts = ticketCount * ticketPrice;
-            return acc + costWithCounts;
-        }, 0);
-        setTotalTicketPrice(totalCost);
-    }
-}, [displayTicket, renderData])
 
 // Increase Ticket Number
 const handleClickPlus = (key) => {
@@ -170,9 +201,15 @@ const handleClickSave = () => {
 
 // Help submit information based on ticker change
 useEffect(() => {
-    if (ticker === 0) {
+    const correctID = IDRef.current
+
+    if (ticker === 0){
         return undefined;
+
     } else {
+
+        
+
         const database = getDatabase(firebase);
         const dbRef = ref(database);
 
@@ -186,7 +223,7 @@ useEffect(() => {
             }
 
             const recentList = currentState.filter((event) => {
-                if (event.editKey !== `${ID}`) {
+                if (event.editKey !== `${correctID}`) {
                     return null;
                 } else {
                     const currentEditList = event;
@@ -200,9 +237,9 @@ useEffect(() => {
                 }
 
                 for (let i = 0; i < newArray.length; i++) {
-                    if (allLists[newArray[i]].editKey !== ID) {
+                    if (allLists[newArray[i]].editKey !== correctID) {
                         continue;
-                    } else if (allLists[newArray[i]].editKey === ID) {
+                    } else if (allLists[newArray[i]].editKey === correctID) {
                         return set(ref(database, `/${newArray[i]}`), recentList[0]);
                     }
                 }
