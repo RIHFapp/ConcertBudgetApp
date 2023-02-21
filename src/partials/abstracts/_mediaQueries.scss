@@ -1,0 +1,80 @@
+@use "./variables" as*;
+
+/* Portrait tablet and small desktops */
+@media (max-width: 940px) {
+  
+  h1,
+  h2,
+  h3{
+    width: 100%;
+    text-align: center;
+  }
+
+  .listOfTheListsContainer{
+    margin-top: 100px;
+  }
+    .concertImage {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 80%;
+        .smallImage{
+            flex-basis: 45%;
+            margin: 1%;
+        }
+    }
+
+    //styling for the List of the Lists:
+
+
+    .listOfTheListsContainer {
+ 
+      ul {
+        .fairBaseList {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+      }
+      p{
+        line-height: 25px;
+        text-align: start;
+      }
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+    
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+  .listOfTheListsContainer {
+    .listButtons{
+      padding-right: 5%;
+    }
+    }
+}
+
+//@Media 
+
+@media (max-width: 1200px) {
+    
+  .listOfTheListsContainer {
+    a{
+      width: auto;
+      margin: 0 auto;
+    }
+    .listButtons{
+      gap: 15px;
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .listOfTheListsContainer {
+    li{
+      flex-direction: column;
+    }
+    }
+}
