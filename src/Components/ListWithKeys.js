@@ -130,12 +130,12 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                     >
                         <h2>{nameOfTheList}</h2>
                                 <div className="listHeading">
-                                    <h3>Concert ${totalTicketPrice} </h3>
+                                    <h3>Concert ${totalTicketPrice.toFixed(2)}CAD </h3>
                                     <div className="progressBar">
                                     <h3>vs</h3>
                                     <progress value={totalTicketPrice} max={budgetValue}></progress>
                                 </div>
-                                    <h3>Budget ${budgetValue}</h3>
+                                    <h3>Budget ${budgetValue}CAD</h3>
                                 </div>
                                 <ul> 
                                     <li className="listTags inView">
@@ -145,9 +145,7 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                                             <p>City</p>
                                             <p>Location</p>
                                             <p>Price</p>
-                                            <p>Total Price</p>
-                                        </div>
-                                        <div className="listButtonTags">
+                                            <p>Total Price</p>                                        
                                             <p>+ / -</p>
                                         </div>         
                                     </li>
@@ -157,7 +155,7 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                                 return (
                                     <div key={label} className={priceRanges.find(range => range.label === label).className}>
                                     <h3>{label}</h3>
-                                    {concerts.map(({ index, name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}, key) => (
+                                    {concerts.map(({name, eventDate, venueCity, venueName, maxPrice, numberOfTickets}, key) => (
                                         <motion.li 
                                         initial={{ opacity: 0, scale: 0.9 }}
                                         animate={{ opacity: 1, scale: 1 }}
@@ -165,14 +163,18 @@ const filteredConcerts = priceRanges.map(({label, minPrice, maxPrice}) => ({
                                         className="fBListInView"
                                         key={key}
                                         >
-                                        <p>{name}</p>
-                                        <p>{eventDate}</p>
-                                        <p>{venueCity}</p>
-                                        <p>{venueName}</p>
-                                        <p>{maxPrice} x {numberOfTickets}</p>
-                                        <p>${maxPrice * numberOfTickets}</p>
+                                        <div className="fireBaseList" >   
+                                        <p><span>Name:</span>{name}</p>
+                                        <p><span>Date:</span>{eventDate}</p>
+                                        <p><span>City:</span>{venueCity}</p>
+                                        <p><span>Venue:</span>{venueName}</p>
+                                        <p><span>Price:</span>{maxPrice} x {numberOfTickets} CAD</p>
+                                        <p><span>Total:</span>${maxPrice * numberOfTickets.toFixed(2)}CAD</p>
+                                        </div>
+                                        <div className="listButtons">
                                         <button> + </button>
                                         <button> - </button>
+                                        </div>
                                         {/* <button onClick={()=> {handleRemoveTicket(newArray)}} > Remove Ticket </button> */}
                                         </motion.li>
                                     ))}   

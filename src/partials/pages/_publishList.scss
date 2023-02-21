@@ -6,27 +6,15 @@
     justify-content: center;
     gap: 20px;
 }
-    .listTags{
-        text-align: center;
-        p{
-            width: 20%;
-        }
-    }
 
     .listConcertTags{
         display: flex;
         justify-content: space-between;
-        width: 92%;
-    }
-    .listButtonTags{
-        width: 5%;
+        width:100% ;
         p{
-          width: auto;  
-          text-align: start;
+          width: calc(100% / 7);
         }
     }
-
-  
     
     .tagsInView{
         display: flex;
@@ -71,6 +59,9 @@
   border-radius: 25px;
   padding: 1%;
 
+  .listTags{
+    text-align: center;
+}
   .listItem0 {
     li{
         background-color: $forthColor;
@@ -120,7 +111,7 @@
   p {
     text-align: center;
     font-size: 1.5rem;
-    flex-basis: 25%;
+    // width: calc(100/3);
   }
 
   ul {
@@ -142,17 +133,27 @@
     border-radius: 25px;
     list-style-type: none;
     margin-bottom: 2%;
-    
+    flex-direction: row;
+    span{
+      display: none;
+    }
   }
-  .fBListInView {
+  .fireBaseList {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 86%;
+    p{
+      flex-basis: 17%;
+    }
   }
 
-  // .listButtons {
-  //   width: 28%;
-  // }
+  .listButtons {
+    width: 14%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
 
   a {
     width: 14%;
