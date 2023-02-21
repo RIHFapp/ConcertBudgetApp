@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Loading from "./Loading";
 import Swal from 'sweetalert2';
-import { AnimatePresence, motion } from "framer-motion";
 
 
 
@@ -22,18 +21,19 @@ const SearchPage = (/* {pageLoad} */) => {
   const [city, setCity] = useState(null);
   const [checked, setChecked ] = useState(false);
   const [apiRes, setApiRes] = useState([]);
-  // State for My List Section 
+
   const [addedList, setAddedList] = useState([]);
   const [pageLoad, setPageLoad] = useState(true);
   const [apiLoading, setApiLoading] = useState(false);
   const [error, setError] = useState (false);
-  // State for Key Reference 
+
   const [keyRef , setKeyRef] = useState({})
   // const [ticketNumber, setTicketNumber] = useState(0);
 
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
+        console.log(event);
         setTimeout(()=> {setPageLoad(false)}, 2000); 
       });
     }
@@ -135,6 +135,7 @@ const SearchPage = (/* {pageLoad} */) => {
     }
     setAddedList([...addedList, concertData]);
     setDisplayTicket(Array.from({ length: (addedList.length + 1) }, () => 1))
+    console.log(displayTicket)
     // setLink(`/listOfLists`);
   }
 
@@ -182,6 +183,11 @@ const SearchPage = (/* {pageLoad} */) => {
     if (eK) {
       setLink(`/listWithKeys/:${eK}`);
     } else if (addedList.length > 0 && userBudget !== "" && userListName !== "" && !link) {
+
+
+
+
+
       setEK(keyRef.shareKey);
     }
  
@@ -223,111 +229,76 @@ const SearchPage = (/* {pageLoad} */) => {
       <>
       {/* Conditionally rendering the page based on loading or error state */}
       {error ? <ErrorPage /> : apiLoading ? <Loading/> : pageLoad ? <Loading /> : (
+      // Your component code here
         <>
-        <section className ="budgetInput">
-      <AnimatePresence>
-        <motion.div
-        className="searchPage"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        transition={{duration:0.6}}
-        >
         <section >
           <div className="inputSection wrapper">
             <h2>Create Your List!</h2>
             <form action="submit">
-              <h3>Create Your List!</h3>
               {/* name of the list input */}
-
-            <div className="budgetCreation">
-              <label 
-              htmlFor="newName"
-              aria-label="List Title"
-              ></label>
+              <label htmlFor="newName"></label>
               <input
                 type="text"
-                maxlength="16"
                 id="newName"
-                placeholder="Name Of Your List"
-                required 
-                minlength="1"/>
-         
+                placeholder="Name Of Your List" 
+                maxlength="16"
+                />
+              
               {/* user's budget input */}
-              <label 
-              htmlFor="newBudget"
-              aria-label="Budget for your list"
-              ></label>
+              <label htmlFor="newBudget"></label>
               <input
-                maxlength="7"
                 type="text"
                 id="newBudget"
-                placeholder="Your Budget"
-                required 
-                minlength="1"/>
-              </div>
+                placeholder="Your Budget" 
+                maxlength="7"
+                />
               <div>
                 <button onClick={handleListConfig}>
                   Add List Name and Budget
                 </button>
-
               </div>
-              <button onClick={handleListConfig}>
-                Add List
-              </button>
             </form>
           </div>
         </section>
 
-        <section className="concertSearchInput">
+        <section>
           <form className="searchForm wrapper">
-            <h3>Search for concerts by artist and your preferred city</h3>
-              <div className="concertSearch">
-                <label 
-                htmlFor="artist"
-                aria-label="Artist"></label>
-                <input 
-                    className="artistSearch"
-                    id="artist"
-                    placeholder="Artist..."
-                    type="text"
-                />
+            <p>Search for concerts by artist and your preferred city</p>
+              <label htmlFor="artist"></label>
+              <input 
+                  className="artistSearch"
+                  id="artist"
+                  placeholder="Artist..."
+              />
 
-                <label 
-                htmlFor="city"
-                aria-label="City"
-                ></label>
-                <input 
-                    className="citySearch"
-                    id="city"
-                    placeholder="City..."
-                    type="text"
-                />
-              </div>
+              <label htmlFor="city"></label>
+              <input 
+                  className="citySearch"
+                  id="city"
+                  placeholder="City..."
+              />
 
               <fieldset>
                 <label htmlFor="displayPricedConcerts">
                   Click to show only priced concerts
-                </label> 
+                </label>
+                
                 <input
                   id="displayPricedConcerts"
                   className="displayPricedConcerts"
                   name="priceChoice"
                   type ="checkbox"
                   value="priced"
-                />
+                /> 
+
               </fieldset>
-              <button 
-                className="apiSearch"
-                onClick={handleSubmitConcert}
-              >
-                Search 
+
+              <button onClick={handleSubmitConcert}>
+                 Search 
               </button>
           </form>
-        </section>
-
-        <section className="concertSearchResult">
           <div className="searchResultContainer">
+              
               <ul className="searchResultList wrapper">
               <h3>Upcoming concerts...</h3>
               {!apiLoading && (
@@ -359,7 +330,7 @@ const SearchPage = (/* {pageLoad} */) => {
                             <p> {eventDate} </p>
                             <p> {venueCity} </p>
                             <p> {venueName} </p>
-                            <span><p>${maxPrice} CAD</p></span>
+                            <span><p>{maxPrice}</p></span>
                           </div>
                           <div className="concertListImage">
                             <img src ={concertImg} alt={`${name} concert poster`}></img>
@@ -372,7 +343,7 @@ const SearchPage = (/* {pageLoad} */) => {
           </div>
         </section>
 
-        <section className="userChosenConcerts">
+        <section>
           <div className="myList wrapper">
             <div className="userBudgetInfo">
               <h2 className="userInput"> List: {userListName} </h2>
@@ -391,14 +362,17 @@ const SearchPage = (/* {pageLoad} */) => {
                           <p>{eventDate}</p>
                           <p>{venueCity}</p>
                           <p>{venueName}</p>
-
-                          <span><p>${totalPrice.toFixed(2)} CAD</p></span>
-
+                          <span><p>{totalPrice.toFixed(2)}</p></span>
                         </div>
                         <div className="ticketNumber">
+
+
+
                           <button onClick={() => { handleClickPlus(index) }}>+</button>
                           <p>{displayTicket[index]}</p>
                           <button onClick={() => { handleClickMinus(index)}}>-</button>
+                          
+                          
 
                         </div>
                         <div className="concertListImage">
@@ -416,8 +390,7 @@ const SearchPage = (/* {pageLoad} */) => {
                 </ul>
             </div>
         </section>
-        </motion.div>
-      </AnimatePresence> 
+        </>
       )}
       </>
     )
