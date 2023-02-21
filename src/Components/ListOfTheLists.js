@@ -16,7 +16,6 @@ const ListOfTheLists = (props) => {
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
-        console.log(event);
         setTimeout(()=> {setPageLoad(false)}, 500); 
       });
     }
@@ -147,7 +146,7 @@ useEffect( () => {
                         transition={{duration:0.5}}
                         exit={{ opacity: 0 }}
                         >
-                           back
+                           Create Another List
                            </motion.button>
                         </Link>
                      </ul>

@@ -8,7 +8,6 @@ const ListWithKeys = () => {
 
 
 const {editID} = useParams();
-// console.log(editID);
 let ID = editID;
 ID = ID.replace(':', '');
 
@@ -50,7 +49,6 @@ const checkoutTheData = (name, budget, concerts)=> {
 // let totalPrice = 0
 //     for (let price of arrayOfConcerts) {
 //         totalPrice += price.maxPrice
-//         console.log(totalPrice)
 //         }
 //         return totalPrice.toFixed(2)
 // }
@@ -102,10 +100,8 @@ useEffect( () => {
 }, [ID])
 
 // const handleRemoveTicket = (oneConcert) => {
-//     console.log(oneConcert[0]);
 //     const database = getDatabase(firebase);
 //     const dbRef = ref(database, `/${oneConcert[0].key}`);
-//     console.log(dbRef);
 //     remove(dbRef);
 // }
 const priceRanges = [

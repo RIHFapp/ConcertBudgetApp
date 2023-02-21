@@ -33,7 +33,6 @@ const SearchPage = (/* {pageLoad} */) => {
   useEffect(() => {
     const loadPage = async() => {
       await new Promise ((event) => {
-        console.log(event);
         setTimeout(()=> {setPageLoad(false)}, 2000); 
       });
     }
@@ -135,7 +134,6 @@ const SearchPage = (/* {pageLoad} */) => {
     }
     setAddedList([...addedList, concertData]);
     setDisplayTicket(Array.from({ length: (addedList.length + 1) }, () => 1))
-    console.log(displayTicket)
     // setLink(`/listOfLists`);
   }
 
@@ -236,23 +234,34 @@ const SearchPage = (/* {pageLoad} */) => {
             <h2>Create Your List!</h2>
             <form action="submit">
               {/* name of the list input */}
-              <label htmlFor="newName"></label>
+              <label 
+              htmlFor="newName"
+              aria-label="List Title"
+              ></label>
               <input
                 type="text"
                 maxlength="16"
                 id="newName"
-                placeholder="Name Of Your List" />
+                placeholder="Name Of Your List"
+                required 
+                minlength="1"/>
               
               {/* user's budget input */}
-              <label htmlFor="newBudget"></label>
+              <label 
+              htmlFor="newBudget"
+              aria-label="Budget for your list"
+              ></label>
               <input
-                type="text"
                 maxlength="7"
+                type="number"
                 id="newBudget"
-                placeholder="Your Budget" />
+                placeholder="Your Budget"
+                required 
+                minlength="1"/>
+
               <div>
                 <button onClick={handleListConfig}>
-                  Add List
+                  Add List Name and Budget
                 </button>
               </div>
             </form>
@@ -262,18 +271,25 @@ const SearchPage = (/* {pageLoad} */) => {
         <section>
           <form className="searchForm wrapper">
             <p>Search for concerts by artist and your preferred city</p>
-              <label htmlFor="artist"></label>
+              <label 
+              htmlFor="artist"
+              aria-label="Artist"></label>
               <input 
                   className="artistSearch"
                   id="artist"
                   placeholder="Artist..."
+                  type="text"
               />
 
-              <label htmlFor="city"></label>
+              <label 
+              htmlFor="city"
+              aria-label="City"
+              ></label>
               <input 
                   className="citySearch"
                   id="city"
                   placeholder="City..."
+                  type="text"
               />
 
               <fieldset>
@@ -298,7 +314,7 @@ const SearchPage = (/* {pageLoad} */) => {
           <div className="searchResultContainer">
               
               <ul className="searchResultList wrapper">
-              <h3>Up coming concerts...</h3>
+              <h3>Upcoming concerts...</h3>
               {!apiLoading && (
                     apiRes.map((concertInfo)=>{
                       const name = concertInfo.name; 
@@ -331,7 +347,7 @@ const SearchPage = (/* {pageLoad} */) => {
                             <span><p>{maxPrice}</p></span>
                           </div>
                           <div className="concertListImage">
-                            <img src ={concertImg} alt="concert poster information"></img>
+                            <img src ={concertImg} alt={`${name} concert poster`}></img>
                           </div>
                         </li>
                       )
@@ -344,8 +360,8 @@ const SearchPage = (/* {pageLoad} */) => {
         <section>
           <div className="myList wrapper">
             <div className="userBudgetInfo">
-              <h2 className="userInput"> List:{userListName} </h2>
-              <h2 className="userInput"> Budget:{userBudget} </h2>
+              <h2 className="userInput"> List: {userListName} </h2>
+              <h2 className="userInput"> Budget: {userBudget} CAD</h2>
             </div>
 
                 <ul className="myConcert wrapper">
