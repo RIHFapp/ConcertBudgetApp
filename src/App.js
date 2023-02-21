@@ -23,7 +23,6 @@ return (
   
   <div className="main">
     <BgOverlay />
-      
       <Routes>
         <Route path="/" element= {  <HomePage /> }/>  
         <Route path="/searchPage" element= {  <SearchPage/> }/>  

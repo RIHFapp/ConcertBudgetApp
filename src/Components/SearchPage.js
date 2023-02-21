@@ -224,7 +224,6 @@ const SearchPage = (/* {pageLoad} */) => {
       <>
       {/* Conditionally rendering the page based on loading or error state */}
       {error ? <ErrorPage /> : apiLoading ? <Loading/> : pageLoad ? <Loading /> : (
-      // Your component code here
         <>
         <section className ="budgetInput">
           <div className="inputSection wrapper">
@@ -256,14 +255,13 @@ const SearchPage = (/* {pageLoad} */) => {
         <section className="concertSearchInput">
           <form className="searchForm wrapper">
             <h3>Search for concerts by artist and your preferred city</h3>
-              <label htmlFor="artist"></label>
               <div className="concertSearch">
+              <label htmlFor="artist"></label>
                 <input 
                     className="artistSearch"
                     id="artist"
                     placeholder="Artist..."
                 />
-
                 <label htmlFor="city"></label>
                 <input 
                     className="citySearch"
@@ -271,29 +269,28 @@ const SearchPage = (/* {pageLoad} */) => {
                     placeholder="City..."
                 />
               </div>
-
               <fieldset>
                 <label htmlFor="displayPricedConcerts">
                   Click to show only priced concerts
-                </label>
-                
+                </label> 
                 <input
                   id="displayPricedConcerts"
                   className="displayPricedConcerts"
                   name="priceChoice"
                   type ="checkbox"
                   value="priced"
-                /> 
-
+                />
               </fieldset>
-
               <button 
                 className="apiSearch"
                 onClick={handleSubmitConcert}
               >
-                 Search 
+                Search 
               </button>
           </form>
+        </section>
+
+        <section className="concertSearchResult">
           <div className="searchResultContainer">
               <ul className="searchResultList wrapper">
               <h3>Up coming concerts...</h3>
